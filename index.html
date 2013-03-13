@@ -9,15 +9,21 @@
 
 <div class="container">
 	<div class="hero-unit">
-		<h1>Calendar example</h1>
+		<h1>Bootstrap Calendar Demo</h1>
+
+		<p>Bootstrap based full view calendar. Template based.</p>
 	</div>
 
 	<div class="page-header">
 
-		<div class="pull-right btn-group">
-			<button class="btn" data-calendar-view="month">Month</button>
-			<button class="btn" data-calendar-view="week">Week</button>
-			<button class="btn" data-calendar-view="day">Day</button>
+		<div class="pull-right">
+			<div class="btn-group">
+				<button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
+				<button class="btn" data-calendar-view="month">Month</button>
+				<button class="btn" data-calendar-view="week">Week</button>
+				<button class="btn" data-calendar-view="day">Day</button>
+				<button class="btn btn-primary" data-calendar-nav="next">Next >></button>
+			</div>
 		</div>
 
 		<h1>This is title</h1>
@@ -39,35 +45,11 @@
 	</div>
 
 
-
-
 	<script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="js/language/en-GB.js"></script>
 	<script type="text/javascript" src="js/calendar.js"></script>
-	<script type="text/javascript">
-		(function($){
-			var options = {
-				events_url:'getevents.php'
-			};
-
-			var calendar = $('#calendar').calendar(options);
-
-			$('.btn-group button').each(function(){
-				$(this).click(function(){
-					$('.btn-group button').removeClass('active');
-
-					var $this = $(this);
-					calendar.changeView($this.data('calendar-view'));
-					$this.addClass('active');
-
-					$('.page-header h1').text(calendar.getTitle());
-				});
-			});
-		}(jQuery));
-	</script>
-
+	<script type="text/javascript" src="js/demo.js"></script>
 </div>
-
 
 
 </body>
