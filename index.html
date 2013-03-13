@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.css">
+</head>
+<body>
+
+<div class="container">
+	<div class="hero-unit">
+		<h1>Calendar example</h1>
+	</div>
+
+	<div class="page-header">
+
+		<div class="pull-right btn-group">
+			<button class="btn" data-calendar-view="month">Month</button>
+			<button class="btn" data-calendar-view="week">Week</button>
+			<button class="btn" data-calendar-view="day">Day</button>
+		</div>
+
+		<h1>This is title</h1>
+	</div>
+
+	<div class="row">
+		<div class="span9">
+			<div id="calendar"></div>
+		</div>
+		<div class="span3">
+			<h3>Events</h3>
+			<ul id="eventlist" class="nav nav-list">
+				<li><a href="#">Test and other lorem ispus</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/language/en-GB.js"></script>
+	<script type="text/javascript" src="js/calendar.js"></script>
+	<script type="text/javascript">
+		(function($){
+			var options = {
+				events_url:'getevents.php'
+			};
+
+			var calendar = $('#calendar').calendar(options);
+
+			$('.btn-group button').each(function(){
+				$(this).click(function(){
+					$('.btn-group button').removeClass('active');
+
+					var $this = $(this);
+					calendar.changeView($this.data('calendar-view'));
+					$this.addClass('active');
+
+					$('.page-header h1').text(calendar.getTitle());
+				});
+			});
+		}(jQuery));
+	</script>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+[class*="cal-span"] {
+	float: left;
+	min-height: 1px;
+	margin-left: 10;
+}
+
+.cal-row-fluid {
+	width: 100%;
+	*zoom: 1;
+}
+
+.cal-row-fluid:before,
+.cal-row-fluid:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.cal-row-fluid:after {
+	clear: both;
+}
+
+.cal-row-fluid [class*="cal-span"] {
+	display: block;
+	width: 100%;
+	min-height: 30px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	margin-left: 1.3157894736842104%;
+	*margin-left: 1.2499999999999998%;
+	background-color: #d9edf7;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.cal-row-fluid [class*="cal-span"]:first-child {
+	margin-left: 0;
+}
+
+.cal-row-fluid .cal-span7 {
+	width: 99.99999999999999%;
+	*width: 99.93421052631578%;
+}
+
+.cal-row-fluid .cal-span6 {
+	width: 85.52631578947368%;
+	*width: 85.46052631578948%;
+}
+
+.cal-row-fluid .cal-span5 {
+	width: 71.05263157894736%;
+	*width: 70.98684210526315%;
+}
+
+.cal-row-fluid .cal-span4 {
+	width: 56.57894736842105%;
+	*width: 56.513157894736835%;
+}
+
+.cal-row-fluid .cal-span3 {
+	width: 42.10526315789473%;
+	*width: 42.03947368421052%;
+}
+
+.cal-row-fluid .cal-span2 {
+	width: 27.631578947368418%;
+	*width: 27.56578947368421%;
+}
+
+.cal-row-fluid .cal-span1 {
+	width: 13.157894736842104%;
+	*width: 13.092105263157894%;
+}
+
+[class*="cal-span"].hide,
+.cal-row-fluid [class*="cal-span"].hide {
+	display: none;
+}
+
+[class*="cal-span"].pull-right,
+.cal-row-fluid [class*="cal-span"].pull-right {
+	float: right;
+}
