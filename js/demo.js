@@ -1,6 +1,6 @@
 (function($) {
 	var options = {
-		events_url: 'events.json',
+		events_url: 'events.json.php',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
