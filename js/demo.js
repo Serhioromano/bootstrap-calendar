@@ -18,7 +18,6 @@
 
 	var calendar = $('#calendar').calendar(options);
 
-
 	$('.btn-group button[data-calendar-nav]').each(function() {
 		var $this = $(this);
 		$this.click(function() {
