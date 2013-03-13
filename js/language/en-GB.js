@@ -1,28 +1,31 @@
 var language = {
+	error_noview: 'View {0} not found',
+	error_dateformat: 'Wrong date format {0}',
+	error_loadurl: 'Events load URL is not set',
 	title_month: '{0} year {1}',
 	title_week: '{0} week of year {1}',
 	title_day: '{0} {1} {2} year {3}',
 
-	m1: 'January',
-	m2: 'February',
-	m3: 'March',
-	m4: 'April',
-	m5: 'May',
-	m6: 'June',
-	m7: 'July',
-	m8: 'August',
-	m9: 'September',
-	m10: 'October',
-	m11: 'November',
-	m12: 'December',
+	m0: 'January',
+	m1: 'February',
+	m2: 'March',
+	m3: 'April',
+	m4: 'May',
+	m5: 'June',
+	m6: 'July',
+	m7: 'August',
+	m8: 'September',
+	m9: 'October',
+	m10: 'November',
+	m11: 'December',
 
+	d0: 'Sunday',
 	d1: 'Monday',
 	d2: 'Tuesday',
 	d3: 'Wednesday',
 	d4: 'Thursday',
 	d5: 'Friday',
-	d6: 'Saturday',
-	d7: 'Sunday'
+	d6: 'Saturday'
 };
 
 if(!String.prototype.format) {
