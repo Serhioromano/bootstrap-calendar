@@ -10,7 +10,6 @@
 
 Date.prototype.getWeek = function() {
 	var onejan = new Date(this.getFullYear(), 0, 1);
-
 	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000)) / 7);
 }
 
@@ -21,12 +20,12 @@ Date.prototype.getWeek = function() {
 		width: '100%',      // maximum width of all calendar
 		view: 'month',      // month, week, day
 		day: 'now',         // what day to start with. No matter month, week or day this will be a starting point
-		// format yyyy-mm-dd
+							// format yyyy-mm-dd or now
 		first_day: 1,       // Which day is first 2 - sunday or 1 - monday
 		events_url: '',     // URL to return JSON list of events in special format.
-		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
-		// events: [...] as described in events property description
-		// The start and end variables will be sent to this url
+							// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
+							// events: [...] as described in events property description
+							// The start and end variables will be sent to this url
 
 
 		// ------------------------------------------------------------
@@ -38,7 +37,6 @@ Date.prototype.getWeek = function() {
 		onBeforeEventsLoad: function(next) {
 			next();
 		},
-
 
 		// -------------------------------------------------------------
 		// INTERNAL USE ONLY. DO NOT ASSIGN IT WILL BE OVERRIDDEN ANYWAY
@@ -123,6 +121,7 @@ Date.prototype.getWeek = function() {
 			default:
 				$.error(language.error_noview.format(options.view))
 		}
+		return this;
 		//console.log(1);
 	};
 
@@ -154,12 +153,12 @@ Date.prototype.getWeek = function() {
 					to: options.position.end
 				}
 			}).done(function(json) {
-				if(!json.success) {
-					$.error(json.error);
-				}
-				options.events = json.result;
-				options.onAfterEventsLoad(json.result);
-			});
+					if(!json.success) {
+						$.error(json.error);
+					}
+					options.events = json.result;
+					options.onAfterEventsLoad(json.result);
+				});
 		});
 	};
 
