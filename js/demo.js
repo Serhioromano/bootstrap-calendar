@@ -14,18 +14,17 @@
 					.appendTo(list);
 			});
 		}
-
 	};
 
 	var calendar = $('#calendar').calendar(options);
 
-	$('.page-header h1').text(calendar.title());
+	$('.page-header h3').text(calendar.title());
 
 	$('.btn-group button[data-calendar-nav]').each(function() {
 		var $this = $(this);
 		$this.click(function() {
 			calendar.navigate($this.data('calendar-nav'), function() {
-				$('.page-header h1').text(calendar.title());
+				$('.page-header h3').text(calendar.title());
 			});
 		});
 	});
@@ -38,7 +37,7 @@
 			calendar.view($this.data('calendar-view'));
 			$this.addClass('active');
 
-			$('.page-header h1').text(calendar.title());
+			$('.page-header h3').text(calendar.title());
 		});
 	});
 }(jQuery));
