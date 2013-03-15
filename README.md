@@ -13,6 +13,29 @@ This calendar based on Twitetr Bootstrap. It uses custom bootsrap 7 columns grid
 
 ### How to use
 
+Of course you have to include bootstrap. And calendar. Here is the minimum setup.
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Minimum Setup</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/calendar.css">
+	</head>
+	<body>
+
+		<div id="calendar"></div>
+
+		<script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/language/en-GB.js"></script>
+		<script type="text/javascript" src="js/calendar.js"></script>
+		<script type="text/javascript">
+			var calendar = $('#calendar').calendar();
+		</script>
+	</body>
+	</html>
+
+For calendar you only have to include `calendar.css` and `calendar.js` and calendar language `en-GB.js` file.
 
 ### API
 

@@ -12,6 +12,14 @@ Date.prototype.getWeek = function() {
 	var onejan = new Date(this.getFullYear(), 0, 1);
 	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000)) / 7);
 }
+Date.prototype.getMonthFormatted = function() {
+	var month = this.getMonth() + 1;
+	return month < 10 ? '0' + month : month;
+}
+Date.prototype.getDateFormatted = function() {
+	var date = this.getDate();
+	return date < 10 ? '0' + date : date;
+}
 
 ;
 (function($) {
@@ -65,20 +73,51 @@ Date.prototype.getWeek = function() {
 	}
 
 	Calendar.prototype.render = function() {
-		context.html('EEEE!!!!!');
+		context.html('Start at: ' + options.position.start + '<br> End at: ' + options.position.end);
 	};
 
 	Calendar.prototype.view = function(view) {
-		options.view = view;
-		this.init_position();
-		this.loadurl();
-		this.render();
-		//console.log(2);
-
+		if(view) options.view = view;
+		this.init_position.call(this);
+		this.loadurl.call(this);
+		this.render.call(this);
 	};
 
 	Calendar.prototype.navigate = function(where, next) {
 
+		var to = $.extend({}, options.position);
+		if(where == 'next') {
+			switch (options.view) {
+				case 'month':
+					to.start.setMonth(options.position.start.getMonth() + 1);
+					break;
+				case 'week':
+					to.start.setDate(options.position.start.getDate() + 7);
+					break;
+				case 'day':
+					to.start.setDate(options.position.start.getDate() + 1);
+					break;
+			}
+		} else if(where == 'prev') {
+			switch (options.view) {
+				case 'month':
+					to.start.setMonth(options.position.start.getMonth() - 1);
+					break;
+				case 'week':
+					to.start.setDate(options.position.start.getDate() - 7);
+					break;
+				case 'day':
+					to.start.setDate(options.position.start.getDate() - 1);
+					break;
+			}
+		} else if(where == 'today') {
+			to.start.setTime(new Date().getTime());
+		}
+		else {
+			$.error(language.error_where.format(where))
+		}
+		options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
+		this.view.call(this);
 		next();
 	};
 
@@ -122,7 +161,6 @@ Date.prototype.getWeek = function() {
 				$.error(language.error_noview.format(options.view))
 		}
 		return this;
-		//console.log(1);
 	};
 
 	Calendar.prototype.title = function() {
