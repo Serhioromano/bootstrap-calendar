@@ -14,6 +14,7 @@
 					.appendTo(list);
 			});
 		}
+
 	};
 
 	var calendar = $('#calendar').calendar(options);
