@@ -10,7 +10,7 @@
 
 Date.prototype.getWeek = function() {
 	var onejan = new Date(this.getFullYear(), 0, 1);
-	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000)) / 7);
+	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
 }
 Date.prototype.getMonthFormatted = function() {
 	var month = this.getMonth() + 1;
@@ -62,13 +62,9 @@ Date.prototype.getDateFormatted = function() {
 	function Calendar(params) {
 		$.ajaxSetup({dataType: 'json', type: 'post', async: false});
 		options = $.extend({}, defaults, params);
-
 		context.css('width', options.width);
 
-		this.init_position();
-		this.loadurl();
-		this.render();
-
+		this.view.call(this);
 		return this;
 	}
 
@@ -187,8 +183,8 @@ Date.prototype.getDateFormatted = function() {
 			$.ajax({
 				url: options.events_url,
 				data: {
-					from: options.position.start,
-					to: options.position.end
+					from: options.position.start.getTime(),
+					to: options.position.end.getTime()
 				}
 			}).done(function(json) {
 					if(!json.success) {
