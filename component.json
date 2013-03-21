@@ -2,6 +2,7 @@
 	"name": "bootstrap-calendar",
 	"version": "0.0.1",
 	"main": [
+		"./js/language/en-GB.js",
 		"./js/calendar.js",
 		"./css/calendar.css"
 	],
