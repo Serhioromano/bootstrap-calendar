@@ -1,6 +1,7 @@
 (function($) {
 	var options = {
 		events_url: 'events.json.php',
+		first_day: 1,
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;

@@ -28,12 +28,12 @@ Date.prototype.getDateFormatted = function() {
 		width: '100%',      // maximum width of all calendar
 		view: 'month',      // month, week, day
 		day: 'now',         // what day to start with. No matter month, week or day this will be a starting point
-							// format yyyy-mm-dd or now
+		// format yyyy-mm-dd or now
 		first_day: 1,       // Which day is first 2 - sunday or 1 - monday
 		events_url: '',     // URL to return JSON list of events in special format.
-							// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
-							// events: [...] as described in events property description
-							// The start and end variables will be sent to this url
+		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
+		// events: [...] as described in events property description
+		// The start and end variables will be sent to this url
 
 
 		// ------------------------------------------------------------
@@ -53,7 +53,13 @@ Date.prototype.getDateFormatted = function() {
 		position: {
 			start: new Date(),
 			end: new Date()
-		}
+		},
+		templates: {
+			month: '',
+			week: '',
+			day: ''
+		},
+		break: false
 	};
 
 	var options = {};
@@ -70,12 +76,50 @@ Date.prototype.getDateFormatted = function() {
 
 	Calendar.prototype.render = function() {
 		context.html('Start at: ' + options.position.start + '<br> End at: ' + options.position.end);
+		this.load_template();
+		this.break = false;
+
+		var data = {};
+		data.events = options.events;
+		data.cal = this;
+		data.day = 1;
+
+		// Getting list of days in a week in correct order. Works for month and week views
+		if(options.first_day == 1) {
+			data.months = [language.d1, language.d2, language.d3, language.d4, language.d5, language.d6, language.d0]
+		} else {
+			data.months = [language.d0, language.d1, language.d2, language.d3, language.d4, language.d5, language.d6]
+		}
+
+		switch (options.view) {
+			case 'month':
+				break;
+			case 'week':
+				break;
+			case 'day':
+				break;
+		}
+		context.append(options.templates[options.view](data));
 	};
 
+	Calendar.prototype.day = function(week, day) {
+		if(week == 1){
+
+		} else {
+			// hack for february only 4 weeks if 1st day is first day of the week
+			if((day + 1) > options.position.end.getDate()) {
+				this.break = true;
+			}
+			if(day > options.position.end.getDate()) {
+				return day - options.position.end.getDate();
+			}
+		}
+		return day;
+	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
 		this.init_position.call(this);
-		this.loadurl.call(this);
+		this.load_url.call(this);
 		this.render.call(this);
 	};
 
@@ -83,7 +127,7 @@ Date.prototype.getDateFormatted = function() {
 
 		var to = $.extend({}, options.position);
 		if(where == 'next') {
-			switch (options.view) {
+			switch(options.view) {
 				case 'month':
 					to.start.setMonth(options.position.start.getMonth() + 1);
 					break;
@@ -95,7 +139,7 @@ Date.prototype.getDateFormatted = function() {
 					break;
 			}
 		} else if(where == 'prev') {
-			switch (options.view) {
+			switch(options.view) {
 				case 'month':
 					to.start.setMonth(options.position.start.getMonth() - 1);
 					break;
@@ -175,7 +219,7 @@ Date.prototype.getDateFormatted = function() {
 		return;
 	};
 
-	Calendar.prototype.loadurl = function() {
+	Calendar.prototype.load_url = function() {
 		if(!options.events_url) {
 			$.error(language.error_loadurl);
 		}
@@ -194,6 +238,18 @@ Date.prototype.getDateFormatted = function() {
 					options.onAfterEventsLoad(json.result);
 				});
 		});
+	};
+	Calendar.prototype.load_template = function() {
+		if(options.templates[options.view]) {
+			return;
+		}
+
+		$.ajax({
+			url: 'tmpls/' + options.view + '.html',
+			dataType: 'html'
+		}).done(function(html) {
+				options.templates[options.view] = _.template(html);
+			});
 	};
 
 	$.fn.calendar = function(params) {
