@@ -1,7 +1,2 @@
 .idea
-
-# Ignore all components except needed files.
 components/*
-!components/bootstrap/docs/assets/js/bootstrap.js
-!components/bootstrap/docs/assets/css/bootstrap.css
-!components/jquery/jquery.js
