@@ -1,0 +1,17 @@
+{
+	"name": "bootstrap-calendar",
+	"version": "0.0.1",
+	"main": [
+		"./js/calendar.js",
+		"./css/calendar.css"
+	],
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"components"
+	],
+	"dependencies": {
+		"jquery": "~1.9.0",
+		"bootstrap": "~2.3.0"
+	}
+}
