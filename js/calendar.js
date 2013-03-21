@@ -246,7 +246,8 @@ Date.prototype.getDateFormatted = function() {
 
 		$.ajax({
 			url: 'tmpls/' + options.view + '.html',
-			dataType: 'html'
+			dataType: 'html',
+			type:'GET'
 		}).done(function(html) {
 				options.templates[options.view] = _.template(html);
 			});
