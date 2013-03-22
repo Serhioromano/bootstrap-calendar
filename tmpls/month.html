@@ -1,13 +1,13 @@
-<table class="table table-striped table-calendar">
+<table class="table table-hover table-calendar table-bordered">
 	<thead>
 	<tr>
 		<% _.each(months, function(name){ %>
-			<th><%= name %></th>
+			<th width="14.28571428571429%"><%= name %></th>
 		<% }) %>
 	</tr>
 	</thead>
 	<tbody>
-	<% for(i = 0; i < 5; i++) { %>
+	<% for(i = 0; i < 6; i++) { %>
 		<% if(cal.break == true) break; %>
 		<tr>
 			<td><%= cal.day(i, day++) %></td>

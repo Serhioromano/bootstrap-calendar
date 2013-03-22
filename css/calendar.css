@@ -1,3 +1,7 @@
+.table-calendar tbody tr td {
+	height: 55px;
+}
+
 [class*="cal-span"] {
 	float: left;
 	min-height: 1px;

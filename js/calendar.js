@@ -34,6 +34,21 @@ Date.prototype.getDateFormatted = function() {
 		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
 		// events: [...] as described in events property description
 		// The start and end variables will be sent to this url
+		classes: {
+			months: {
+				general: 'label',
+				month: 'label-inverse',
+				outmonth: '',
+				saturday: 'label-important',
+				sunday: 'label-important',
+				holidays: 'label-info',
+				today: 'label-success'
+			}
+		},
+		holidays: {
+			'08-03': 'International Women\'s Day',
+			'25-12': 'Christmass'
+		},
 
 
 		// ------------------------------------------------------------
@@ -67,7 +82,7 @@ Date.prototype.getDateFormatted = function() {
 
 	function Calendar(params) {
 		$.ajaxSetup({dataType: 'json', type: 'post', async: false});
-		options = $.extend({}, defaults, params);
+		options = $.extend(true, {}, defaults, params);
 		context.css('width', options.width);
 
 		this.view.call(this);
@@ -76,6 +91,7 @@ Date.prototype.getDateFormatted = function() {
 
 	Calendar.prototype.render = function() {
 		context.html('Start at: ' + options.position.start + '<br> End at: ' + options.position.end);
+		context.html('');
 		this.load_template();
 		this.break = false;
 
@@ -91,7 +107,7 @@ Date.prototype.getDateFormatted = function() {
 			data.months = [language.d0, language.d1, language.d2, language.d3, language.d4, language.d5, language.d6]
 		}
 
-		switch (options.view) {
+		switch(options.view) {
 			case 'month':
 				break;
 			case 'week':
@@ -100,21 +116,55 @@ Date.prototype.getDateFormatted = function() {
 				break;
 		}
 		context.append(options.templates[options.view](data));
+		this.update();
 	};
 
 	Calendar.prototype.day = function(week, day) {
-		if(week == 1){
+		var cls = options.classes.months.outmonth;
+		var tooltip = '';
 
-		} else {
-			// hack for february only 4 weeks if 1st day is first day of the week
-			if((day + 1) > options.position.end.getDate()) {
-				this.break = true;
-			}
-			if(day > options.position.end.getDate()) {
-				return day - options.position.end.getDate();
+		var firstday = options.position.start.getDay();
+		if(options.first_day == 2) {
+			firstday++;
+		}
+		day = (day - firstday) + 1;
+		var curdate = new Date(options.position.start.getFullYear(), options.position.start.getMonth(), day);
+
+		// if day of the current month
+		if(day > 0) {
+			cls = options.classes.months.month;
+			var holiday = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
+			if($.inArray(holiday, _.keys(options.holidays)) > -1) {
+				cls = options.classes.months.holidays;
+				tooltip = options.holidays[holiday];
 			}
 		}
-		return day;
+		// stop cycling table rows;
+		if((day + 1) > options.position.end.getDate()) {
+			this.break = true;
+		}
+		// if day of the next month
+		if(day > options.position.end.getDate()) {
+			day = day - options.position.end.getDate();
+			cls = options.classes.months.outmonth;
+		}
+
+		if(curdate.getDay() == 0 && (cls == options.classes.months.month)) {
+			cls = options.classes.months.sunday;
+		}
+		if(curdate.getDay() == 6 && (cls == options.classes.months.month)) {
+			cls = options.classes.months.saturday;
+		}
+		if(curdate.toDateString() == (new Date()).toDateString()) {
+			cls = options.classes.months.today;
+		}
+		if(day <= 0) {
+			var daysinprevmonth = (new Date(options.position.start.getFullYear(), options.position.start.getMonth(), 0)).getDate();
+			day = daysinprevmonth - Math.abs(day);
+		}
+
+
+		return '<span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right ' + options.classes.months.general + ' ' + cls + '">' + day + '</span>';
 	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
@@ -247,11 +297,14 @@ Date.prototype.getDateFormatted = function() {
 		$.ajax({
 			url: 'tmpls/' + options.view + '.html',
 			dataType: 'html',
-			type:'GET'
+			type: 'GET'
 		}).done(function(html) {
 				options.templates[options.view] = _.template(html);
 			});
 	};
+	Calendar.prototype.update = function() {
+		$('*[rel="tooltip"]').tooltip();
+	}
 
 	$.fn.calendar = function(params) {
 		context = this;

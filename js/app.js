@@ -1,7 +1,7 @@
 (function($) {
 	var options = {
 		events_url: 'events.json.php',
-		first_day: 1,
+		first_day: 2,
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
@@ -14,6 +14,11 @@
 					.html('<a href="' + val.url + '">' + val.title + '</a>')
 					.appendTo(list);
 			});
+		},
+		classes: {
+			months: {
+				general: 'label'
+			}
 		}
 	};
 
