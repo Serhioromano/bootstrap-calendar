@@ -384,18 +384,23 @@ Date.prototype.getDateFormatted = function() {
 					});
 				});
 				var slider = $('#cal-slide');
+				slider.hide();
 				var sliderbox = $('#cal-slide-box');
-				sliderbox.click(function(){
+				sliderbox.click(function() {
 					event.stopPropagation();
 				});
-				day.click(function(){
+				day.click(function() {
 					event.stopPropagation();
-					var tr = $(this).parents('tr').after(slider);
-					slider.show();
-					sliderbox.slideDown('fast', function(){
-						$('body').one('click',function() {
-							sliderbox.slideUp('fast', function(){
-								slider.hide();
+					var tr = $(this).parents('tr');
+
+					sliderbox.slideUp('fast', function() {
+						tr.after(slider);
+						slider.show();
+						sliderbox.slideDown('fast', function() {
+							$('body').one('click', function() {
+								sliderbox.slideUp('fast', function() {
+									slider.hide();
+								});
 							});
 						});
 					});
