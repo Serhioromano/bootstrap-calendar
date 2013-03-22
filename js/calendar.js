@@ -121,7 +121,10 @@ Date.prototype.getDateFormatted = function() {
 	};
 
 	Calendar.prototype.month = function(month) {
-		return '<span class="pull-right" data-cal-month="' + month + '">' + language['m' + month] + '</span>';
+		var newmonth = month + 1;
+		var data_day = options.position.start.getFullYear() + '-' + (newmonth < 10 ? '0' + newmonth : newmonth) + '-' + '01';
+		return '<span class="pull-right" data-cal-month="' + data_day + '">' + language['m' + month] +
+			'</span><div class="clearfix"></div><small class="cal-events-num pull-right">19</small>';
 	}
 
 	Calendar.prototype.day = function(week, day) {
@@ -169,8 +172,8 @@ Date.prototype.getDateFormatted = function() {
 			cls += ' cal-for-first';
 		}
 
-
-		return '<td class="cal-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right">' + day + '</span></td>';
+		var data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
+		return '<td class="cal-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right" data-cal-day="' + data_day + '">' + day + '</span></td>';
 	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
@@ -223,7 +226,9 @@ Date.prototype.getDateFormatted = function() {
 		}
 		options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
 		this.view.call(this);
-		next();
+		if(_.isFunction(next)) {
+			next();
+		}
 	};
 
 	Calendar.prototype.init_position = function() {
@@ -331,20 +336,22 @@ Date.prototype.getDateFormatted = function() {
 			case 'year':
 				$('span[data-cal-month]').each(function(k, v) {
 					$(v).click(function() {
-						var date = new Date(options.position.start.getFullYear(), $(v).data('cal-month'), 1);
-						options.day = date.getFullYear() + '-' + date.getMonthFormatted() + '-' + date.getDateFormatted();
+						//var date = new Date(options.position.start.getFullYear(), $(v).data('cal-month'), 1);
+						//date.getFullYear() + '-' + date.getMonthFormatted() + '-' + date.getDateFormatted();
+						options.day = $(v).data('cal-month');
 						$this.view('month');
 					});
 				});
 				break;
 			case 'month':
-				var week = $('.cal-week');
+				var week = $('.cal-week-box');
 				week.html(language.week);
 				var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
-				$('table.table-calendar tbody tr').each(function(k, v) {
+				$('table.table-month tbody tr').each(function(k, v) {
+					if($(v).attr('id') == 'cal-slide') return;
 					$(v).bind('mouseenter', function() {
 						var child = $(v).children('td:first-child');
-						var day = child.children('span.pull-right').text();
+						var day = child.children('span[data-cal-day]').text();
 						if(child.hasClass('cal-for-first')) {
 							day = 1;
 						}
@@ -358,6 +365,40 @@ Date.prototype.getDateFormatted = function() {
 				week.click(function() {
 					options.day = $(this).data('cal-week');
 					$this.view('week');
+				});
+				$('*[data-cal-day]').each(function(k, v) {
+					$(v).click(function() {
+						options.day = $(this).data('cal-day');
+						$this.view('day');
+					});
+				});
+
+				var day = $('.cal-day-box');
+				$('table.table-month tbody tr td').each(function(k, v) {
+					if($(v).parent().attr('id') == 'cal-slide') return;
+					$(v).bind('mouseenter', function() {
+						day.show().appendTo(v);
+					});
+					$(v).bind('mouseleave', function() {
+						day.hide();
+					});
+				});
+				var slider = $('#cal-slide');
+				var sliderbox = $('#cal-slide-box');
+				sliderbox.click(function(){
+					event.stopPropagation();
+				});
+				day.click(function(){
+					event.stopPropagation();
+					var tr = $(this).parents('tr').after(slider);
+					slider.show();
+					sliderbox.slideDown('fast', function(){
+						$('body').one('click',function() {
+							sliderbox.slideUp('fast', function(){
+								slider.hide();
+							});
+						});
+					});
 				});
 				break;
 			case 'week':

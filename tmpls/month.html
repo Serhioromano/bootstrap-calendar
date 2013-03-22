@@ -1,4 +1,4 @@
-<table class="table table-hover table-calendar table-bordered">
+<table class="table table-hover table-calendar table-month table-bordered">
 	<thead>
 	<tr>
 		<% _.each(months, function(name){ %>
@@ -19,6 +19,12 @@
 			<%= cal.day(i, day++) %>
 		</tr>
 	<% } %>
+	<tr id="cal-slide"><td colspan="7">
+		<div class="hide" id="cal-slide-box">
+			This is the events list
+		</div>
+	</td></tr>
 	</tbody>
 </table>
-<div class="hide cal-week"></div>
+<div class="hide cal-week-box"></div>
+<div class="hide cal-day-box"><i class="icon-chevron-down"></i></div>

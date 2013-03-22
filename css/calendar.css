@@ -1,46 +1,44 @@
-.table-year tbody tr td,
 .table-calendar tbody tr td {
 	height: 55px;
 }
-
-.table-year tbody tr td span.pull-right,
-.table-calendar tbody tr td span.pull-right {
+span[data-cal-month],
+span[data-cal-day] {
 	font-size: 1.7em;
 	font-weight: normal;
-	opacity: 0.4;
+	opacity: 0.7;
 	cursor: pointer;
+	transition: opacity .3s ease-in-out;
 	-webkit-transition: opacity .3s ease-in-out;
 	-moz-transition: opactiy .3s ease-in-out;
 	-ms-transition: opacity .3s ease-in-out;
 	-o-transition: opacity .3s ease-in-out;
-	transition: opacity .3s ease-in-out;
 }
-.table-year tbody tr td span.pull-right:hover,
-.table-calendar tbody tr td span.pull-right:hover {
+span[data-cal-month]:hover,
+span[data-cal-day]:hover {
 	opacity: 1;
 }
 
-.table-calendar tbody tr td.cal-day-outmonth span.pull-right {
+td.cal-day-outmonth span[data-cal-day] {
 	opacity: 0.1;
 	cursor: default;
 }
-.table-calendar tbody tr td.cal-day-today {
+td.cal-day-today {
 	background-color: #e8fde7;
 }
-.table-calendar tbody tr td.cal-day-today span.pull-right {
+td.cal-day-today span[data-cal-day] {
 	color: darkgreen;
 	font-weight: bolder;
 }
-.table-calendar tbody tr td.cal-day-holiday span.pull-right {
+td.cal-day-holiday span[data-cal-day] {
 	color: #800080;
 }
-.table-calendar tbody tr td.cal-day-weekend span.pull-right {
+td.cal-day-weekend span[data-cal-day] {
 	color: darkred;
 }
-.table-calendar tbody tr td:first-child {
+.table-month tbody tr td {
 	position: relative;
 }
-.cal-week {
+.cal-week-box {
     position: absolute;
 	width: 80px;
 	left: -90px;
@@ -51,6 +49,39 @@
 	border-radius: 5px 0 0 5px;
 	background-color: #f5f5f5;
 	cursor: pointer;
+}
+.cal-day-box {
+	position: absolute;
+	right: 50%;
+	bottom: -21px;
+	border: 1px solid #dddddd;
+	border-top: 0px solid;
+	padding: 0px 5px;
+	border-radius: 0 0 5px 5px;
+	background-color: #f5f5f5;
+	cursor: pointer;
+	z-index: 5;
+}
+#cal-slide {
+	background-image: url("../img/slide-bg.png");
+}
+#cal-slide:hover > td {
+	background-color: transparent;
+}
+#cal-slide td {
+	padding: 0px;
+	height: auto;
+}
+#cal-slide div {
+	padding: 20px;
+	color: #ffffff;
+	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+}
+
+.cal-events-num {
+	margin-top: 8px;
+	opacity: 0.5;
 }
 
 
