@@ -15,6 +15,11 @@
 					.appendTo(list);
 			});
 		},
+		onAfterViewLoad: function(view) {
+			$('.page-header h3').text(this.title());
+			$('.btn-group button').removeClass('active');
+			$('button[data-calendar-view="' + view + '"]').addClass('active');
+		},
 		classes: {
 			months: {
 				general: 'label'
@@ -24,26 +29,17 @@
 
 	var calendar = $('#calendar').calendar(options);
 
-	$('.page-header h3').text(calendar.title());
-
 	$('.btn-group button[data-calendar-nav]').each(function() {
 		var $this = $(this);
 		$this.click(function() {
-			calendar.navigate($this.data('calendar-nav'), function() {
-				$('.page-header h3').text(calendar.title());
-			});
+			calendar.navigate($this.data('calendar-nav'));
 		});
 	});
 
 	$('.btn-group button[data-calendar-view]').each(function() {
 		var $this = $(this);
 		$this.click(function() {
-			$('.btn-group button').removeClass('active');
-
 			calendar.view($this.data('calendar-view'));
-			$this.addClass('active');
-
-			$('.page-header h3').text(calendar.title());
 		});
 	});
 }(jQuery));

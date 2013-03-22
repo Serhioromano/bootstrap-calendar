@@ -36,13 +36,12 @@ Date.prototype.getDateFormatted = function() {
 		// The start and end variables will be sent to this url
 		classes: {
 			months: {
-				general: 'label',
-				month: 'label-inverse',
-				outmonth: '',
-				saturday: 'label-important',
-				sunday: 'label-important',
-				holidays: 'label-info',
-				today: 'label-success'
+				inmonth: 'cal-day-inmonth',
+				outmonth: 'cal-day-outmonth',
+				saturday: 'cal-day-weekend',
+				sunday: 'cal-day-weekend',
+				holidays: 'cal-day-holiday',
+				today: 'cal-day-today'
 			}
 		},
 		holidays: {
@@ -59,6 +58,8 @@ Date.prototype.getDateFormatted = function() {
 		},
 		onBeforeEventsLoad: function(next) {
 			next();
+		},
+		onAfterViewLoad: function(calendar, view) {
 		},
 
 		// -------------------------------------------------------------
@@ -119,6 +120,10 @@ Date.prototype.getDateFormatted = function() {
 		this.update();
 	};
 
+	Calendar.prototype.month = function(month) {
+		return '<span class="pull-right" data-cal-month="' + month + '">' + language['m' + month] + '</span>';
+	}
+
 	Calendar.prototype.day = function(week, day) {
 		var cls = options.classes.months.outmonth;
 		var tooltip = '';
@@ -132,7 +137,7 @@ Date.prototype.getDateFormatted = function() {
 
 		// if day of the current month
 		if(day > 0) {
-			cls = options.classes.months.month;
+			cls = options.classes.months.inmonth;
 			var holiday = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
 			if($.inArray(holiday, _.keys(options.holidays)) > -1) {
 				cls = options.classes.months.holidays;
@@ -149,10 +154,10 @@ Date.prototype.getDateFormatted = function() {
 			cls = options.classes.months.outmonth;
 		}
 
-		if(curdate.getDay() == 0 && (cls == options.classes.months.month)) {
+		if(curdate.getDay() == 0 && (cls == options.classes.months.inmonth)) {
 			cls = options.classes.months.sunday;
 		}
-		if(curdate.getDay() == 6 && (cls == options.classes.months.month)) {
+		if(curdate.getDay() == 6 && (cls == options.classes.months.inmonth)) {
 			cls = options.classes.months.saturday;
 		}
 		if(curdate.toDateString() == (new Date()).toDateString()) {
@@ -161,16 +166,20 @@ Date.prototype.getDateFormatted = function() {
 		if(day <= 0) {
 			var daysinprevmonth = (new Date(options.position.start.getFullYear(), options.position.start.getMonth(), 0)).getDate();
 			day = daysinprevmonth - Math.abs(day);
+			cls += ' cal-for-first';
 		}
 
 
-		return '<span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right ' + options.classes.months.general + ' ' + cls + '">' + day + '</span>';
+		return '<td class="cal-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right">' + day + '</span></td>';
 	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
 		this.init_position.call(this);
 		this.load_url.call(this);
 		this.render.call(this);
+
+		options.onAfterViewLoad.call(this, options.view);
+
 	};
 
 	Calendar.prototype.navigate = function(where, next) {
@@ -178,6 +187,9 @@ Date.prototype.getDateFormatted = function() {
 		var to = $.extend({}, options.position);
 		if(where == 'next') {
 			switch(options.view) {
+				case 'year':
+					to.start.setFullYear(options.position.start.getFullYear() + 1);
+					break;
 				case 'month':
 					to.start.setMonth(options.position.start.getMonth() + 1);
 					break;
@@ -190,6 +202,9 @@ Date.prototype.getDateFormatted = function() {
 			}
 		} else if(where == 'prev') {
 			switch(options.view) {
+				case 'year':
+					to.start.setFullYear(options.position.start.getFullYear() - 1);
+					break;
 				case 'month':
 					to.start.setMonth(options.position.start.getMonth() - 1);
 					break;
@@ -230,6 +245,10 @@ Date.prototype.getDateFormatted = function() {
 		}
 
 		switch(options.view) {
+			case 'year':
+				options.position.start.setTime(new Date(year, 0, 1).getTime());
+				options.position.end.setTime(new Date(year, 12, 0, 23, 59, 59).getTime());
+				break;
 			case 'month':
 				options.position.start.setTime(new Date(year, month, 1).getTime());
 				options.position.end.setTime(new Date(year, month + 1, 0, 23, 59, 59).getTime());
@@ -256,6 +275,9 @@ Date.prototype.getDateFormatted = function() {
 	Calendar.prototype.title = function() {
 		var p = options.position.start;
 		switch(options.view) {
+			case 'year':
+				return language.title_year.format(p.getFullYear());
+				break;
 			case 'month':
 				return language.title_month.format(language['m' + p.getMonth()], p.getFullYear());
 				break;
@@ -304,6 +326,47 @@ Date.prototype.getDateFormatted = function() {
 	};
 	Calendar.prototype.update = function() {
 		$('*[rel="tooltip"]').tooltip();
+		var $this = this;
+		switch(options.view) {
+			case 'year':
+				$('span[data-cal-month]').each(function(k, v) {
+					$(v).click(function() {
+						var date = new Date(options.position.start.getFullYear(), $(v).data('cal-month'), 1);
+						options.day = date.getFullYear() + '-' + date.getMonthFormatted() + '-' + date.getDateFormatted();
+						$this.view('month');
+					});
+				});
+				break;
+			case 'month':
+				var week = $('.cal-week');
+				week.html(language.week);
+				var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
+				$('table.table-calendar tbody tr').each(function(k, v) {
+					$(v).bind('mouseenter', function() {
+						var child = $(v).children('td:first-child');
+						var day = child.children('span.pull-right').text();
+						if(child.hasClass('cal-for-first')) {
+							day = 1;
+						}
+						day = (day < 10 ? '0' + day : day);
+						week.show().attr('data-cal-week', start + day).appendTo(child);
+					});
+					$(v).bind('mouseleave', function() {
+						week.hide();
+					});
+				});
+				week.click(function() {
+					options.day = $(this).data('cal-week');
+					$this.view('week');
+				});
+				break;
+			case 'week':
+
+				break;
+			case 'day':
+
+				break;
+		}
 	}
 
 	$.fn.calendar = function(params) {

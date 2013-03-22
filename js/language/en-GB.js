@@ -4,9 +4,12 @@ var language = {
 	error_loadurl: 'Calendar: Events load URL is not set',
 	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
+	title_year: 'Year {0}',
 	title_month: '{0} year {1}',
 	title_week: '{0} week of year {1}',
 	title_day: '{0} {1} {2} year {3}',
+
+	week:'Week',
 
 	m0: 'January',
 	m1: 'February',

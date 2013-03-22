@@ -1,6 +1,73 @@
+.table-year tbody tr td,
 .table-calendar tbody tr td {
 	height: 55px;
 }
+
+.table-year tbody tr td span.pull-right,
+.table-calendar tbody tr td span.pull-right {
+	font-size: 1.7em;
+	font-weight: normal;
+	opacity: 0.4;
+	cursor: pointer;
+	-webkit-transition: opacity .3s ease-in-out;
+	-moz-transition: opactiy .3s ease-in-out;
+	-ms-transition: opacity .3s ease-in-out;
+	-o-transition: opacity .3s ease-in-out;
+	transition: opacity .3s ease-in-out;
+}
+.table-year tbody tr td span.pull-right:hover,
+.table-calendar tbody tr td span.pull-right:hover {
+	opacity: 1;
+}
+
+.table-calendar tbody tr td.cal-day-outmonth span.pull-right {
+	opacity: 0.1;
+	cursor: default;
+}
+.table-calendar tbody tr td.cal-day-today {
+	background-color: #e8fde7;
+}
+.table-calendar tbody tr td.cal-day-today span.pull-right {
+	color: darkgreen;
+	font-weight: bolder;
+}
+.table-calendar tbody tr td.cal-day-holiday span.pull-right {
+	color: #800080;
+}
+.table-calendar tbody tr td.cal-day-weekend span.pull-right {
+	color: darkred;
+}
+.table-calendar tbody tr td:first-child {
+	position: relative;
+}
+.cal-week {
+    position: absolute;
+	width: 80px;
+	left: -90px;
+	top:-1px;
+	border: 1px solid #dddddd;
+	border-right: 0px solid;
+	padding: 8px 5px;
+	border-radius: 5px 0 0 5px;
+	background-color: #f5f5f5;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 
 [class*="cal-span"] {
 	float: left;
@@ -87,3 +154,4 @@
 .cal-row-fluid [class*="cal-span"].pull-right {
 	float: right;
 }
+*/

@@ -10,14 +10,15 @@
 	<% for(i = 0; i < 6; i++) { %>
 		<% if(cal.break == true) break; %>
 		<tr>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
-			<td><%= cal.day(i, day++) %></td>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
+			<%= cal.day(i, day++) %>
 		</tr>
 	<% } %>
 	</tbody>
 </table>
+<div class="hide cal-week"></div>
