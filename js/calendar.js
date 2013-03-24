@@ -174,7 +174,7 @@ Date.prototype.getDateFormatted = function() {
 
 		var data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
 
-		var out = '<div class="cal-month-day ' + cls + '"><span class="pull-right" data-cal-day="' + data_day + '"';
+		var out = '<div class="cal-month-day ' + cls + '"><span class="pull-right" data-cal-week-day="' + (curdate.getDay() + 1) + '" data-cal-day="' + data_day + '"';
 		if(tooltip) {
 			out += ' rel="tooltip" data-original-title="' + tooltip + '" ';
 		}
@@ -183,8 +183,6 @@ Date.prototype.getDateFormatted = function() {
 		var start = parseInt(curdate.getTime());
 		var end = parseInt(start + 86400);
 		var events = [];
-
-		//console.log(start,  end,  day);
 
 		$.each(options.events, function(k, event) {
 			if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
@@ -196,7 +194,6 @@ Date.prototype.getDateFormatted = function() {
 		if(events.length > 0) {
 			out += '<div class="events-list">' + events.join(' ') + '</div>';
 		}
-
 		out += '</div>';
 		return out;
 	}
@@ -403,11 +400,13 @@ Date.prototype.getDateFormatted = function() {
 					});
 				});
 
+				var activecell = 0;
 				var day = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
 				$('.cal-month-day').each(function(k, v) {
 					if($(v).parents('.cal-row-fluid').attr('id') == 'cal-slide-box') return;
 					$(v).bind('mouseenter', function() {
 						if($('.events-list', v).length == 0) return;
+						if($(v).children('[data-cal-day]').text() == activecell) return;
 						day.show().appendTo(v);
 					});
 					$(v).bind('mouseleave', function() {
@@ -427,19 +426,25 @@ Date.prototype.getDateFormatted = function() {
 					dataType: 'html',
 					type: 'GET'
 				}).done(function(html) {
-						console.log(html);
 						eventslist = _.template(html);
 					});
 
+
 				day.click(function(event) {
 					event.stopPropagation();
+					var $this = $(this);
 					var row = $(this).parents('.cal-row-fluid');
+					$this.hide();
+					var tick_position = $this.parent().children('[data-cal-day]').attr('data-cal-week-day');
 					slider.html(eventslist({events: $('.events-list a.event', $(this).parent())}))
 						.slideUp('fast', function() {
 							row.after(slider);
+							activecell = $this.parent().children('[data-cal-day]').text();
+							$('#cal-slide-tick').addClass('tick' + tick_position).show();
 							slider.slideDown('fast', function() {
 								$('body').one('click', function() {
 									slider.slideUp('fast');
+									activecell = 0;
 								});
 							});
 						});

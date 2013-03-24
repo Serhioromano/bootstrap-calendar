@@ -1,9 +1,9 @@
-<span id="cal-slite-tick"></span>
+<span class="hide" id="cal-slide-tick"></span>
 <div id="cal-slide-content">
 	<ul class="unstyled">
 		<% _.each(events, function(event){ %>
 			<li>
-				<span class="pull-left event <%= $(event).data('event-class') %>"></span>
+				<span class="pull-left event <%= $(event).data('event-class') %>"></span>&nbsp;
 				<a href="<%= $(event).attr('href') %>" data-event-id="<%= $(event).data('event-id') %>"
 						data-event-class="<%= $(event).data('event-class') %>" class="event-item">
 					<%= $(event).data('original-title') %></a>
