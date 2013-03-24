@@ -7,26 +7,13 @@
 	<% for(i = 0; i < 6; i++) { %>
 		<% if(cal.break == true) break; %>
 		<div class="cal-row-fluid">
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
-			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
+			<div class="cal-span1"><%= cal._day(i, day++) %></div>
 		</div>
 	<% } %>
 </div>
-
-<div class="hide cal-row-fluid" id="cal-slide-box">
-	<span id="cal-slite-tick"></span>
-	<div id="cal-slide-content">
-		<ul>
-			<li>Event 1</li>
-			<li>Event 2</li>
-			<li>Event 3</li>
-		</ul>
-	</div>
-</div>
-<div class="hide" id="cal-week-box"></div>
-<div class="hide" id="cal-day-box"><i class="icon-chevron-down"></i></div>

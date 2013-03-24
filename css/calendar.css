@@ -185,13 +185,17 @@ span[data-cal-day]:hover {
 	margin-right: -16px;
 }
 
+#cal-slide-box {
+	border-top: 8px solid #8c8c8c;
+}
 #cal-slide-content {
-	background-image: url("../img/slide-bg.png");
 	padding: 20px;
+	position: relative;
+
 	color: #ffffff;
+	background-image: url("../img/dark_wood.png");
 	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
-	position: relative;
 }
 #cal-slide-content:hover {
 	background-color: transparent;
@@ -200,4 +204,60 @@ span[data-cal-day]:hover {
 .cal-events-num {
 	margin-top: 8px;
 	opacity: 0.5;
+}
+
+.events-list {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.event {
+	display: block;
+	background-color: #8c8c8c;
+	width: 12px;
+	height: 12px;
+	margin: 3px;
+	-webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+	border-radius: 6px;
+}
+.event-important {
+	background-color: #ad2121;
+}
+.event-info {
+	background-color: dodgerblue;
+}
+.event-warning {
+	background-color: #e3bc08;
+}
+.event-inverse {
+	background-color: #000000;
+}
+.event-success {
+	background-color: darkgreen;
+}
+.event-special {
+	background-color: #800080;
+}
+
+.day-highlight {
+	background-color: #dddddd;
+}
+.day-highlight.dh-event-important {
+	background-color: lightcoral;
+}
+.day-highlight.dh-event-warning {
+	background-color: lightgoldenrodyellow;
+}
+.day-highlight.dh-event-info {
+	background-color: lightblue;
+}
+.day-highlight.dh-event-inverse {
+	background-color: #808080;
+}
+.day-highlight.dh-event-success {
+	background-color: lightgreen;
+}
+.day-highlight.dh-event-special {
+	background-color: lightpink;
 }

@@ -120,14 +120,14 @@ Date.prototype.getDateFormatted = function() {
 		this.update();
 	};
 
-	Calendar.prototype.month = function(month) {
+	Calendar.prototype._month = function(month) {
 		var newmonth = month + 1;
 		var data_day = options.position.start.getFullYear() + '-' + (newmonth < 10 ? '0' + newmonth : newmonth) + '-' + '01';
 		return '<span class="pull-right" data-cal-month="' + data_day + '">' + language['m' + month] +
 			'</span><div class="clearfix"></div><small class="cal-events-num pull-right">19</small>';
 	}
 
-	Calendar.prototype.day = function(week, day) {
+	Calendar.prototype._day = function(week, day) {
 		var cls = options.classes.months.outmonth;
 		var tooltip = '';
 
@@ -136,7 +136,7 @@ Date.prototype.getDateFormatted = function() {
 			firstday++;
 		}
 		day = (day - firstday) + 1;
-		var curdate = new Date(options.position.start.getFullYear(), options.position.start.getMonth(), day);
+		var curdate = new Date(options.position.start.getFullYear(), options.position.start.getMonth(), day, 0, 0, 0);
 
 		// if day of the current month
 		if(day > 0) {
@@ -173,7 +173,32 @@ Date.prototype.getDateFormatted = function() {
 		}
 
 		var data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
-		return '<div class="cal-month-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right" data-cal-day="' + data_day + '">' + day + '</span></div>';
+
+		var out = '<div class="cal-month-day ' + cls + '"><span class="pull-right" data-cal-day="' + data_day + '"';
+		if(tooltip) {
+			out += ' rel="tooltip" data-original-title="' + tooltip + '" ';
+		}
+		out += '>' + day + '</span>';
+
+		var start = parseInt(curdate.getTime());
+		var end = parseInt(start + 86400);
+		var events = [];
+
+		//console.log(start,  end,  day);
+
+		$.each(options.events, function(k, event) {
+			if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
+				events.push('<a href="' + event.url + '" data-event-id="' + event.id + '" data-event-class="' + event.class +
+					'" class="pull-left event ' + event.class + ' event' + event.id + '" rel="tooltip" data-original-title="' +
+					event.title + '"></a>');
+			}
+		});
+		if(events.length > 0) {
+			out += '<div class="events-list">' + events.join(' ') + '</div>';
+		}
+
+		out += '</div>';
+		return out;
 	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
@@ -329,6 +354,8 @@ Date.prototype.getDateFormatted = function() {
 				options.templates[options.view] = _.template(html);
 			});
 	};
+
+
 	Calendar.prototype.update = function() {
 		$('*[rel="tooltip"]').tooltip();
 		var $this = this;
@@ -336,28 +363,26 @@ Date.prototype.getDateFormatted = function() {
 			case 'year':
 				$('span[data-cal-month]').each(function(k, v) {
 					$(v).click(function() {
-						//var date = new Date(options.position.start.getFullYear(), $(v).data('cal-month'), 1);
-						//date.getFullYear() + '-' + date.getMonthFormatted() + '-' + date.getDateFormatted();
 						options.day = $(v).data('cal-month');
 						$this.view('month');
 					});
 				});
 				break;
 			case 'month':
-				var week = $('#cal-week-box');
+				var week = $(document.createElement('div')).attr('id', 'cal-week-box');
 				week.html(language.week);
 				var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
 				$('.cal-month-box .cal-row-fluid').each(function(k, v) {
 					var row = $(v);
 					if(row.attr('id') == 'cal-slide-box') return;
-					row.bind('mouseenter', function() {
+					row.bind('mouseenter',function() {
 						var child = $('.cal-span1:first-child .cal-month-day', row);
 						var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-day]', child).text());
 						day = (day < 10 ? '0' + day : day);
 						week.show().attr('data-cal-week', start + day).appendTo(child);
 					}).bind('mouseleave', function() {
-						week.hide();
-					});
+							week.hide();
+						});
 				});
 
 				week.click(function() {
@@ -378,10 +403,11 @@ Date.prototype.getDateFormatted = function() {
 					});
 				});
 
-				var day = $('#cal-day-box');
+				var day = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
 				$('.cal-month-day').each(function(k, v) {
 					if($(v).parents('.cal-row-fluid').attr('id') == 'cal-slide-box') return;
 					$(v).bind('mouseenter', function() {
+						if($('.events-list', v).length == 0) return;
 						day.show().appendTo(v);
 					});
 					$(v).bind('mouseleave', function() {
@@ -389,23 +415,46 @@ Date.prototype.getDateFormatted = function() {
 					});
 				});
 
-				var slider = $('#cal-slide-box');
+
+				var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
 				slider.hide().click(function(event) {
 					event.stopPropagation();
 				});
 
+				var eventslist = '';
+				$.ajax({
+					url: 'tmpls/month-slide.html',
+					dataType: 'html',
+					type: 'GET'
+				}).done(function(html) {
+						console.log(html);
+						eventslist = _.template(html);
+					});
+
 				day.click(function(event) {
 					event.stopPropagation();
 					var row = $(this).parents('.cal-row-fluid');
-
-					slider.slideUp('fast', function() {
-						row.after(slider);
-						slider.slideDown('fast', function() {
-							$('body').one('click', function() {
-								slider.slideUp('fast');
+					slider.html(eventslist({events: $('.events-list a.event', $(this).parent())}))
+						.slideUp('fast', function() {
+							row.after(slider);
+							slider.slideDown('fast', function() {
+								$('body').one('click', function() {
+									slider.slideUp('fast');
+								});
 							});
 						});
+					$('a.event-item').mouseenter(function() {
+						$('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
 					});
+					$('a.event-item').mouseleave(function() {
+						$('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+					});
+				});
+				$('a.event').mouseenter(function() {
+					$('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
+				});
+				$('a.event').mouseleave(function() {
+					$('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 				});
 				break;
 			case 'week':
