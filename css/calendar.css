@@ -1,12 +1,3 @@
-/*
-.cal-events-num {
-	margin-top: 8px;
-	opacity: 0.5;
-}*/
-
-
-
-
 /**
  * month and week bootstrap based 7 columns grid
 */
@@ -120,7 +111,8 @@
 .cal-month-box .cal-row-fluid [class*="cal-span"]:last-child {
 	border-right: 0px solid #dddddd;
 }
-.cal-month-box {
+.cal-month-box,
+.cal-year-box {
 	border: 1px solid #dddddd;
 	border-radius: 2px;
 }
@@ -166,8 +158,8 @@ span[data-cal-day]:hover {
 
 #cal-week-box {
 	position: absolute;
-	width: 80px;
-	left: -91px;
+	width: 50px;
+	left: -61px;
 	top:-1px;
 	border: 1px solid #dddddd;
 	border-right: 0px solid;
@@ -203,4 +195,9 @@ span[data-cal-day]:hover {
 }
 #cal-slide-content:hover {
 	background-color: transparent;
+}
+
+.cal-events-num {
+	margin-top: 8px;
+	opacity: 0.5;
 }
