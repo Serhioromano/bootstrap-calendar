@@ -61,7 +61,7 @@ Of course you have to include bootstrap. And calendar. Here is the minimum setup
 
 For calendar you only have to include `calendar.css` and `calendar.js` and calendar language `en-GB.js` file.
 
-### Feet events
+### Feed with events
 
 To feed calendar with events you need to provide URL where AJAX request will be made.
 
@@ -85,3 +85,10 @@ It will post to variables there `start` and `end` which will tell you what perio
 	}
 
 `start` and `end` contain dates when event starts and ends in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change color of your event indicators.
+
+or if you have error return
+
+	{
+		"success": 0,
+		"error": "error message here"
+	}

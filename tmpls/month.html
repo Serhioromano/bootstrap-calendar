@@ -1,30 +1,28 @@
-<table class="table table-hover table-calendar table-month table-bordered">
-	<thead>
-	<tr>
-		<% _.each(months, function(name){ %>
-			<th width="14.28571428571429%"><%= name %></th>
-		<% }) %>
-	</tr>
-	</thead>
-	<tbody>
+<div class="cal-row-fluid cal-row-head">
+	<% _.each(months, function(name){ %>
+		<div class="cal-span1"><%= name %></div>
+	<% }) %>
+</div>
+<div class="cal-month-box">
 	<% for(i = 0; i < 6; i++) { %>
 		<% if(cal.break == true) break; %>
-		<tr>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-			<%= cal.day(i, day++) %>
-		</tr>
-	<% } %>
-	<tr id="cal-slide"><td colspan="7">
-		<div class="hide" id="cal-slide-box">
-			This is the events list
+		<div class="cal-row-fluid">
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
+			<div class="cal-span1"><%= cal.day(i, day++) %></div>
 		</div>
-	</td></tr>
-	</tbody>
-</table>
-<div class="hide cal-week-box"></div>
-<div class="hide cal-day-box"><i class="icon-chevron-down"></i></div>
+	<% } %>
+</div>
+
+<div class="hide cal-row-fluid" id="cal-slide-box">
+	<span id="cal-slite-tick"></span>
+	<div id="cal-slide-content">
+			This is the events list
+	</div>
+</div>
+<div class="hide" id="cal-week-box"></div>
+<div class="hide" id="cal-day-box"><i class="icon-chevron-down"></i></div>

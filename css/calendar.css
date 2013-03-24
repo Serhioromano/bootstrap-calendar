@@ -1,6 +1,131 @@
-.table-calendar tbody tr td {
-	height: 55px;
+/*
+.cal-events-num {
+	margin-top: 8px;
+	opacity: 0.5;
+}*/
+
+
+
+
+/**
+ * month and week bootstrap based 7 columns grid
+*/
+[class*="cal-span"] {
+	float: left;
+	margin-left: 0;
+	min-height: 1px;
 }
+.cal-row-fluid {
+	width: 100%;
+	*zoom: 1;
+}
+.cal-row-fluid:before,
+.cal-row-fluid:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+.cal-row-fluid:after {
+	clear: both;
+}
+.cal-row-fluid [class*="cal-span"] {
+	display: block;
+	width: 100%;
+	min-height: 30px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	margin-left: 0%;
+	*margin-left: -0.05213764337851929%;
+}
+.cal-row-fluid [class*="cal-span"]:first-child {
+	margin-left: 0;
+}
+.cal-row-fluid .controls-row [class*="cal-span"] + [class*="cal-span"] {
+	margin-left: 0%;
+}
+.cal-row-fluid .cal-span7 {
+	width: 100%;
+	*width: 99.94786235662148%;
+}
+.cal-row-fluid .cal-span6 {
+	width: 85.71428571428571%;
+	*width: 85.6621480709072%;
+}
+.cal-row-fluid .cal-span5 {
+	width: 71.42857142857142%;
+	*width: 71.3764337851929%;
+}
+.cal-row-fluid .cal-span4 {
+	width: 57.14285714285714%;
+	*width: 57.09071949947862%;
+}
+.cal-row-fluid .cal-span3 {
+	width: 42.857142857142854%;
+	*width: 42.80500521376433%;
+}
+.cal-row-fluid .cal-span2 {
+	width: 28.57142857142857%;
+	*width: 28.51929092805005%;
+}
+.cal-row-fluid .cal-span1 {
+	width: 14.285714285714285%;
+	*width: 14.233576642335766%;
+}
+[class*="cal-span"].hide,
+.cal-row-fluid [class*="cal-span"].hide {
+	display: none;
+}
+[class*="cal-span"].pull-right,
+.cal-row-fluid [class*="cal-span"].pull-right {
+	float: right;
+}
+
+
+
+
+
+
+.cal-row-head [class*="cal-span"]:first-child,
+.cal-row-head [class*="cal-span"] {
+	border: 0px solid #dddddd;
+	text-align: center;
+	font-weight: bolder;
+	min-height: auto;
+}
+
+.cal-month-day {
+	position: relative;
+	display: block;
+	height: 70px;
+	width: 100%;
+}
+[class*="cal-span"]:hover {
+	background-color: #f5f5f5;
+}
+.cal-row-fluid:hover {
+	background-color: #fafafa;
+}
+.cal-month-box [class*="cal-span"] {
+	min-height: 70px;
+	border-right: 1px solid #dddddd;
+}
+.cal-month-box .cal-row-fluid {
+	border-bottom: 1px solid #dddddd;
+}
+.cal-month-box .cal-row-fluid:last-child {
+	border-bottom: 0px solid #dddddd;
+}
+.cal-month-box .cal-row-fluid [class*="cal-span"]:last-child {
+	border-right: 0px solid #dddddd;
+}
+.cal-month-box {
+	border: 1px solid #dddddd;
+	border-radius: 2px;
+}
+
+
 span[data-cal-month],
 span[data-cal-day] {
 	font-size: 1.7em;
@@ -12,45 +137,47 @@ span[data-cal-day] {
 	-moz-transition: opactiy .3s ease-in-out;
 	-ms-transition: opacity .3s ease-in-out;
 	-o-transition: opacity .3s ease-in-out;
+	margin-top: 10px;
+	margin-right: 10px;
 }
 span[data-cal-month]:hover,
 span[data-cal-day]:hover {
 	opacity: 1;
 }
 
-td.cal-day-outmonth span[data-cal-day] {
+.cal-day-outmonth span[data-cal-day] {
 	opacity: 0.1;
 	cursor: default;
 }
-td.cal-day-today {
+.cal-day-today {
 	background-color: #e8fde7;
 }
-td.cal-day-today span[data-cal-day] {
+.cal-day-today span[data-cal-day] {
 	color: darkgreen;
 	font-weight: bolder;
 }
-td.cal-day-holiday span[data-cal-day] {
+.cal-day-holiday span[data-cal-day] {
 	color: #800080;
 }
-td.cal-day-weekend span[data-cal-day] {
+.cal-day-weekend span[data-cal-day] {
 	color: darkred;
 }
-.table-month tbody tr td {
-	position: relative;
-}
-.cal-week-box {
-    position: absolute;
+
+
+#cal-week-box {
+	position: absolute;
 	width: 80px;
-	left: -90px;
+	left: -91px;
 	top:-1px;
 	border: 1px solid #dddddd;
 	border-right: 0px solid;
 	padding: 8px 5px;
 	border-radius: 5px 0 0 5px;
-	background-color: #f5f5f5;
+	background-color: #fafafa;
 	cursor: pointer;
+	text-align: right;
 }
-.cal-day-box {
+#cal-day-box {
 	position: absolute;
 	right: 50%;
 	bottom: -21px;
@@ -61,128 +188,19 @@ td.cal-day-weekend span[data-cal-day] {
 	background-color: #f5f5f5;
 	cursor: pointer;
 	z-index: 5;
+	text-align: center;
+	width: 20px;
+	margin-right: -16px;
 }
-#cal-slide {
+
+#cal-slide-content {
 	background-image: url("../img/slide-bg.png");
-}
-#cal-slide:hover > td {
-	background-color: transparent;
-}
-#cal-slide td {
-	padding: 0px;
-	height: auto;
-}
-#cal-slide div {
 	padding: 20px;
 	color: #ffffff;
 	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+	position: relative;
 }
-
-.cal-events-num {
-	margin-top: 8px;
-	opacity: 0.5;
+#cal-slide-content:hover {
+	background-color: transparent;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-[class*="cal-span"] {
-	float: left;
-	min-height: 1px;
-	margin-left: 10;
-}
-
-.cal-row-fluid {
-	width: 100%;
-	*zoom: 1;
-}
-
-.cal-row-fluid:before,
-.cal-row-fluid:after {
-	display: table;
-	content: "";
-	line-height: 0;
-}
-
-.cal-row-fluid:after {
-	clear: both;
-}
-
-.cal-row-fluid [class*="cal-span"] {
-	display: block;
-	width: 100%;
-	min-height: 30px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	float: left;
-	margin-left: 1.3157894736842104%;
-	*margin-left: 1.2499999999999998%;
-	background-color: #d9edf7;
-	text-align: center;
-	vertical-align: middle;
-}
-
-.cal-row-fluid [class*="cal-span"]:first-child {
-	margin-left: 0;
-}
-
-.cal-row-fluid .cal-span7 {
-	width: 99.99999999999999%;
-	*width: 99.93421052631578%;
-}
-
-.cal-row-fluid .cal-span6 {
-	width: 85.52631578947368%;
-	*width: 85.46052631578948%;
-}
-
-.cal-row-fluid .cal-span5 {
-	width: 71.05263157894736%;
-	*width: 70.98684210526315%;
-}
-
-.cal-row-fluid .cal-span4 {
-	width: 56.57894736842105%;
-	*width: 56.513157894736835%;
-}
-
-.cal-row-fluid .cal-span3 {
-	width: 42.10526315789473%;
-	*width: 42.03947368421052%;
-}
-
-.cal-row-fluid .cal-span2 {
-	width: 27.631578947368418%;
-	*width: 27.56578947368421%;
-}
-
-.cal-row-fluid .cal-span1 {
-	width: 13.157894736842104%;
-	*width: 13.092105263157894%;
-}
-
-[class*="cal-span"].hide,
-.cal-row-fluid [class*="cal-span"].hide {
-	display: none;
-}
-
-[class*="cal-span"].pull-right,
-.cal-row-fluid [class*="cal-span"].pull-right {
-	float: right;
-}
-*/

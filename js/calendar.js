@@ -169,11 +169,11 @@ Date.prototype.getDateFormatted = function() {
 		if(day <= 0) {
 			var daysinprevmonth = (new Date(options.position.start.getFullYear(), options.position.start.getMonth(), 0)).getDate();
 			day = daysinprevmonth - Math.abs(day);
-			cls += ' cal-for-first';
+			cls += ' cal-month-first-row';
 		}
 
 		var data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
-		return '<td class="cal-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right" data-cal-day="' + data_day + '">' + day + '</span></td>';
+		return '<div class="cal-month-day ' + cls + '"><span rel="tooltip" data-original-title="' + tooltip + '" class="pull-right" data-cal-day="' + data_day + '">' + day + '</span></div>';
 	}
 	Calendar.prototype.view = function(view) {
 		if(view) options.view = view;
@@ -344,38 +344,43 @@ Date.prototype.getDateFormatted = function() {
 				});
 				break;
 			case 'month':
-				var week = $('.cal-week-box');
+				var week = $('#cal-week-box');
 				week.html(language.week);
 				var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
-				$('table.table-month tbody tr').each(function(k, v) {
-					if($(v).attr('id') == 'cal-slide') return;
-					$(v).bind('mouseenter', function() {
-						var child = $(v).children('td:first-child');
-						var day = child.children('span[data-cal-day]').text();
-						if(child.hasClass('cal-for-first')) {
-							day = 1;
-						}
+				$('.cal-month-box .cal-row-fluid').each(function(k, v) {
+					var row = $(v);
+					if(row.attr('id') == 'cal-slide-box') return;
+					row.bind('mouseenter', function() {
+						var child = $('.cal-span1:first-child .cal-month-day', row);
+						var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-day]', child).text());
 						day = (day < 10 ? '0' + day : day);
 						week.show().attr('data-cal-week', start + day).appendTo(child);
-					});
-					$(v).bind('mouseleave', function() {
+					}).bind('mouseleave', function() {
 						week.hide();
 					});
 				});
+
 				week.click(function() {
 					options.day = $(this).data('cal-week');
 					$this.view('week');
 				});
+
 				$('*[data-cal-day]').each(function(k, v) {
 					$(v).click(function() {
 						options.day = $(this).data('cal-day');
 						$this.view('day');
 					});
 				});
+				$('.cal-span1').each(function(k, v) {
+					$(v).dblclick(function() {
+						options.day = $('[data-cal-day]', this).data('cal-day');
+						$this.view('day');
+					});
+				});
 
-				var day = $('.cal-day-box');
-				$('table.table-month tbody tr td').each(function(k, v) {
-					if($(v).parent().attr('id') == 'cal-slide') return;
+				var day = $('#cal-day-box');
+				$('.cal-month-day').each(function(k, v) {
+					if($(v).parents('.cal-row-fluid').attr('id') == 'cal-slide-box') return;
 					$(v).bind('mouseenter', function() {
 						day.show().appendTo(v);
 					});
@@ -383,24 +388,21 @@ Date.prototype.getDateFormatted = function() {
 						day.hide();
 					});
 				});
-				var slider = $('#cal-slide');
-				slider.hide();
-				var sliderbox = $('#cal-slide-box');
-				sliderbox.click(function() {
+
+				var slider = $('#cal-slide-box');
+				slider.hide().click(function(event) {
 					event.stopPropagation();
 				});
-				day.click(function() {
-					event.stopPropagation();
-					var tr = $(this).parents('tr');
 
-					sliderbox.slideUp('fast', function() {
-						tr.after(slider);
-						slider.show();
-						sliderbox.slideDown('fast', function() {
+				day.click(function(event) {
+					event.stopPropagation();
+					var row = $(this).parents('.cal-row-fluid');
+
+					slider.slideUp('fast', function() {
+						row.after(slider);
+						slider.slideDown('fast', function() {
 							$('body').one('click', function() {
-								sliderbox.slideUp('fast', function() {
-									slider.hide();
-								});
+								slider.slideUp('fast');
 							});
 						});
 					});
