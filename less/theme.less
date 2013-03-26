@@ -1,0 +1,117 @@
+.cal-row-head [class*="cal-span"]:first-child,
+.cal-row-head [class*="cal-span"] {
+  font-weight: bolder;
+  text-align: center;
+  border: 0px solid #dddddd;
+}
+.cal-row-fluid:hover {
+  background-color: @rowHover;
+}
+.cal-month-day {
+  height: 100px;
+}
+[class*="cal-span"]:hover {
+  background-color: @dayHover;
+}
+.cal-month-box [class*="cal-span"] {
+  min-height: 100px;
+  border-right: @borderSizevert @borderStyle @borderColor;
+}
+.cal-month-box .cal-row-fluid [class*="cal-span"]:last-child {
+  border-right: 0px;
+}
+.cal-month-box .cal-row-fluid {
+  border-bottom: @borderSizehoriz @borderStyle @borderColor;
+}
+.cal-month-box .cal-row-fluid:last-child {
+  border-bottom: 0px;
+}
+.cal-month-box,
+.cal-year-box {
+  border-top: @borderSizehoriz @borderStyle @borderColor;
+  border-bottom: @borderSizehoriz @borderStyle @borderColor;
+  border-right: @borderSizevert @borderStyle @borderColor;
+  border-left: @borderSizevert @borderStyle @borderColor;
+  border-radius: 2px;
+}
+span[data-cal-month],
+span[data-cal-day] {
+  font-size: 1.2em;
+  font-weight: normal;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -ms-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+span[data-cal-month]:hover,
+span[data-cal-day]:hover {
+  opacity: 1;
+}
+
+.cal-day-outmonth span[data-cal-day] {
+  opacity: 0.1;
+  cursor: default;
+}
+
+.cal-day-today {
+  background-color: #e8fde7;
+}
+
+.cal-day-today span[data-cal-day] {
+  color: darkgreen;
+  font-size: 1.9em;
+}
+
+.cal-day-holiday span[data-cal-day] {
+  color: #800080;
+}
+
+.cal-day-weekend span[data-cal-day] {
+  color: darkred;
+}
+
+#cal-week-box {
+  border: @borderSize @borderStyle @borderColor;
+  border-right: 0px;
+  border-radius: 5px 0 0 5px;
+  background-color: @rowHover;
+  text-align: right;
+}
+
+#cal-day-box {
+  border: @borderSize @borderStyle @borderColor;
+  border-top: 0px solid;
+  border-radius: 0 0 5px 5px;
+  background-color: @dayHover;
+  text-align: center;
+}
+
+#cal-slide-box {
+  border-top: 0px solid #8c8c8c;
+}
+
+#cal-slide-content {
+  padding: 20px;
+  color: #ffffff;
+  background-image: url("../img/dark_wood.png");
+  -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
+}
+
+#cal-slide-tick {
+  background-image: url("../img/tick.png?2");
+}
+#cal-slide-content:hover {
+  background-color: transparent;
+}
+#cal-slide-content a.event-item {
+  color: #ffffff;
+  font-weight: normal;
+  line-height: 22px;
+}

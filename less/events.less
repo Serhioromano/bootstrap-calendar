@@ -1,0 +1,74 @@
+.event {
+  display: block;
+  background-color: @eventStandardColor;
+  width: @eventSize;
+  height: @eventSize;
+  margin: @eventMargin;
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: @eventBorderRadius;
+  border: @eventBorderSize solid @eventBorderColor;
+}
+
+.event.pull-left {
+  margin-top: 5px;
+}
+
+.event-important {
+  background-color: @eventImportantColor;
+}
+
+.event-info {
+  background-color: @eventInfoColor;
+}
+
+.event-warning {
+  background-color: @eventWarningColor;
+}
+
+.event-inverse {
+  background-color: @eventInverseColor;
+}
+
+.event-success {
+  background-color: @eventSuccessColor;
+}
+
+.event-special {
+  background-color: @eventSpecialColor;
+}
+
+.day-highlight:hover,
+.day-highlight {
+  background-color: @eventHiliteStandart;
+}
+
+.day-highlight.dh-event-important:hover,
+.day-highlight.dh-event-important {
+  background-color: @eventHiliteImportant;
+}
+
+.day-highlight.dh-event-warning:hover,
+.day-highlight.dh-event-warning {
+  background-color: @eventHiliteWarning;
+}
+
+.day-highlight.dh-event-info:hover,
+.day-highlight.dh-event-info {
+  background-color: @eventHiliteInfo;
+}
+
+.day-highlight.dh-event-inverse:hover,
+.day-highlight.dh-event-inverse {
+  background-color: @eventHiliteInverse;
+}
+
+.day-highlight.dh-event-success:hover,
+.day-highlight.dh-event-success {
+  background-color: @eventHiliteSuccess;
+}
+
+.day-highlight.dh-event-special:hover,
+.day-highlight.dh-event-special {
+  background-color: @eventHiliteSpecial;
+}

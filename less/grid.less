@@ -1,0 +1,86 @@
+[class*="cal-span"] {
+  float: left;
+  margin-left: 0;
+  min-height: 1px;
+}
+
+.cal-row-fluid {
+  width: 100%;
+  *zoom: 1;
+}
+
+.cal-row-fluid:before,
+.cal-row-fluid:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.cal-row-fluid:after {
+  clear: both;
+}
+
+.cal-row-fluid [class*="cal-span"] {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  margin-left: 0%;
+  *margin-left: -0.05213764337851929%;
+}
+
+.cal-row-fluid [class*="cal-span"]:first-child {
+  margin-left: 0;
+}
+
+.cal-row-fluid .controls-row [class*="cal-span"] + [class*="cal-span"] {
+  margin-left: 0%;
+}
+
+.cal-row-fluid .cal-span7 {
+  width: 100%;
+  *width: 99.94786235662148%;
+}
+
+.cal-row-fluid .cal-span6 {
+  width: 85.71428571428571%;
+  *width: 85.6621480709072%;
+}
+
+.cal-row-fluid .cal-span5 {
+  width: 71.42857142857142%;
+  *width: 71.3764337851929%;
+}
+
+.cal-row-fluid .cal-span4 {
+  width: 57.14285714285714%;
+  *width: 57.09071949947862%;
+}
+
+.cal-row-fluid .cal-span3 {
+  width: 42.857142857142854%;
+  *width: 42.80500521376433%;
+}
+
+.cal-row-fluid .cal-span2 {
+  width: 28.57142857142857%;
+  *width: 28.51929092805005%;
+}
+
+.cal-row-fluid .cal-span1 {
+  width: 14.285714285714285%;
+  *width: 14.233576642335766%;
+}
+
+[class*="cal-span"].hide,
+.cal-row-fluid [class*="cal-span"].hide {
+  display: none;
+}
+
+[class*="cal-span"].pull-right,
+.cal-row-fluid [class*="cal-span"].pull-right {
+  float: right;
+}

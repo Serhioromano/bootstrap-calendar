@@ -1,0 +1,69 @@
+.cal-row-head [class*="cal-span"]:first-child,
+.cal-row-head [class*="cal-span"] {
+  min-height: auto;
+}
+.cal-month-day {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+#cal-week-box {
+  position: absolute;
+  width: 50px;
+  left: -61px;
+  top: -1px;
+  padding: 8px 5px;
+  cursor: pointer;
+}
+
+#cal-day-box {
+  position: absolute;
+  right: 50%;
+  bottom: -21px;
+  padding: 0px 5px;
+  cursor: pointer;
+  z-index: 5;
+  text-align: center;
+  width: 20px;
+  margin-right: -16px;
+}
+
+#cal-slide-box {
+  position: relative;
+}
+
+#cal-slide-tick {
+  position: absolute;
+  width: 16px;
+  margin-left: -7px;
+  height: 9px;
+  top: -1px;
+  z-index: 1;
+}
+#cal-slide-tick.tick1 {
+  left: 7.14285714285715%;
+}
+#cal-slide-tick.tick2 {
+  left: 21.42857142857143%;
+}
+#cal-slide-tick.tick3 {
+  left: 35.71428571428572%;
+}
+#cal-slide-tick.tick4 {
+  left: 50%;
+}
+#cal-slide-tick.tick5 {
+  left: 64.2857142857143%;
+}
+#cal-slide-tick.tick6 {
+  left: 78.57142857142859%;
+}
+#cal-slide-tick.tick7 {
+  left: 92.85714285714285%;
+}
+.events-list {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
