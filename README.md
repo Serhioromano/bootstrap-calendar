@@ -16,6 +16,7 @@ Why did I start this project? Well, I believe there is no good full view calenda
 
 - **Reusable** - there is not UI in this calendar. All buttons to switch view or load events should be done separately. Thus you will have your own uniquie calendar design.
 - **Template based** - all view like **year**, **month**, **week** or **day** are based on templates. You can easily change how it looks or style it or even add new custom view.
+- **LESS** - easy adjust and style your calendar with less variables file.
 - **AJAX** - It uses AJAX to feed calendar with events. You provide URL and just return by this URL `JSON` list of events.
 - **i18n** - language files are connected separately. You can easily translate calendar into your own language
 
