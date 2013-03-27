@@ -211,7 +211,7 @@
 }
 .cal-month-box [class*="cal-span"] {
   min-height: 100px;
-  border-right: 0px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
 }
 .cal-month-box .cal-row-fluid [class*="cal-span"]:last-child {
   border-right: 0px;
@@ -226,8 +226,8 @@
 .cal-year-box {
   border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
-  border-right: 0px solid #e1e1e1;
-  border-left: 0px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  border-left: 1px solid #e1e1e1;
   border-radius: 2px;
 }
 span[data-cal-month],
