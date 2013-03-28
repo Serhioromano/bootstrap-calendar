@@ -2,6 +2,12 @@
 .cal-row-head [class*="cal-span"] {
   min-height: auto;
 }
+.cal-year-box [class*="span"] {
+  position: relative;
+}
+.cal-events-num {
+  margin-top: 20px;
+}
 .cal-month-day {
   position: relative;
   display: block;
@@ -26,7 +32,10 @@
   z-index: 5;
   text-align: center;
   width: 20px;
-  margin-right: -16px;
+  margin-right: -17px;
+}
+.cal-year-box #cal-day-box {
+  margin-right: -7px;
 }
 
 #cal-slide-box {
@@ -41,29 +50,43 @@
   top: -1px;
   z-index: 1;
 }
-#cal-slide-tick.tick1 {
+#cal-slide-tick.tick-month1 {
+  left: 12.5%;
+}
+#cal-slide-tick.tick-month2 {
+  left: 37.5%;
+}
+#cal-slide-tick.tick-month3 {
+  left: 62.5%;
+}
+#cal-slide-tick.tick-month4 {
+  left: 87.5%;
+}
+
+#cal-slide-tick.tick-day1 {
   left: 7.14285714285715%;
 }
-#cal-slide-tick.tick2 {
+#cal-slide-tick.tick-day2 {
   left: 21.42857142857143%;
 }
-#cal-slide-tick.tick3 {
+#cal-slide-tick.tick-day3 {
   left: 35.71428571428572%;
 }
-#cal-slide-tick.tick4 {
+#cal-slide-tick.tick-day4 {
   left: 50%;
 }
-#cal-slide-tick.tick5 {
+#cal-slide-tick.tick-day5 {
   left: 64.2857142857143%;
 }
-#cal-slide-tick.tick6 {
+#cal-slide-tick.tick-day6 {
   left: 78.57142857142859%;
 }
-#cal-slide-tick.tick7 {
+#cal-slide-tick.tick-day7 {
   left: 92.85714285714285%;
 }
 .events-list {
   position: absolute;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
