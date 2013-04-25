@@ -394,112 +394,116 @@ Date.prototype.getDateFormatted = function () {
             $this.view($('[data-cal-date]', this).data('cal-view'));
         });
 
-        if (options.views[options.view].slide_events) {
+        this['_update_'+options.view]();
+    };
 
+    Calendar.prototype._update_day = function () {
 
-            var activecell = 0;
-            var downbox = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
+    };
+    Calendar.prototype._update_week = function () {
 
-            $('.cal-month-day, .cal-year-box .span3').each(function (k, v) {
-                $(v).bind('mouseenter', function () {
-                    if ($('.events-list', v).length == 0) return;
-                    if ($(v).children('[data-cal-date]').text() == activecell) return;
-                    downbox.show().appendTo(v);
+    };
+    Calendar.prototype._update_year = function () {
+        this._update_month_year();
+
+    };
+    Calendar.prototype._update_month = function () {
+        this._update_month_year();
+
+        var week = $(document.createElement('div')).attr('id', 'cal-week-box');
+        week.html(language.week);
+        var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
+        $('.cal-month-box .cal-row-fluid').each(function (k, v) {
+            var row = $(v);
+            row.bind('mouseenter',function () {
+                var child = $('.cal-span1:first-child .cal-month-day', row);
+                var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-day]', child).text());
+                day = (day < 10 ? '0' + day : day);
+                week.show().attr('data-cal-week', start + day).appendTo(child);
+            }).bind('mouseleave', function () {
+                    week.hide();
                 });
-                $(v).bind('mouseleave', function () {
-                    downbox.hide();
-                });
+        });
+
+        week.click(function () {
+            options.day = $(this).data('cal-week');
+            $this.view('week');
+        });
+
+        $('a.event').mouseenter(function () {
+            $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
+        });
+        $('a.event').mouseleave(function () {
+            $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+        });
+
+    };
+    Calendar.prototype._update_month_year = function () {
+        if(!options.views[options.view].slide_events){
+            return;
+        }
+        var activecell = 0;
+        var downbox = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
+
+        $('.cal-month-day, .cal-year-box .span3').each(function (k, v) {
+            $(v).bind('mouseenter', function () {
+                if ($('.events-list', v).length == 0) return;
+                if ($(v).children('[data-cal-date]').text() == activecell) return;
+                downbox.show().appendTo(v);
+            });
+            $(v).bind('mouseleave', function () {
+                downbox.hide();
+            });
+        });
+
+
+        var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
+        slider.hide().click(function (event) {
+            event.stopPropagation();
+        });
+
+        var event_list_template = '';
+        $.ajax({
+            url: 'tmpls/events-list.html',
+            dataType: 'html',
+            type: 'GET'
+        }).done(function (html) {
+                event_list_template = _.template(html);
             });
 
 
-            var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
-            slider.hide().click(function (event) {
-                event.stopPropagation();
-            });
+        downbox.click(function (event) {
 
-            var event_list_template = '';
-            $.ajax({
-                url: 'tmpls/events-list.html',
-                dataType: 'html',
-                type: 'GET'
-            }).done(function (html) {
-                    event_list_template = _.template(html);
-                });
+            event.stopPropagation();
 
+            var $this = $(this);
+            var cell = $this.parents('.cal-cell');
+            var row = $this.parents('.cal-row-fluid');
+            var tick_position = cell.data('cal-row');
 
-            downbox.click(function (event) {
+            $this.fadeOut('fast');
 
-                event.stopPropagation();
-
-                var $this = $(this);
-                var cell = $this.parents('.cal-cell');
-                var row = $this.parents('.cal-row-fluid');
-                var tick_position = cell.data('cal-row');
-
-                $this.fadeOut('fast');
-
-                slider.html(event_list_template({events: $('.events-list a.event', cell)}))
-                    .slideUp('fast', function () {
-                        row.after(slider);
-                        activecell = $('[data-cal-date]', cell).text();
-                        $('#cal-slide-tick').addClass('tick' + tick_position).show();
-                        slider.slideDown('fast', function () {
-                            $('body').one('click', function () {
-                                slider.slideUp('fast');
-                                activecell = 0;
-                            });
+            slider.html(event_list_template({events: $('.events-list a.event', cell)}))
+                .slideUp('fast', function () {
+                    row.after(slider);
+                    activecell = $('[data-cal-date]', cell).text();
+                    $('#cal-slide-tick').addClass('tick' + tick_position).show();
+                    slider.slideDown('fast', function () {
+                        $('body').one('click', function () {
+                            slider.slideUp('fast');
+                            activecell = 0;
                         });
                     });
+                });
 
-                $('a.event-item').mouseenter(function () {
-                    $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
-                });
-                $('a.event-item').mouseleave(function () {
-                    $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
-                });
+            $('a.event-item').mouseenter(function () {
+                $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
             });
-        }
-
-        switch (options.view) {
-            case 'year':
-
-                break;
-            case 'month':
-                var week = $(document.createElement('div')).attr('id', 'cal-week-box');
-                week.html(language.week);
-                var start = options.position.start.getFullYear() + '-' + options.position.start.getMonthFormatted() + '-';
-                $('.cal-month-box .cal-row-fluid').each(function (k, v) {
-                    var row = $(v);
-                    row.bind('mouseenter',function () {
-                        var child = $('.cal-span1:first-child .cal-month-day', row);
-                        var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-day]', child).text());
-                        day = (day < 10 ? '0' + day : day);
-                        week.show().attr('data-cal-week', start + day).appendTo(child);
-                    }).bind('mouseleave', function () {
-                            week.hide();
-                        });
-                });
-
-                week.click(function () {
-                    options.day = $(this).data('cal-week');
-                    $this.view('week');
-                });
-
-                $('a.event').mouseenter(function () {
-                    $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
-                });
-                $('a.event').mouseleave(function () {
-                    $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
-                });
-                break;
-            case 'week':
-
-                break;
-            case 'day':
-
-                break;
-        }
-    }
+            $('a.event-item').mouseleave(function () {
+                $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+            });
+        });
+    };
 
     $.fn.calendar = function (params) {
         context = this;
