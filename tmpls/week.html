@@ -1,21 +1,16 @@
-<table class="table table-calendar">
-	<thead>
-	<tr>
-		<th></th>
-		<% _.each(months, function(name){ %>
-		<th><%= name %></th>
-		<% }) %>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	</tbody>
-</table>
+<div style="position: relative" class="cal-week-box">
+	<div class="cal-offset1 cal-column"></div>
+	<div class="cal-offset2 cal-column"></div>
+	<div class="cal-offset3 cal-column"></div>
+	<div class="cal-offset4 cal-column"></div>
+	<div class="cal-offset5 cal-column"></div>
+	<div class="cal-offset6 cal-column"></div>
+	<div class="cal-row-fluid cal-row-head">
+		<% _.each(months, function(name){  %>
+		<div class="cal-span1"><%= name %><br><small><%= start.getDate() %> <%= language['ms' + start.getMonth()] %></small></div>
+		<% start.setDate(start.getDate() + 1); }) %>
+	</div>
+	<hr>
+	<%= cal._week() %>
+
+</div>

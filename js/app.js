@@ -1,7 +1,8 @@
 (function($) {
 	var options = {
 		events_url: 'events.json.php',
-		view: 'month',
+		view: 'week',
+        day: '2013-03-12',
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
 			if(!events) {

@@ -20,9 +20,11 @@ Why did I start this project? Well, I believe there is no good full view calenda
 - **AJAX** - It uses AJAX to feed calendar with events. You provide URL and just return by this URL `JSON` list of events.
 - **i18n** - language files are connected separately. You can easily translate calendar into your own language
 
-### How to install
+## How to use
 
-You can install it with [bower](http://twitter.github.com/bower/).
+### Install
+
+You can install it with [bower](http://twitter.github.com/bower/) package manager.
 
 	$ bower install bootstrap-calendar
 
@@ -31,11 +33,6 @@ Bower will automatically install all dependencies. Then by running
 	$ bower list --path
 
 You will see list of the files you need to include to your document.
-
-
-
-
-## How to use
 
 ### Quick setup
 Of course you have to include bootstrap. And calendar. Here is the minimum setup.
@@ -52,6 +49,7 @@ Of course you have to include bootstrap. And calendar. Here is the minimum setup
 		<div id="calendar"></div>
 
 		<script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
 		<script type="text/javascript" src="js/language/en-GB.js"></script>
 		<script type="text/javascript" src="js/calendar.js"></script>
 		<script type="text/javascript">
@@ -60,15 +58,16 @@ Of course you have to include bootstrap. And calendar. Here is the minimum setup
 	</body>
 	</html>
 
+Bootstrap Calendar depends on [jQuery](http://jquery.com/) and [underscore.js](http://underscorejs.org/) used as template engine.
 For calendar you only have to include `calendar.css` and `calendar.js` and calendar language `en-GB.js` file.
 
 ### Feed with events
 
-To feed calendar with events you need to provide URL where AJAX request will be made.
+To feed calendar with events you need to provide URL where AJAX request will be sent.
 
-	var calendar = $('#calendar').calendar({url:'/api/events.php'});
+	var calendar = $('#calendar').calendar({events_url:'/api/events.php'});
 
-It will post to variables there `start` and `end` which will tell you what period is required. You have to return it in JSON structure like this
+It will `POST` two variables there `start` and `end` which will tell you what period is required. You have to return it in JSON structure like this
 
 	{
 		"success": 1,
@@ -85,9 +84,9 @@ It will post to variables there `start` and `end` which will tell you what perio
 		]
 	}
 
-`start` and `end` contain dates when event starts and ends in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change color of your event indicators.
+See `events.json.php` file for more details. `start` and `end` contain dates when event starts and ends in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change color of your event indicators.
 
-or if you have error return
+If you have an error return
 
 	{
 		"success": 0,
