@@ -34,6 +34,17 @@ Date.prototype.getDateFormatted = function () {
         // {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
         // events: [...] as described in events property description
         // The start and end variables will be sent to this url
+
+        /**
+         * path to templates should end with slash /. It can be as relative
+         *
+         * /component/bootstrap-calendar/tmpls/
+         *
+         * or absolute
+         *
+         * http://localhost/component/bootstrap-calendar/tmpls/
+         */
+        tmpl_path: 'tmpls/',
         classes: {
             months: {
                 inmonth: 'cal-day-inmonth',
@@ -417,7 +428,7 @@ Date.prototype.getDateFormatted = function () {
         }
 
         $.ajax({
-            url: 'tmpls/' + name + '.html',
+            url: options.tmpl_path + name + '.html',
             dataType: 'html',
             type: 'GET'
         }).done(function (html) {
