@@ -269,7 +269,7 @@ Date.prototype.getDateFormatted = function () {
         t.day = day;
 
         var start = parseInt(curdate.getTime());
-        var end = parseInt(start + 86400);
+        var end = parseInt(start + 86400000);
         var events = [];
 
         $.each(options.events, function (k, event) {
