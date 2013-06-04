@@ -3,6 +3,7 @@
 <head>
 	<title>Bootstrap jQuery calendar</title>
 	<link rel="stylesheet" href="components/bootstrap/docs/assets/css/bootstrap.css">
+	<link rel="stylesheet" href="components/bootstrap/docs/assets/css/bootstrap-responsive.css">
 	<link rel="stylesheet" href="css/calendar.css">
 </head>
 <body>
@@ -16,7 +17,11 @@
 
 	<div class="page-header">
 
-		<div class="pull-right">
+		<div class="pull-right form-inline">
+			<select id="first_day">
+				<option value="2">First day of week is Sunday</option>
+				<option value="1">First day of week is Monday</option>
+			</select>
 			<div class="btn-group">
 				<button class="btn btn-primary" data-calendar-nav="prev"><< Prev</button>
 				<button class="btn" data-calendar-nav="today">Today</button>

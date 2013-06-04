@@ -1,4 +1,7 @@
 (function($) {
+
+    "use strict";
+
 	var options = {
 		events_url: 'events.json.php',
 		view: 'week',
@@ -44,4 +47,9 @@
 			calendar.view($this.data('calendar-view'));
 		});
 	});
+
+    $('#first_day').change(function(){
+        calendar.set_options({first_day: $(this).val()});
+        calendar.view();
+    });
 }(jQuery));
