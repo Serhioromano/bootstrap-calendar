@@ -139,6 +139,16 @@ Date.prototype.getDateFormatted = function() {
             case 'week':
                 break;
             case 'day':
+                // Get only Event on this day
+                var start = options.position.start.getTime(),
+                    end = start + 86400000;
+                data.events = [];
+
+                $.each(options.events, function(k, event) {
+                    if ((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
+                        data.events.push(event);
+                    }
+                });
                 break;
         }
         data.start = new Date(options.position.start.getTime());
