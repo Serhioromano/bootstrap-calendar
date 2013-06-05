@@ -116,7 +116,6 @@ Date.prototype.getDateFormatted = function() {
     }
 
     Calendar.prototype.render = function() {
-        context.html('Start at: ' + options.position.start + '<br> End at: ' + options.position.end);
         context.html('');
         this.load_template(options.view);
         this.break = false;
@@ -149,6 +148,7 @@ Date.prototype.getDateFormatted = function() {
             case 'day':
                 break;
         }
+
         data.start = new Date(options.position.start.getTime());
         data.lang = language;
 
@@ -295,14 +295,15 @@ Date.prototype.getDateFormatted = function() {
         t.events = events;
         return options.templates['month-day'](t);
     }
+
     Calendar.prototype.view = function(view) {
         if(view) options.view = view;
+
         this.init_position.call(this);
         this.load_url.call(this);
         this.render.call(this);
 
         options.onAfterViewLoad.call(this, options.view);
-
     };
 
     Calendar.prototype.navigate = function(where, next) {

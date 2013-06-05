@@ -1,6 +1,6 @@
 var language = {
 	error_noview: 'Calendar: View {0} not found',
-	error_dateformat: 'Calendar: Wrong date format {0}',
+	error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
 	error_loadurl: 'Calendar: Events load URL is not set',
 	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
