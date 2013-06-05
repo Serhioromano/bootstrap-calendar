@@ -121,8 +121,10 @@ Date.prototype.getDateFormatted = function() {
         this.load_template(options.view);
         this.break = false;
 
-        var data = {};
-        data.events = options.events;
+        var data = {},
+            start = parseInt(options.position.start.getTime()),
+            end   = parseInt(options.position.end.getTime());
+        data.events = [];
         data.cal = this;
         data.day = 1;
 
@@ -132,23 +134,19 @@ Date.prototype.getDateFormatted = function() {
         } else {
             data.months = [language.d0, language.d1, language.d2, language.d3, language.d4, language.d5, language.d6]
         }
-
+        
+        // Get all events between start and end
+        $.each(options.events, function(k, event) {
+            if ((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
+                data.events.push(event);
+            }
+        });
         switch(options.view) {
             case 'month':
                 break;
             case 'week':
                 break;
             case 'day':
-                // Get only Event on this day
-                var start = options.position.start.getTime(),
-                    end = start + 86400000;
-                data.events = [];
-
-                $.each(options.events, function(k, event) {
-                    if ((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
-                        data.events.push(event);
-                    }
-                });
                 break;
         }
         data.start = new Date(options.position.start.getTime());
