@@ -213,8 +213,8 @@
   border-radius: 8px;
   border: 1px solid #ffffff;
 }
-#cal-slide-content .event.pull-left {
-  margin-top: 5px;
+.cal-event-list .event.pull-left {
+  margin-top: 3px;
 }
 .event-important {
   background-color: #ad2121;

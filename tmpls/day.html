@@ -1,5 +1,8 @@
-<ul>
+<ul class="unstyled cal-event-list">
 	<% _.each(events, function(event){ %>
-		<li><%= event.title %></li>
+		<li><span class="pull-left event <%= event.class %>"></span>
+			<a href="<%= event.url %>" data-event-id="<%= event.id %>"
+			   data-event-class="<%= event.class %>" class="event-item">
+				<%= event.title %></a></li>
 	<% }) %>
 </ul>
