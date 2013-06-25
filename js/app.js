@@ -4,7 +4,7 @@
 
 	var options = {
 		events_url: 'events.json.php',
-		view: 'week',
+		view: 'month',
         day: '2013-03-12',
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
