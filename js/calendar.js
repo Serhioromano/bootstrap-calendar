@@ -274,7 +274,7 @@ Date.prototype.getDateFormatted = function() {
         }
 
         var holiday = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
-        if($.inArray(holiday, _.keys(options.holidays)) > -1) {
+        if(holiday in options.holidays) {
             cls += ' ' + options.classes.months.holidays;
             t.tooltip = options.holidays[holiday];
         }
