@@ -278,6 +278,11 @@ Date.prototype.getDateFormatted = function() {
             cls += ' ' + options.classes.months.holidays;
             t.tooltip = options.holidays[holiday];
         }
+        holiday += '-' + curdate.getFullYear();
+        if(holiday in options.holidays) {
+           cls += ' ' + options.classes.months.holidays;
+           t.tooltip = options.holidays[holiday];
+       }
 
         t.data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
         t.cls = cls;
