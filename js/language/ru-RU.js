@@ -43,7 +43,10 @@ var language = {
 	d3: 'Среда',
 	d4: 'Четверг',
 	d5: 'Пятница',
-	d6: 'Суббота'
+	d6: 'Суббота',
+
+	easter: 'Пасха',
+	easterMonday: 'Пасхальный понедельник'
 };
 
 if(!String.prototype.format) {

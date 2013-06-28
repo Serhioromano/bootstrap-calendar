@@ -60,6 +60,7 @@ Date.prototype.getDateFormatted = function() {
             '25-12': 'Christmas\'s',
             '01-05': "International labor day"
         },
+        enable_easter_holidays: false, // Set to true if you want to enable Easter and Easter Monday as holidays
         views: {
             year: {
                 slide_events: 1
@@ -273,16 +274,35 @@ Date.prototype.getDateFormatted = function() {
             cls += ' cal-month-first-row';
         }
 
-        var holiday = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
-        if(holiday in options.holidays) {
-            cls += ' ' + options.classes.months.holidays;
-            t.tooltip = options.holidays[holiday];
+        var holiday = false;
+        if(options.enable_easter_holidays) {
+            var easter = getEasterDate(curdate.getFullYear());
+            if(easter.getTime() == curdate.getTime()) {
+                holiday = language.easter;
+            }
+            else {
+                easter.setDate(easter.getDate() + 1);
+                if(easter.getTime() == curdate.getTime()) {
+                    holiday = language.easterMonday;
+                }
+            }
         }
-        holiday += '-' + curdate.getFullYear();
-        if(holiday in options.holidays) {
-           cls += ' ' + options.classes.months.holidays;
-           t.tooltip = options.holidays[holiday];
-       }
+        if(holiday === false && options.holidays) {
+            var curDateStr = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
+            if(curDateStr in options.holidays) {
+                holiday = options.holidays[curDateStr];
+            }
+            else {
+                curDateStr += '-' + curdate.getFullYear();
+                if(curDateStr in options.holidays) {
+                    holiday = options.holidays[curDateStr];
+               }
+            }
+        }
+        if(holiday !== false) {
+            cls += ' ' + options.classes.months.holidays;
+            t.tooltip = holiday;
+        }
 
         t.data_day = curdate.getFullYear() + '-' + curdate.getMonthFormatted() + '-' + (day < 10 ? '0' + day : day);
         t.cls = cls;
@@ -577,6 +597,25 @@ Date.prototype.getDateFormatted = function() {
             });
         });
     };
+
+    function getEasterDate(year) {
+        var a = year % 19;
+        var b = Math.floor(year / 100);
+        var c = year % 100;
+        var d = Math.floor(b / 4); 
+        var e = b % 4;
+        var f = Math.floor((b + 8) / 25);
+        var g = Math.floor((b - f + 1) / 3); 
+        var h = (19 * a + b - d - g + 15) % 30;
+        var i = Math.floor(c / 4);
+        var k = c % 4;
+        var l = (32 + 2 * e + 2 * i - h - k) % 7;
+        var m = Math.floor((a + 11 * h + 22 * l) / 451);
+        var n0 = (h + l + 7 * m + 114)
+        var n = Math.floor(n0 / 31) - 1;
+        var p = n0 % 31 + 1;
+        return new Date(year, n, p, 0, 0, 0);
+    }
 
     $.fn.calendar = function(params) {
         context = this;

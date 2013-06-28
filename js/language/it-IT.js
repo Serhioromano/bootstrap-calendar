@@ -5,9 +5,9 @@ var language = {
 	error_where: 'Calendario: direzione di spostamento {0} non valida. I valori validi sono "next" o "prev" o "today"',
 
 	title_year: 'Anno {0}',
-	title_month: '{0} anno {1}',
-	title_week: '{0} settimana dell\'anno {1}',
-	title_day: '{0} {1} {2} anno {3}',
+	title_month: '{0} {1}',
+	title_week: 'Settimana {0} del {1}',
+	title_day: '{0} {1} {2} {3}',
 
 	week:'Settimana',
 
@@ -43,7 +43,10 @@ var language = {
 	d3: 'Mercoledì',
 	d4: 'Giovedì',
 	d5: 'Venerdì',
-	d6: 'Sabato'
+	d6: 'Sabato',
+
+	easter: 'Pasqua',
+	easterMonday: 'Lunedì dell’Angelo'
 };
 
 if(!String.prototype.format) {
