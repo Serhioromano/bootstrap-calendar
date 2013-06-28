@@ -43,7 +43,10 @@ var language = {
 	d3: 'Wednesday',
 	d4: 'Thursday',
 	d5: 'Friday',
-	d6: 'Saturday'
+	d6: 'Saturday',
+
+	easter: 'Easter',
+	easterMonday: 'Easter Monday'
 };
 
 if(!String.prototype.format) {
