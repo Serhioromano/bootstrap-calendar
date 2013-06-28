@@ -97,7 +97,7 @@ Date.prototype.getDateFormatted = function() {
             week: '',
             day: ''
         },
-        break: false
+        stop_cycling: false
     };
 
     var options = {};
@@ -119,7 +119,7 @@ Date.prototype.getDateFormatted = function() {
     Calendar.prototype.render = function() {
         context.html('');
         this.load_template(options.view);
-        this.break = false;
+        this.stop_cycling = false;
 
         var data = {};
         data.events = [];
@@ -251,7 +251,7 @@ Date.prototype.getDateFormatted = function() {
         }
         // stop cycling table rows;
         if((day + 1) > options.position.end.getDate()) {
-            this.break = true;
+            this.stop_cycling = true;
         }
         // if day of the next month
         if(day > options.position.end.getDate()) {
