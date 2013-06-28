@@ -288,14 +288,14 @@ Date.prototype.getDateFormatted = function() {
             }
         }
         if(holiday === false && options.holidays) {
-            var curDateStr = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
-            if(curDateStr in options.holidays) {
-                holiday = options.holidays[curDateStr];
+            var curdate_str = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
+            if(curdate_str in options.holidays) {
+                holiday = options.holidays[curdate_str];
             }
             else {
-                curDateStr += '-' + curdate.getFullYear();
-                if(curDateStr in options.holidays) {
-                    holiday = options.holidays[curDateStr];
+                curdate_str += '-' + curdate.getFullYear();
+                if(curdate_str in options.holidays) {
+                    holiday = options.holidays[curdate_str];
                }
             }
         }
