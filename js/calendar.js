@@ -308,11 +308,12 @@ Date.prototype.getDateFormatted = function() {
     Calendar.prototype.getHoliday = function(date) {
        if(options.enable_easter_holidays) {
            var easter = getEasterDate(date.getFullYear());
-           if(easter.getTime() == date.getTime()) {
+           if(easter.toDateString() == date.toDateString()) {
                return language.easter;
            }
-           easter.setDate(easter.getDate() + 1);
-           if(easter.getTime() == date.getTime()) {
+           var easterMonday = new Date();
+           easterMonday.setDate(easter.getDate() + 1);
+           if(easterMonday.toDateString() == date.toDateString()) {
                return language.easterMonday;
            }
        }
