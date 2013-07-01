@@ -312,6 +312,7 @@ Date.prototype.getDateFormatted = function() {
                return language.easter;
            }
            var easterMonday = new Date();
+           easterMonday.setTime(easter.getTime());
            easterMonday.setDate(easter.getDate() + 1);
            if(easterMonday.toDateString() == date.toDateString()) {
                return language.easterMonday;
