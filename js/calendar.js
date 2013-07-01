@@ -53,6 +53,13 @@ Date.prototype.getDateFormatted = function() {
                 sunday: 'cal-day-weekend',
                 holidays: 'cal-day-holiday',
                 today: 'cal-day-today'
+            },
+            week: {
+                workday: 'cal-day-workday',
+                saturday: 'cal-day-weekend',
+                sunday: 'cal-day-weekend',
+                holidays: 'cal-day-holiday',
+                today: 'cal-day-today'
             }
         },
         holidays: {
@@ -274,31 +281,7 @@ Date.prototype.getDateFormatted = function() {
             cls += ' cal-month-first-row';
         }
 
-        var holiday = false;
-        if(options.enable_easter_holidays) {
-            var easter = getEasterDate(curdate.getFullYear());
-            if(easter.getTime() == curdate.getTime()) {
-                holiday = language.easter;
-            }
-            else {
-                easter.setDate(easter.getDate() + 1);
-                if(easter.getTime() == curdate.getTime()) {
-                    holiday = language.easterMonday;
-                }
-            }
-        }
-        if(holiday === false && options.holidays) {
-            var curdate_str = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
-            if(curdate_str in options.holidays) {
-                holiday = options.holidays[curdate_str];
-            }
-            else {
-                curdate_str += '-' + curdate.getFullYear();
-                if(curdate_str in options.holidays) {
-                    holiday = options.holidays[curdate_str];
-               }
-            }
-        }
+        var holiday = this.getHoliday(curdate);
         if(holiday !== false) {
             cls += ' ' + options.classes.months.holidays;
             t.tooltip = holiday;
@@ -321,6 +304,56 @@ Date.prototype.getDateFormatted = function() {
         t.events = events;
         return options.templates['month-day'](t);
     }
+
+    Calendar.prototype.getHoliday = function(date) {
+       if(options.enable_easter_holidays) {
+           var easter = getEasterDate(date.getFullYear());
+           if(easter.getTime() == date.getTime()) {
+               return language.easter;
+           }
+           easter.setDate(easter.getDate() + 1);
+           if(easter.getTime() == date.getTime()) {
+               return language.easterMonday;
+           }
+       }
+       if(options.holidays) {
+           var date_str = date.getDateFormatted() + '-' + date.getMonthFormatted();
+           if(date_str in options.holidays) {
+               return options.holidays[date_str];
+           }
+           date_str += '-' + date.getFullYear();
+           if(date_str in options.holidays) {
+               return options.holidays[date_str];
+           }
+       }
+       return false;
+    };
+
+    Calendar.prototype.getHolidayName = function(date) {
+        var holiday = this.getHoliday(date);
+        return (holiday === false) ? "" : holiday;
+    };
+
+    Calendar.prototype._getWeekClass = function(date) {
+        var getClass = function(key) {
+           return (options.classes && ("week" in options.classes) && (key in options.classes.week)) ? options.classes.week[key] : "";
+        };
+        var cls = "";
+        if(date.toDateString() == (new Date()).toDateString()) {
+           cls = getClass("today") + " ";
+        }
+        var holiday = this.getHoliday(date);
+        if(holiday !== false) {
+            return cls + getClass("holidays");
+        }
+        switch(date.getDay()) {
+            case 0:
+               return cls + getClass("sunday");
+            case 6:
+               return cls + getClass("saturday");
+        }
+        return cls + getClass("workday");
+    };
 
     Calendar.prototype.view = function(view) {
         if(view) options.view = view;
