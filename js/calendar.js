@@ -266,15 +266,8 @@ Date.prototype.getDateFormatted = function() {
             cls = options.classes.months.outmonth;
         }
 
-        if(curdate.getDay() == 0 && (cls == options.classes.months.inmonth)) {
-            cls = options.classes.months.sunday;
-        }
-        if(curdate.getDay() == 6 && (cls == options.classes.months.inmonth)) {
-            cls = options.classes.months.saturday;
-        }
-        if(curdate.toDateString() == (new Date()).toDateString()) {
-            cls = options.classes.months.today;
-        }
+        cls = $.trim(cls + " " + this._getdayClass("months", curdate));
+        
         if(day <= 0) {
             var daysinprevmonth = (new Date(options.position.start.getFullYear(), options.position.start.getMonth(), 0)).getDate();
             day = daysinprevmonth - Math.abs(day);
@@ -283,7 +276,6 @@ Date.prototype.getDateFormatted = function() {
 
         var holiday = this.getHoliday(curdate);
         if(holiday !== false) {
-            cls += ' ' + options.classes.months.holidays;
             t.tooltip = holiday;
         }
 
@@ -336,25 +328,31 @@ Date.prototype.getDateFormatted = function() {
         return (holiday === false) ? "" : holiday;
     };
 
-    Calendar.prototype._getWeekClass = function(date) {
-        var getClass = function(key) {
-           return (options.classes && ("week" in options.classes) && (key in options.classes.week)) ? options.classes.week[key] : "";
+    Calendar.prototype._getdayClass = function(class_group, date) {
+        var addClass = function(which, to) {
+            var cls;
+            cls = (options.classes && (class_group in options.classes) && (which in options.classes[class_group])) ? options.classes[class_group][which] : "";
+            if((typeof(cls) == "string") && cls.length) {
+                to.push(cls);
+            }
         };
-        var cls = "";
+        var classes = [];
         if(date.toDateString() == (new Date()).toDateString()) {
-           cls = getClass("today") + " ";
+            addClass("today", classes);
         }
         var holiday = this.getHoliday(date);
         if(holiday !== false) {
-            return cls + getClass("holidays");
+            addClass("holidays", classes);
         }
         switch(date.getDay()) {
             case 0:
-               return cls + getClass("sunday");
+                addClass("sunday", classes);
+                break;
             case 6:
-               return cls + getClass("saturday");
+               addClass("saturday", classes);
+               break;
         }
-        return cls + getClass("workday");
+        return classes.join(" ");
     };
 
     Calendar.prototype.view = function(view) {
