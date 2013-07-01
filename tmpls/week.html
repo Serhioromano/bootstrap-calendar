@@ -7,7 +7,7 @@
 	<div class="cal-offset6 cal-column"></div>
 	<div class="cal-row-fluid cal-row-head">
 		<% _.each(months, function(name){  %>
-		<div class="cal-span1"><%= name %><br>
+		<div class="cal-span1 <%= cal._getdayClass('week', start) %>" rel="tooltip" data-original-title="<%= cal.getHolidayName(start) %>"><%= name %><br>
 			<small><span data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>" data-cal-view="day"><%= start.getDate() %> <%= language['ms' + start.getMonth()] %></span></small>
 		</div>
 		<% start.setDate(start.getDate() + 1); }) %>

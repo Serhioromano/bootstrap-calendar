@@ -53,6 +53,13 @@ Date.prototype.getDateFormatted = function() {
                 sunday: 'cal-day-weekend',
                 holidays: 'cal-day-holiday',
                 today: 'cal-day-today'
+            },
+            week: {
+                workday: 'cal-day-workday',
+                saturday: 'cal-day-weekend',
+                sunday: 'cal-day-weekend',
+                holidays: 'cal-day-holiday',
+                today: 'cal-day-today'
             }
         },
         holidays: {
@@ -259,48 +266,16 @@ Date.prototype.getDateFormatted = function() {
             cls = options.classes.months.outmonth;
         }
 
-        if(curdate.getDay() == 0 && (cls == options.classes.months.inmonth)) {
-            cls = options.classes.months.sunday;
-        }
-        if(curdate.getDay() == 6 && (cls == options.classes.months.inmonth)) {
-            cls = options.classes.months.saturday;
-        }
-        if(curdate.toDateString() == (new Date()).toDateString()) {
-            cls = options.classes.months.today;
-        }
+        cls = $.trim(cls + " " + this._getdayClass("months", curdate));
+        
         if(day <= 0) {
             var daysinprevmonth = (new Date(options.position.start.getFullYear(), options.position.start.getMonth(), 0)).getDate();
             day = daysinprevmonth - Math.abs(day);
             cls += ' cal-month-first-row';
         }
 
-        var holiday = false;
-        if(options.enable_easter_holidays) {
-            var easter = getEasterDate(curdate.getFullYear());
-            if(easter.getTime() == curdate.getTime()) {
-                holiday = language.easter;
-            }
-            else {
-                easter.setDate(easter.getDate() + 1);
-                if(easter.getTime() == curdate.getTime()) {
-                    holiday = language.easterMonday;
-                }
-            }
-        }
-        if(holiday === false && options.holidays) {
-            var curdate_str = curdate.getDateFormatted() + '-' + curdate.getMonthFormatted();
-            if(curdate_str in options.holidays) {
-                holiday = options.holidays[curdate_str];
-            }
-            else {
-                curdate_str += '-' + curdate.getFullYear();
-                if(curdate_str in options.holidays) {
-                    holiday = options.holidays[curdate_str];
-               }
-            }
-        }
+        var holiday = this.getHoliday(curdate);
         if(holiday !== false) {
-            cls += ' ' + options.classes.months.holidays;
             t.tooltip = holiday;
         }
 
@@ -321,6 +296,64 @@ Date.prototype.getDateFormatted = function() {
         t.events = events;
         return options.templates['month-day'](t);
     }
+
+    Calendar.prototype.getHoliday = function(date) {
+       if(options.enable_easter_holidays) {
+           var easter = getEasterDate(date.getFullYear());
+           if(easter.toDateString() == date.toDateString()) {
+               return language.easter;
+           }
+           var easterMonday = new Date();
+           easterMonday.setTime(easter.getTime());
+           easterMonday.setDate(easter.getDate() + 1);
+           if(easterMonday.toDateString() == date.toDateString()) {
+               return language.easterMonday;
+           }
+       }
+       if(options.holidays) {
+           var date_str = date.getDateFormatted() + '-' + date.getMonthFormatted();
+           if(date_str in options.holidays) {
+               return options.holidays[date_str];
+           }
+           date_str += '-' + date.getFullYear();
+           if(date_str in options.holidays) {
+               return options.holidays[date_str];
+           }
+       }
+       return false;
+    };
+
+    Calendar.prototype.getHolidayName = function(date) {
+        var holiday = this.getHoliday(date);
+        return (holiday === false) ? "" : holiday;
+    };
+
+    Calendar.prototype._getdayClass = function(class_group, date) {
+        var addClass = function(which, to) {
+            var cls;
+            cls = (options.classes && (class_group in options.classes) && (which in options.classes[class_group])) ? options.classes[class_group][which] : "";
+            if((typeof(cls) == "string") && cls.length) {
+                to.push(cls);
+            }
+        };
+        var classes = [];
+        if(date.toDateString() == (new Date()).toDateString()) {
+            addClass("today", classes);
+        }
+        var holiday = this.getHoliday(date);
+        if(holiday !== false) {
+            addClass("holidays", classes);
+        }
+        switch(date.getDay()) {
+            case 0:
+                addClass("sunday", classes);
+                break;
+            case 6:
+               addClass("saturday", classes);
+               break;
+        }
+        return classes.join(" ");
+    };
 
     Calendar.prototype.view = function(view) {
         if(view) options.view = view;
