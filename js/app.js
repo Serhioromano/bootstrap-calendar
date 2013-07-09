@@ -21,7 +21,7 @@
 			});
 		},
 		onAfterViewLoad: function(view) {
-			$('.page-header h3').text(this.title());
+			$('.page-header h3').text(this.getTitle());
 			$('.btn-group button').removeClass('active');
 			$('button[data-calendar-view="' + view + '"]').addClass('active');
 		},
@@ -49,7 +49,7 @@
 	});
 
     $('#first_day').change(function(){
-        calendar.set_options({first_day: $(this).val()});
+        calendar.setOptions({first_day: $(this).val()});
         calendar.view();
     });
 }(jQuery));
