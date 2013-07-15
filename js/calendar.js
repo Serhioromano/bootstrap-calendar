@@ -369,7 +369,7 @@ if(!String.prototype.format) {
         if(view) this.options.view = view;
 
         this._init_position.call(this);
-        this._load_url.call(this);
+        this._loadEvents.call(this);
         this._render.call(this);
 
         this.options.onAfterViewLoad.call(this, this.options.view);
@@ -500,7 +500,7 @@ if(!String.prototype.format) {
         return this.options.position.end;
     }
 
-    Calendar.prototype._load_url = function() {
+    Calendar.prototype._loadEvents = function() {
         if(!this.options.events_url) {
             $.error(language.error_loadurl);
         }
