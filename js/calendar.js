@@ -153,7 +153,7 @@ if(!String.prototype.format) {
         var end = parseInt(this.options.position.end.getTime());
 
         $.each(this.options.events, function(k, event) {
-            if((parseInt(event.start) < end) && (parseInt(event.end) > start)) {
+            if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
                 data.events.push(event);
             }
         });
@@ -184,7 +184,7 @@ if(!String.prototype.format) {
         var self = this;
 
         $.each(this.options.events, function(k, event) {
-            if((parseInt(event.start) < end) && (parseInt(event.end) > start)) {
+            if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
 
                 event.start_day = new Date(parseInt(event.start)).getDay();
                 if(self.options.first_day == 1) {
@@ -236,7 +236,7 @@ if(!String.prototype.format) {
         var events = [];
 
         $.each(this.options.events, function(k, event) {
-            if((parseInt(event.start) < end) && (parseInt(event.end) > start)) {
+            if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
                 events.push(event);
             }
         });
