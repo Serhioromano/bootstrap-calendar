@@ -5,6 +5,7 @@
 	var options = {
 		events_url: 'events.json.php',
 		view: 'month',
+		tmpl_path: '../tmpls/',
         day: '2013-03-12',
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
@@ -21,7 +22,7 @@
 			});
 		},
 		onAfterViewLoad: function(view) {
-			$('.page-header h3').text(this.getTitle());
+			$('.page-header h3').text(this.title());
 			$('.btn-group button').removeClass('active');
 			$('button[data-calendar-view="' + view + '"]').addClass('active');
 		},
@@ -49,7 +50,7 @@
 	});
 
     $('#first_day').change(function(){
-        calendar.setOptions({first_day: $(this).val()});
+        calendar.set_options({first_day: $(this).val()});
         calendar.view();
     });
 }(jQuery));
