@@ -22,7 +22,7 @@
 			});
 		},
 		onAfterViewLoad: function(view) {
-			$('.page-header h3').text(this.title());
+			$('.page-header h3').text(this.getTitle());
 			$('.btn-group button').removeClass('active');
 			$('button[data-calendar-view="' + view + '"]').addClass('active');
 		},
@@ -33,7 +33,7 @@
 		}
 	};
 
-	var calendar = $('#calendar').calendar(options);
+	var	 calendar = $('#calendar').calendar(options);
 
 	$('.btn-group button[data-calendar-nav]').each(function() {
 		var $this = $(this);
@@ -50,7 +50,7 @@
 	});
 
     $('#first_day').change(function(){
-        calendar.set_options({first_day: $(this).val()});
+        calendar.setOptions({first_day: $(this).val()});
         calendar.view();
     });
 }(jQuery));
