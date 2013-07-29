@@ -1,5 +1,5 @@
 .idea
 node_modules
-components/*
+demo/assets/*
 
 .DS_Store
