@@ -5,6 +5,7 @@
 	var options = {
 		events_url: 'events.json.php',
 		view: 'month',
+		tmpl_path: '../tmpls/',
         day: '2013-03-12',
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
@@ -32,7 +33,7 @@
 		}
 	};
 
-	var calendar = $('#calendar').calendar(options);
+	var	 calendar = $('#calendar').calendar(options);
 
 	$('.btn-group button[data-calendar-nav]').each(function() {
 		var $this = $(this);
