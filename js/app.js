@@ -5,7 +5,7 @@
 	var options = {
 		events_url: 'events.json.php',
 		view: 'month',
-		tmpl_path: '../tmpls/',
+		tmpl_path: '/tmpls/',
         day: '2013-03-12',
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
