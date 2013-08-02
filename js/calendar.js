@@ -116,8 +116,14 @@ if(!String.prototype.format) {
     };
 
     function Calendar(params, context) {
-
-        this.options = $.extend(true, {}, defaults, params);
+        
+        this.options = $.extend(true, {}, defaults);
+        if(params) {
+            if(params.holidays) {
+                delete this.options.holidays;
+            }
+            $.extend(true, this.options, params);
+        }
         this.context = context;
 
         context.css('width', this.options.width);
