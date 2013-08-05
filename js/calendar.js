@@ -70,11 +70,6 @@ if(!String.prototype.format) {
                 today: 'cal-day-today'
             }
         },
-        holidays: {
-            '08-03': 'International Women\'s Day',
-            '25-12': 'Christmas\'s',
-            '01-05': "International labor day"
-        },
         enable_easter_holidays: false, // Set to true if you want to enable Easter and Easter Monday as holidays
         views: {
             year: {

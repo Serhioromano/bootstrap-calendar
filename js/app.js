@@ -6,7 +6,12 @@
 		events_url: 'events.json.php',
 		view: 'month',
 		tmpl_path: 'tmpls/',
-        day: '2013-03-12',
+		day: '2013-03-12',
+		holidays: {
+			'08-03': 'International Women\'s Day',
+			'25-12': 'Christmas\'s',
+			'01-05': "International labor day"
+		},
 		first_day: 2,
 		onAfterEventsLoad: function(events) {
 			if(!events) {
