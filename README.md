@@ -67,7 +67,7 @@ To feed calendar with events you need to provide URL where AJAX request will be 
 
 	var calendar = $('#calendar').calendar({events_url:'/api/events.php'});
 
-It will `POST` two parameters, `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
+It will `GET` two parameters, `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
 
 	{
 		"success": 1,
