@@ -110,13 +110,23 @@ if(!String.prototype.format) {
         stop_cycling: false
     };
 
+    function buildEventsUrl(events_url, data) {
+        var separator, key, url;
+        url = events_url;
+        separator = (events_url.indexOf('?') < 0) ? '?' : '&';
+        for(key in data) {
+            url += separator + key + encodeURIComponent(data[key]);
+            separator = '&';
+        }
+        return url;
+    }
+
     function Calendar(params, context) {
 
         this.options = $.extend(true, {}, defaults, params);
         this.context = context;
 
         context.css('width', this.options.width);
-        $.ajaxSetup({dataType: 'json', type: 'post', async: false});
 
         this.view.call(this);
         return this;
@@ -502,11 +512,10 @@ if(!String.prototype.format) {
         var self = this;
         this.options.onBeforeEventsLoad(function() {
             $.ajax({
-                url: self.options.events_url,
-                data: {
-                    from: self.options.position.start.getTime(),
-                    to: self.options.position.end.getTime()
-                }
+                url: buildEventsUrl(self.options.events_url, {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()}),
+                dataType: 'json',
+                type: 'GET',
+                async: false
             }).done(function(json) {
                     if(!json.success) {
                         $.error(json.error);
@@ -524,7 +533,8 @@ if(!String.prototype.format) {
         $.ajax({
             url: this.options.tmpl_path + name + '.html',
             dataType: 'html',
-            type: 'GET'
+            type: 'GET',
+            async: false
         }).done(function(html) {
                 self.options.templates[name] = _.template(html);
             });
