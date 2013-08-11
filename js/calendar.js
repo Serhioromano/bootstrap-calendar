@@ -521,7 +521,7 @@ if(!String.prototype.format) {
                     if(!json.success) {
                         $.error(json.error);
                     }
-                    self.options.events = json.result;
+                    self.options.events = json.result || [];
                     self.options.onAfterEventsLoad(json.result);
                 });
         });
