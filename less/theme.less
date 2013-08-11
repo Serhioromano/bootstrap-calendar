@@ -1,11 +1,11 @@
-.cal-row-head [class*="cal-span"]:first-child,
-.cal-row-head [class*="cal-span"] {
+.cal-row-head [class*="cal-cell"]:first-child,
+.cal-row-head [class*="cal-cell"] {
   font-weight: bolder;
   text-align: center;
   border: 0px solid;
   padding: 5px 0;
 }
-.cal-row-head [class*="cal-span"] small {
+.cal-row-head [class*="cal-cell"] small {
   font-weight: normal;
 }
 .cal-year-box .row-fluid:hover,
@@ -15,11 +15,11 @@
 .cal-month-day {
   height: @rowHeightMonth;
 }
-[class*="cal-span"]:hover {
+[class*="cal-cell"]:hover {
   background-color: @dayHover;
 }
 .cal-year-box [class*="span"],
-.cal-month-box [class*="cal-span"] {
+.cal-month-box [class*="cal-cell"] {
   min-height: @rowHeightMonth;
   border-right: @borderSizevert @borderStyle @borderColor;
 }
@@ -27,7 +27,7 @@
   min-height: @rowHeightYear;
 }
 .cal-year-box .row-fluid [class*="span"]:last-child,
-.cal-month-box .cal-row-fluid [class*="cal-span"]:last-child {
+.cal-month-box .cal-row-fluid [class*="cal-cell"]:last-child {
   border-right: 0px;
 }
 .cal-year-box .row-fluid,
