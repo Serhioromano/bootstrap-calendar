@@ -73,10 +73,18 @@ if(!String.prototype.format) {
         enable_easter_holidays: false, // Set to true if you want to enable Easter and Easter Monday as holidays
         views: {
             year: {
-                slide_events: 1
+                slide_events: 1,
+                enable: 1
             },
             month: {
-                slide_events: 1
+                slide_events: 1,
+                enable: 1
+            },
+            week: {
+                enable: 1
+            },
+            day: {
+                enable: 1
             }
         },
 
@@ -547,12 +555,20 @@ if(!String.prototype.format) {
         $('*[rel="tooltip"]').tooltip();
 
         $('*[data-cal-date]').click(function() {
+            var view = $(this).data('cal-view');
+            if(!self.options.views[view].enable) {
+                return;
+            }
             self.options.day = $(this).data('cal-date');
-            self.view($(this).data('cal-view'));
+            self.view(view);
         });
         $('.cal-cell').dblclick(function() {
+            var view = $('[data-cal-date]', this).data('cal-view');
+            if(!self.options.views[view].enable) {
+                return;
+            }
             self.options.day = $('[data-cal-date]', this).data('cal-date');
-            self.view($('[data-cal-date]', this).data('cal-view'));
+            self.view(view);
         });
 
         this['_update_' + this.options.view]();
