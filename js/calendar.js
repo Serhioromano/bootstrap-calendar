@@ -116,6 +116,7 @@ if(!String.prototype.format) {
         separator = (events_url.indexOf('?') < 0) ? '?' : '&';
         for(key in data) {
             url += separator + key + encodeURIComponent(data[key]);
+            url += separator + key + '=' + encodeURIComponent(data[key]);
             separator = '&';
         }
         return url;
