@@ -115,7 +115,6 @@ if(!String.prototype.format) {
         url = events_url;
         separator = (events_url.indexOf('?') < 0) ? '?' : '&';
         for(key in data) {
-            url += separator + key + encodeURIComponent(data[key]);
             url += separator + key + '=' + encodeURIComponent(data[key]);
             separator = '&';
         }
@@ -578,7 +577,7 @@ if(!String.prototype.format) {
         $('.cal-month-box .cal-row-fluid').each(function(k, v) {
             var row = $(v);
             row.bind('mouseenter',function() {
-                var child = $('.cal-span1:first-child .cal-month-day', row);
+                var child = $('.cal-cell1:first-child .cal-month-day', row);
                 var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-date]', child).text());
                 day = (day < 10 ? '0' + day : day);
                 week.attr('data-cal-week', start + day).show().appendTo(child);
@@ -595,10 +594,10 @@ if(!String.prototype.format) {
         });
 
         $('a.event').mouseenter(function() {
-            $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
+            $('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
         });
         $('a.event').mouseleave(function() {
-            $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+            $('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
         });
 
     };
@@ -654,10 +653,10 @@ if(!String.prototype.format) {
                 });
 
             $('a.event-item').mouseenter(function() {
-                $('a.event' + $(this).data('event-id')).parents('.cal-span1').addClass('day-highlight dh-' + $(this).data('event-class'));
+                $('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
             });
             $('a.event-item').mouseleave(function() {
-                $('div.cal-span1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+                $('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
             });
         });
     };
