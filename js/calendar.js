@@ -201,6 +201,14 @@ if(!String.prototype.format) {
         $.extend(this.options, object);
     }
 
+    Calendar.prototype.setLanguage = function(lang) {
+        if(window.calendar_languages && (lang in window.calendar_languages)) {
+            this.strings = $.extend(true, {}, strings, calendar_languages[lang]);
+        } else {
+            this.strings = strings;
+        }
+    }
+
     Calendar.prototype._render = function() {
         this.context.html('');
         this._loadTemplate(this.options.view);

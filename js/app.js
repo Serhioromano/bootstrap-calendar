@@ -58,8 +58,9 @@
         calendar.setOptions({first_day: $(this).val()});
         calendar.view();
     });
+
     $('#language').change(function(){
-        calendar.setOptions({language: $(this).val()});
+        calendar.setLanguage($(this).val());
         calendar.view();
     });
 }(jQuery));
