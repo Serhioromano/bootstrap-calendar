@@ -1,4 +1,7 @@
-var language = {
+if(!window.calendar_languages) {
+	window.calendar_languages = {};
+}
+window.calendar_languages['es-ES'] = {
 	error_noview: 'Calendario: Vista {0} no encontrada',
 	error_dateformat: 'Calendario: Formato de fecha inv&aacute;lido {0}. Debe ser "now" o "yyyy-mm-dd"',
 	error_loadurl: 'Calendario: URL de carga de eventos no configurada',
