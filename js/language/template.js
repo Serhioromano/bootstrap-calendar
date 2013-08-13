@@ -1,4 +1,7 @@
-var language = {
+if(!window.calendar_languages) {
+	window.calendar_languages = {};
+}
+window.calendar_languages['en-GB'] = {
 	error_noview: 'Calendar: View {0} not found',
 	error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
 	error_loadurl: 'Calendar: Events load URL is not set',

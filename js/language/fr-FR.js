@@ -1,4 +1,7 @@
-var language = {
+if(!window.calendar_languages) {
+	window.calendar_languages = {};
+}
+window.calendar_languages['fr-FR'] = {
   error_noview: 'Calendrier: Vue {0} introuvable',
 	error_dateformat: 'Calendrier: Format de date incorrect {0}. Formats acceptés : "now" ou "yyyy-mm-dd"',
 	error_loadurl: 'Calendrier: Events load URL is not set',

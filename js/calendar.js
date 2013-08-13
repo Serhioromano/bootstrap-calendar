@@ -118,6 +118,57 @@ if(!String.prototype.format) {
         stop_cycling: false
     };
 
+    var strings = {
+        error_noview: 'Calendar: View {0} not found',
+        error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
+        error_loadurl: 'Calendar: Events load URL is not set',
+        error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
+
+        title_year: 'Year {0}',
+        title_month: '{0} year {1}',
+        title_week: '{0} week of year {1}',
+        title_day: '{0} {1} {2} year {3}',
+
+        week:'Week',
+
+        m0: 'January',
+        m1: 'February',
+        m2: 'March',
+        m3: 'April',
+        m4: 'May',
+        m5: 'June',
+        m6: 'July',
+        m7: 'August',
+        m8: 'September',
+        m9: 'October',
+        m10: 'November',
+        m11: 'December',
+
+        ms0: 'Jan',
+        ms1: 'Feb',
+        ms2: 'Mar',
+        ms3: 'Apr',
+        ms4: 'May',
+        ms5: 'Jun',
+        ms6: 'Jul',
+        ms7: 'Aug',
+        ms8: 'Sep',
+        ms9: 'Oct',
+        ms10: 'Nov',
+        ms11: 'Dec',
+
+        d0: 'Sunday',
+        d1: 'Monday',
+        d2: 'Tuesday',
+        d3: 'Wednesday',
+        d4: 'Thursday',
+        d5: 'Friday',
+        d6: 'Saturday',
+
+        easter: 'Easter',
+        easterMonday: 'Easter Monday'
+    };
+
     function buildEventsUrl(events_url, data) {
         var separator, key, url;
         url = events_url;
@@ -132,6 +183,12 @@ if(!String.prototype.format) {
     function Calendar(params, context) {
 
         this.options = $.extend(true, {}, defaults, params);
+        if(this.options.language && window.calendar_languages && (this.options.language in window.calendar_languages)) {
+            this.strings = $.extend(true, {}, strings, calendar_languages[this.options.language]);
+        }
+        else {
+            this.strings = strings;
+        }
         this.context = context;
 
         context.css('width', this.options.width);
@@ -156,9 +213,9 @@ if(!String.prototype.format) {
 
         // Getting list of days in a week in correct order. Works for month and week views
         if(this.options.first_day == 1) {
-            data.months = [language.d1, language.d2, language.d3, language.d4, language.d5, language.d6, language.d0]
+            data.months = [this.strings.d1, this.strings.d2, this.strings.d3, this.strings.d4, this.strings.d5, this.strings.d6, this.strings.d0]
         } else {
-            data.months = [language.d0, language.d1, language.d2, language.d3, language.d4, language.d5, language.d6]
+            data.months = [this.strings.d0, this.strings.d1, this.strings.d2, this.strings.d3, this.strings.d4, this.strings.d5, this.strings.d6]
         }
 
         // Get all events between start and end
@@ -181,7 +238,7 @@ if(!String.prototype.format) {
         }
 
         data.start = new Date(this.options.position.start.getTime());
-        data.lang = language;
+        data.lang = this.strings;
 
         this.context.append(this.options.templates[this.options.view](data));
         this._update();
@@ -241,7 +298,7 @@ if(!String.prototype.format) {
         var t = {};
         var newmonth = month + 1;
         t.data_day = this.options.position.start.getFullYear() + '-' + (newmonth < 10 ? '0' + newmonth : newmonth) + '-' + '01';
-        t.month_name = language['m' + month];
+        t.month_name = this.strings['m' + month];
 
         var curdate = new Date(this.options.position.start.getFullYear(), month, 1, 0, 0, 0);
         var start = parseInt(curdate.getTime());
@@ -323,13 +380,13 @@ if(!String.prototype.format) {
        if(this.options.enable_easter_holidays) {
            var easter = getEasterDate(date.getFullYear());
            if(easter.toDateString() == date.toDateString()) {
-               return language.easter;
+               return this.strings.easter;
            }
            var easterMonday = new Date();
            easterMonday.setTime(easter.getTime());
            easterMonday.setDate(easter.getDate() + 1);
            if(easterMonday.toDateString() == date.toDateString()) {
-               return language.easterMonday;
+               return this.strings.easterMonday;
            }
        }
        if(this.options.holidays) {
@@ -425,7 +482,7 @@ if(!String.prototype.format) {
             to.start.setTime(new Date().getTime());
         }
         else {
-            $.error(language.error_where.format(where))
+            $.error(this.strings.error_where.format(where))
         }
         this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
         this.view.call(this);
@@ -449,7 +506,7 @@ if(!String.prototype.format) {
             day = list[2];
         }
         else {
-            $.error(language.error_dateformat.format(this.options.day));
+            $.error(this.strings.error_dateformat.format(this.options.day));
         }
 
         switch(this.options.view) {
@@ -475,7 +532,7 @@ if(!String.prototype.format) {
                 this.options.position.end.setTime(new Date(year, month, last, 23, 59, 59).getTime());
                 break;
             default:
-                $.error(language.error_noview.format(this.options.view))
+                $.error(this.strings.error_noview.format(this.options.view))
         }
         return this;
     };
@@ -484,16 +541,16 @@ if(!String.prototype.format) {
         var p = this.options.position.start;
         switch(this.options.view) {
             case 'year':
-                return language.title_year.format(p.getFullYear());
+                return this.strings.title_year.format(p.getFullYear());
                 break;
             case 'month':
-                return language.title_month.format(language['m' + p.getMonth()], p.getFullYear());
+                return this.strings.title_month.format(this.strings['m' + p.getMonth()], p.getFullYear());
                 break;
             case 'week':
-                return language.title_week.format(p.getWeek(), p.getFullYear());
+                return this.strings.title_week.format(p.getWeek(), p.getFullYear());
                 break;
             case 'day':
-                return language.title_day.format(language['d' + p.getDay()], p.getDate(), language['m' + p.getMonth()], p.getFullYear());
+                return this.strings.title_day.format(this.strings['d' + p.getDay()], p.getDate(), this.strings['m' + p.getMonth()], p.getFullYear());
                 break;
         }
         return;
@@ -515,7 +572,7 @@ if(!String.prototype.format) {
 
     Calendar.prototype._loadEvents = function() {
         if(!this.options.events_url) {
-            $.error(language.error_loadurl);
+            $.error(this.strings.error_loadurl);
         }
         var self = this;
         this.options.onBeforeEventsLoad(function() {
@@ -588,7 +645,7 @@ if(!String.prototype.format) {
         this._update_month_year();
 
         var week = $(document.createElement('div')).attr('id', 'cal-week-box');
-        week.html(language.week);
+        week.html(this.strings.week);
         var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
         $('.cal-month-box .cal-row-fluid').each(function(k, v) {
             var row = $(v);
