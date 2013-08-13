@@ -50,7 +50,6 @@ Of course you have to include bootstrap. And calendar. Here is the minimum setup
 
 		<script type="text/javascript" src="js/vendor/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
-		<script type="text/javascript" src="js/language/en-GB.js"></script>
 		<script type="text/javascript" src="js/calendar.js"></script>
 		<script type="text/javascript">
 			var calendar = $('#calendar').calendar();
@@ -59,7 +58,19 @@ Of course you have to include bootstrap. And calendar. Here is the minimum setup
 	</html>
 
 Bootstrap Calendar depends on [jQuery](http://jquery.com/) and [underscore.js](http://underscorejs.org/) used as template engine.
-For calendar you only have to include `calendar.css` and `calendar.js` and calendar language `en-GB.js` file.
+For calendar you only have to include the `calendar.css` and `calendar.js` files.
+If you want to localize Calendar, it's enough to add this line before including canledar.js:
+
+	<script type="text/javascript" src="js/language/xx-XX.js"></script>
+
+Where xx-XX is the language code. When you initialize the calendar, you have to specify this language code:
+
+	<script type="text/javascript">
+		var calendar = $('#calendar').calendar({language: 'xx-XX'});
+	</script>
+
+
+
 
 ### Feed with events
 
