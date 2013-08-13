@@ -63,7 +63,12 @@ If you want to localize Calendar, it's enough to add this line before including 
 
 	<script type="text/javascript" src="js/language/xx-XX.js"></script>
 
-Where xx-XX is the language code.
+Where xx-XX is the language code. When you initialize the calendar, you have to specify this language code:
+
+	<script type="text/javascript">
+		var calendar = $('#calendar').calendar({language: 'xx-XX'});
+	</script>
+
 
 
 
