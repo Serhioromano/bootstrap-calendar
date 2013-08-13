@@ -183,12 +183,7 @@ if(!String.prototype.format) {
     function Calendar(params, context) {
 
         this.options = $.extend(true, {}, defaults, params);
-        if(this.options.language && window.calendar_languages && (this.options.language in window.calendar_languages)) {
-            this.strings = $.extend(true, {}, strings, calendar_languages[this.options.language]);
-        }
-        else {
-            this.strings = strings;
-        }
+        this.setLanguage(this.options.language);
         this.context = context;
 
         context.css('width', this.options.width);
@@ -199,13 +194,18 @@ if(!String.prototype.format) {
 
     Calendar.prototype.setOptions = function(object) {
         $.extend(this.options, object);
+        if('language' in object) {
+            this.setLanguage(object.language);
+        }
     }
 
     Calendar.prototype.setLanguage = function(lang) {
         if(window.calendar_languages && (lang in window.calendar_languages)) {
             this.strings = $.extend(true, {}, strings, calendar_languages[lang]);
+            this.options.language = lang;
         } else {
             this.strings = strings;
+            delete this.options.language;
         }
     }
 
