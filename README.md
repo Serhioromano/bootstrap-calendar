@@ -1,8 +1,6 @@
 Bootstrap Calendar
 ===
 
-> Attention! This project is not yet released. If you found it in search engine note it is not yet ready to be used. Please check back later.
-
 Full view calendar based on Twitter Bootstrap. Please try [demo](http://bootstrap-calendar.azurewebsites.net). You gonna like it.
 
 ![Bootstrap full calendar](http://serhioromano.s3.amazonaws.com/github/bs-calendar.png)
