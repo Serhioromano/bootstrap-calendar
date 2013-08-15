@@ -201,6 +201,9 @@
   left: 0;
   overflow: hidden;
 }
+#cal-slide-content ul.unstyled {
+  margin-bottom: 0;
+}
 .event {
   display: block;
   background-color: #c3c3c3;
