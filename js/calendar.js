@@ -450,7 +450,7 @@ if(!String.prototype.format) {
         this._loadEvents();
         this._render();
 
-        this.options.onAfterViewLoad(this.options.view);
+        this.options.onAfterViewLoad.call(this, this.options.view);
     };
 
     Calendar.prototype.navigate = function(where, next) {
