@@ -188,7 +188,7 @@ if(!String.prototype.format) {
 
         context.css('width', this.options.width);
 
-        this.view.call(this);
+        this.view();
         return this;
     }
 
@@ -446,11 +446,11 @@ if(!String.prototype.format) {
     Calendar.prototype.view = function(view) {
         if(view) this.options.view = view;
 
-        this._init_position.call(this);
-        this._loadEvents.call(this);
-        this._render.call(this);
+        this._init_position();
+        this._loadEvents();
+        this._render();
 
-        this.options.onAfterViewLoad.call(this, this.options.view);
+        this.options.onAfterViewLoad(this.options.view);
     };
 
     Calendar.prototype.navigate = function(where, next) {
@@ -493,7 +493,7 @@ if(!String.prototype.format) {
             $.error(this.strings.error_where.format(where))
         }
         this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
-        this.view.call(this);
+        this.view();
         if(_.isFunction(next)) {
             next();
         }
