@@ -94,11 +94,14 @@ if(!String.prototype.format) {
         // those to affect you UI
         // ------------------------------------------------------------
         onAfterEventsLoad: function(events) {
+            // Inside this function 'this' is the calendar instance
         },
         onBeforeEventsLoad: function(next) {
+            // Inside this function 'this' is the calendar instance
             next();
         },
-        onAfterViewLoad: function(calendar, view) {
+        onAfterViewLoad: function(view) {
+            // Inside this function 'this' is the calendar instance
         },
 
         // -------------------------------------------------------------
@@ -583,7 +586,7 @@ if(!String.prototype.format) {
             $.error(this.strings.error_loadurl);
         }
         var self = this;
-        this.options.onBeforeEventsLoad(function() {
+        this.options.onBeforeEventsLoad.call(this, function() {
             $.ajax({
                 url: buildEventsUrl(self.options.events_url, {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()}),
                 dataType: 'json',
@@ -594,7 +597,7 @@ if(!String.prototype.format) {
                         $.error(json.error);
                     }
                     self.options.events = json.result || [];
-                    self.options.onAfterEventsLoad(json.result);
+                    self.options.onAfterEventsLoad.call(self, json.result);
                 });
         });
     };
