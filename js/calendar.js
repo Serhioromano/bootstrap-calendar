@@ -299,6 +299,7 @@ if(!String.prototype.format) {
             }
         });
         t.events = events;
+        t.cal = this;
         return self.options.templates['week-days'](t);
 
     }
