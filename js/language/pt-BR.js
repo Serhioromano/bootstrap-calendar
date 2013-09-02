@@ -49,5 +49,8 @@ window.calendar_languages['pt-BR'] = {
 	d6: 'Sábado',
 
 	easter: 'Easter',
-	easterMonday: 'Easter Monday'
+	easterMonday: 'Easter Monday',
+
+	enable_easter_holidays: true,
+	first_day: 2
 };

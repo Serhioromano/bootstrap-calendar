@@ -49,5 +49,8 @@ window.calendar_languages['pl-PL'] = {
 	d6: 'Sobota',
 
 	easter: 'Wielkanoc',
-	easterMonday: 'Poniedziałek wielkanocny'
+	easterMonday: 'Poniedziałek wielkanocny',
+
+	enable_easter_holidays: true,
+	first_day: 1
 };
