@@ -119,6 +119,11 @@ if(!String.prototype.format) {
         stop_cycling: false
     };
 
+    var defaults_extended = {
+        first_day: 2,       // Which day is first 2 - sunday or 1 - monday
+        enable_easter_holidays: false, // Set to true if you want to enable Easter and Easter Monday as holidays
+    };
+
     var locale = {
         error_noview: 'Calendar: View {0} not found',
         error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
@@ -167,10 +172,7 @@ if(!String.prototype.format) {
         d6: 'Saturday',
 
         easter: 'Easter',
-        easterMonday: 'Easter Monday',
-        
-        enable_easter_holidays: false, // Set to true if you want to enable Easter and Easter Monday as holidays
-        first_day: 2 // Which day is first 2 - sunday or 1 - monday
+        easterMonday: 'Easter Monday'
     };
 
     function buildEventsUrl(events_url, data) {
@@ -182,6 +184,16 @@ if(!String.prototype.format) {
             separator = '&';
         }
         return url;
+    }
+
+    function getExtentedOption(cal, option_name) {
+        if(cal.options[option_name] != null) {
+            return cal.options[option_name];
+        }
+        if(cal.locale[option_name] != null) {
+            return cal.locale[option_name];
+        }
+        return defaults_extended[option_name];
     }
 
     function Calendar(params, context) {
@@ -224,7 +236,7 @@ if(!String.prototype.format) {
         data.day = 1;
 
         // Getting list of days in a week in correct order. Works for month and week views
-        if(this.locale.first_day == 1) {
+        if(getExtentedOption(this, 'first_day') == 1) {
             data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
         } else {
             data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
@@ -264,12 +276,13 @@ if(!String.prototype.format) {
         var end = parseInt(this.options.position.end.getTime());
         var events = [];
         var self = this;
+        var first_day = getExtentedOption(this, 'first_day');
 
         $.each(this.options.events, function(k, event) {
             if((parseInt(event.start) <= end) && (parseInt(event.end) >= start)) {
 
                 event.start_day = new Date(parseInt(event.start)).getDay();
-                if(self.locale.first_day == 1) {
+                if(first_day == 1) {
                     event.start_day = event.start_day - 1;
                 }
                 if(self.options.start_day < 0) {
@@ -293,9 +306,6 @@ if(!String.prototype.format) {
                     event.days = 7 - (event.start_day);
                 }
 
-                if(self.locale.first_day == 1) {
-
-                }
                 events.push(event);
             }
         });
@@ -335,7 +345,7 @@ if(!String.prototype.format) {
         var cls = this.options.classes.months.outmonth;
 
         var firstday = this.options.position.start.getDay();
-        if(this.locale.first_day == 2) {
+        if(getExtentedOption(this, 'first_day') == 2) {
             firstday++;
         } else {
             firstday = (firstday == 0 ? 7 : firstday);
@@ -390,7 +400,7 @@ if(!String.prototype.format) {
     }
 
     Calendar.prototype._getHoliday = function(date) {
-       if(this.locale.enable_easter_holidays) {
+       if(getExtentedOption(this, 'enable_easter_holidays')) {
            var easter = getEasterDate(date.getFullYear());
            if(easter.toDateString() == date.toDateString()) {
                return this.locale.easter;
@@ -538,7 +548,7 @@ if(!String.prototype.format) {
             case 'week':
                 var curr = new Date(year, month, day);
                 var first = curr.getDate() - curr.getDay();
-                if(this.locale.first_day == 1) first += 1;
+                if(getExtentedOption(this, 'first_day') == 1) first += 1;
                 var last = first + 6;
 
                 this.options.position.start.setTime(new Date(year, month, first).getTime());

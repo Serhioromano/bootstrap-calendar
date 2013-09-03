@@ -53,6 +53,14 @@
 		});
 	});
 
+
+   $('#first_day').change(function(){
+       var value = $(this).val();
+       value = value.length ? parseInt(value) : null;
+       calendar.setOptions({first_day: value});
+       calendar.view();
+   });
+
     $('#language').change(function(){
         calendar.setLanguage($(this).val());
         calendar.view();
