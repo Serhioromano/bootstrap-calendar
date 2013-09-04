@@ -269,10 +269,7 @@ if(!String.prototype.format) {
 
                 event.start_day = new Date(parseInt(event.start)).getDay();
                 if(self.options.first_day == 1) {
-                    event.start_day = event.start_day - 1;
-                }
-                if(self.options.start_day < 0) {
-                    event.start_day = 0;
+                    event.start_day = (event.start_day + 6) % 7;
                 }
                 if((event.end - event.start) <= 86400000) {
                     event.days = 1;
