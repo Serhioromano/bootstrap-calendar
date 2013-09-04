@@ -49,5 +49,8 @@ window.calendar_languages['es-ES'] = {
 	d6: 'S&aacute;bado',
 
 	easter: 'Pascuas',
-	easterMonday: 'Lunes de Pascuas'
+	easterMonday: 'Lunes de Pascuas',
+	
+	enable_easter_holidays: true,
+	first_day: 1
 };

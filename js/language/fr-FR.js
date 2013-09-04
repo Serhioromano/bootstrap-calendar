@@ -46,5 +46,8 @@ window.calendar_languages['fr-FR'] = {
 	d3: 'Mercredi',
 	d4: 'Jeudi',
 	d5: 'Vendredi',
-	d6: 'Samedi'
+	d6: 'Samedi',
+	
+	enable_easter_holidays: true,
+	first_day: 1
 };
