@@ -1,7 +1,7 @@
 if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
-window.calendar_languages['es-ES'] = {
+window.calendar_languages['el-EL'] = {
 	error_noview: 'Ημερολόγιο: Η προβολή {0} δεν βρέθηκε',
 	error_dateformat: 'Ημερολόγιο: Η μορφή της ημερομηνίας {0} δεν είναι έγκυρη. Παρακαλώ χρησιμοποιήστε "now" ή "yyyy-mm-dd"',
 	error_loadurl: 'Ημερολόγιο: Η διεύθυνση λήψης των event δεν έχει καθοριστεί',
