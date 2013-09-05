@@ -53,6 +53,7 @@ if(!String.prototype.format) {
          * http://localhost/component/bootstrap-calendar/tmpls/
          */
         tmpl_path: 'tmpls/',
+        tmpl_cache: true,
         classes: {
             months: {
                 inmonth: 'cal-day-inmonth',
@@ -612,6 +613,8 @@ if(!String.prototype.format) {
             dataType: 'html',
             type: 'GET',
             async: false
+            async: false,
+            cache: this.options.tmpl_cache
         }).done(function(html) {
                 self.options.templates[name] = _.template(html);
             });
