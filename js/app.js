@@ -6,6 +6,7 @@
 		events_url: 'events.json.php',
 		view: 'month',
 		tmpl_path: 'tmpls/',
+		tmpl_cache: false,
 		day: '2013-03-12',
 		holidays: {
 			'08-03': 'International Women\'s Day',

@@ -53,6 +53,7 @@ if(!String.prototype.format) {
          * http://localhost/component/bootstrap-calendar/tmpls/
          */
         tmpl_path: 'tmpls/',
+        tmpl_cache: true,
         classes: {
             months: {
                 inmonth: 'cal-day-inmonth',
@@ -124,13 +125,13 @@ if(!String.prototype.format) {
     var strings = {
         error_noview: 'Calendar: View {0} not found',
         error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
-        error_loadurl: 'Calendar: Event URL is not set',
+        error_loadurl: 'Calendar: Events load URL is not set',
         error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
-        title_year: '{0}',
-        title_month: '{0} {1}',
-        title_week: 'Week {0} of {1}',
-        title_day: '{0} {2} {1}, {3}',
+        title_year: 'Year {0}',
+        title_month: '{0} year {1}',
+        title_week: '{0} week of year {1}',
+        title_day: '{0} {1} {2} year {3}',
 
         week:'Week',
 
@@ -269,7 +270,10 @@ if(!String.prototype.format) {
 
                 event.start_day = new Date(parseInt(event.start)).getDay();
                 if(self.options.first_day == 1) {
-                    event.start_day = (event.start_day + 6) % 7;
+                    event.start_day = event.start_day - 1;
+                }
+                if(self.options.start_day < 0) {
+                    event.start_day = 0;
                 }
                 if((event.end - event.start) <= 86400000) {
                     event.days = 1;
@@ -608,7 +612,8 @@ if(!String.prototype.format) {
             url: this.options.tmpl_path + name + '.html',
             dataType: 'html',
             type: 'GET',
-            async: false
+            async: false,
+            cache: this.options.tmpl_cache
         }).done(function(html) {
                 self.options.templates[name] = _.template(html);
             });
@@ -618,7 +623,7 @@ if(!String.prototype.format) {
     Calendar.prototype._update = function() {
         var self = this;
 
-        $('*[rel="tooltip"]').tooltip();
+        $('*[data-toggle="tooltip"]').tooltip({container: 'body'});
 
         $('*[data-cal-date]').click(function() {
             var view = $(this).data('cal-view');
