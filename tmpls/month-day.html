@@ -3,7 +3,7 @@
 	<% if (events.length > 0) {%>
 		<div class="events-list">
 			<% _.each(events, function(event){ %>
-			<a href="<%= event.url %>" data-event-id="<%= event.id %>" data-event-class="<%= event.class %>"
+			<a href="<% if (event.url.length > 0) {%><%= event.url %><% } else { %>#<% } %>" data-event-id="<%= event.id %>" data-event-class="<%= event.class %>"
 			   class="pull-left event <%= event.class %> event<%= event.id %>" data-toggle="tooltip"
 			   title="<%= event.title %>" data-event-start="<%= event.start %>" data-event-end="<%= event.end %>"></a>
 			<% }); %>
