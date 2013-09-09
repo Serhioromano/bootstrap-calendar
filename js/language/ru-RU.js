@@ -7,10 +7,10 @@ window.calendar_languages['ru-RU'] = {
 	error_loadurl: 'Календарь: не назначен URL для загрузки событий.',
 	error_where: 'Календарь: неправильная навигация {0}. Можно только "next", "prev" или "today"',
 
-	title_year: 'Год {0}',
-	title_month: '{0} год {1}',
+	title_year: '{0}',
+	title_month: '{0} {1}',
 	title_week: '{0} неделя года {1}',
-	title_day: '{0} {1} {2} год {3}',
+	title_day: '{0}, {1} {2} {3}',
 
 	week:'Неделя',
 
