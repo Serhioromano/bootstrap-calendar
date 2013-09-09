@@ -93,7 +93,7 @@ It will `GET` two parameters, `from` and `to`, which will tell you what period i
 		]
 	}
 
-See `events.json.php` file for more details. `start` and `end` contain dates when event starts and ends in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change color of your event indicators.
+See `events.json.php` file for more details. `start` and `end` contain dates when event starts (inclusive) and ends (exclusive) in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change color of your event indicators.
 
 Note that `start` and `end` dates are in milliseconds, thus you need to divide it by 1000 to get seconds. PHP example.
 
