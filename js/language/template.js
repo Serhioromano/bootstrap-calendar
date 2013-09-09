@@ -7,10 +7,10 @@ window.calendar_languages['en-GB'] = {
 	error_loadurl: 'Calendar: Events load URL is not set',
 	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
-	title_year: 'Year {0}',
-	title_month: '{0} year {1}',
-	title_week: '{0} week of year {1}',
-	title_day: '{0} {1} {2} year {3}',
+	title_year: 'Year {0}', // 0 - yeas as YYYY
+	title_month: '{0} year {1}', // 0 - fil month name, 1 year YYYY
+	title_week: '{0} week of year {1}', // 0 - number of week in the year, 1 - year YYYY
+	title_day: '{0} {1} {2} year {3}', // 0 - day of the week like monday, tuesday, 1 - day of month 1, 23, 2 - Month name, 3 - year YYYY
 
 	week:'Week',
 
