@@ -345,12 +345,13 @@ if(!String.prototype.format) {
             cls = this.options.classes.months.inmonth;
         }
         // stop cycling table rows;
-        if((day + 1) > this.options.position.end.getDate()) {
+        var daysinmonth = (new Date(this.options.position.end.getTime() - 1)).getDate();
+        if((day + 1) > daysinmonth) {
             this.stop_cycling = true;
         }
         // if day of the next month
-        if(day > this.options.position.end.getDate()) {
-            day = day - this.options.position.end.getDate();
+        if(day > daysinmonth) {
+            day = day - daysinmonth;
             cls = this.options.classes.months.outmonth;
         }
 
@@ -521,24 +522,22 @@ if(!String.prototype.format) {
         switch(this.options.view) {
             case 'year':
                 this.options.position.start.setTime(new Date(year, 0, 1).getTime());
-                this.options.position.end.setTime(new Date(year, 12, 0, 23, 59, 59).getTime());
+                this.options.position.end.setTime(new Date(year + 1, 0, 1).getTime());
                 break;
             case 'month':
                 this.options.position.start.setTime(new Date(year, month, 1).getTime());
-                this.options.position.end.setTime(new Date(year, month + 1, 0, 23, 59, 59).getTime());
+                this.options.position.end.setTime(new Date(year, month + 1, 1).getTime());
                 break;
             case 'day':
                 this.options.position.start.setTime(new Date(year, month, day).getTime());
-                this.options.position.end.setTime(new Date(year, month, day, 23, 59, 59).getTime());
+                this.options.position.end.setTime(new Date(year, month, day + 1).getTime());
                 break;
             case 'week':
                 var curr = new Date(year, month, day);
                 var first = curr.getDate() - curr.getDay();
                 if(this.options.first_day == 1) first += 1;
-                var last = first + 6;
-
                 this.options.position.start.setTime(new Date(year, month, first).getTime());
-                this.options.position.end.setTime(new Date(year, month, last, 23, 59, 59).getTime());
+                this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
                 break;
             default:
                 $.error(this.strings.error_noview.format(this.options.view))
