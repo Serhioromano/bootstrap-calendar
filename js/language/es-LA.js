@@ -40,7 +40,7 @@ window.calendar_languages['es-LA'] = {
     ms10: 'Nov',
     ms11: 'Dic',
 
-    d0: 'Domino',
+    d0: 'Domingo',
     d1: 'Lunes',
     d2: 'Martes',
     d3: 'Mi&eacute;rcoles',
