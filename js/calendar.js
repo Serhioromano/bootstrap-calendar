@@ -201,7 +201,7 @@ if(!String.prototype.format) {
 	Calendar.prototype.setLanguage = function(lang) {
 		if(window.calendar_languages && (lang in window.calendar_languages)) {
 			this.strings = $.extend(true, {}, strings, calendar_languages[lang]);
-				this.options.language = lang;
+			this.options.language = lang;
 		} else {
 			this.strings = strings;
 			delete this.options.language;
