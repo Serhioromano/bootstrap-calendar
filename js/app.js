@@ -13,7 +13,6 @@
 			'25-12': 'Christmas\'s',
 			'01-05': "International labor day"
 		},
-		first_day: 2,
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
@@ -56,7 +55,9 @@
 	});
 
     $('#first_day').change(function(){
-        calendar.setOptions({first_day: $(this).val()});
+        var value = $(this).val();
+        value = value.length ? parseInt(value) : null;
+        calendar.setOptions({first_day: value});
         calendar.view();
     });
 
