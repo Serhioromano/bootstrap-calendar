@@ -3,8 +3,8 @@
 	<small class="cal-events-num badge badge-important pull-left"><%= events.length %></small>
 	<div class="hide events-list">
 		<% _.each(events, function(event){ %>
-			<a href="<%= event.url %>" data-event-id="<%= event.id %>" data-event-class="<%= event.class %>"
-			   class="pull-left event <%= event.class %> event<%= event.id %>" data-toggle="tooltip"
+			<a href="<%= event.url %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>"
+			   class="pull-left event <%= event['class'] %> event<%= event.id %>" data-toggle="tooltip"
 			   title="<%= event.title %>" data-event-start="<%= event.start %>" data-event-end="<%= event.end %>"></a>
 		<% }); %>
 	</div>
