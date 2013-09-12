@@ -1,7 +1,7 @@
 if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
-window.calendar_languages['es-LA'] = {
+window.calendar_languages['es-MX'] = {
 	error_noview: 'Calendar: Vista {0} no encontrada',
 	error_dateformat: 'Calendar: Formato de Fecha Inv&aacute;lido {0}. Debe ser "now" o con el formato "yyyy-mm-dd"',
 	error_loadurl: 'Calendar: URL de datos no definida',
@@ -51,6 +51,6 @@ window.calendar_languages['es-LA'] = {
 	easter: 'Pascuas',
 	easterMonday: 'Lunes de Pascuas',
 
-	enable_easter_holidays: true,
-	first_day: 1
+	enable_easter_holidays: false,
+	first_day: 2
 };
