@@ -39,8 +39,6 @@ if(!String.prototype.format) {
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
-		// Which day is first (2 for sunday, 1 for monday)
-		first_day: 1,
 		// URL to return JSON list of events in special format.
 		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
 		// events: [...] as described in events property description
@@ -69,8 +67,6 @@ if(!String.prototype.format) {
 				today: 'cal-day-today'
 			}
 		},
-		// Set to true if you want to enable Easter and Easter Monday as holidays
-		enable_easter_holidays: false,
 		views: {
 			year: {
 				slide_events: 1,
@@ -116,6 +112,11 @@ if(!String.prototype.format) {
 			day: ''
 		},
 		stop_cycling: false
+	};
+
+	var defaults_extended = {
+		first_day: 2,
+		enable_easter_holidays: false
 	};
 
 	var strings = {
@@ -180,6 +181,16 @@ if(!String.prototype.format) {
 		return url;
 	}
 
+	function getExtentedOption(cal, option_name) {
+		if(cal.options[option_name] != null) {
+			return cal.options[option_name];
+		}
+		if(cal.locale[option_name] != null) {
+			return cal.locale[option_name];
+		}
+		return defaults_extended[option_name];
+	}
+
 	function Calendar(params, context) {
 		this.options = $.extend(true, {}, defaults, params);
 		this.setLanguage(this.options.language);
@@ -200,10 +211,10 @@ if(!String.prototype.format) {
 
 	Calendar.prototype.setLanguage = function(lang) {
 		if(window.calendar_languages && (lang in window.calendar_languages)) {
-			this.strings = $.extend(true, {}, strings, calendar_languages[lang]);
+			this.locale = $.extend(true, {}, strings, calendar_languages[lang]);
 			this.options.language = lang;
 		} else {
-			this.strings = strings;
+			this.locale = strings;
 			delete this.options.language;
 		}
 	}
@@ -219,10 +230,10 @@ if(!String.prototype.format) {
 		data.day = 1;
 
 		// Getting list of days in a week in correct order. Works for month and week views
-		if(this.options.first_day == 1) {
-			data.months = [this.strings.d1, this.strings.d2, this.strings.d3, this.strings.d4, this.strings.d5, this.strings.d6, this.strings.d0]
+		if(getExtentedOption(this, 'first_day') == 1) {
+			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
 		} else {
-			data.months = [this.strings.d0, this.strings.d1, this.strings.d2, this.strings.d3, this.strings.d4, this.strings.d5, this.strings.d6]
+			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
 		}
 
 		// Get all events between start and end
@@ -245,7 +256,7 @@ if(!String.prototype.format) {
 		}
 
 		data.start = new Date(this.options.position.start.getTime());
-		data.lang = this.strings;
+		data.lang = this.locale;
 
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
@@ -259,12 +270,13 @@ if(!String.prototype.format) {
 		var end = parseInt(this.options.position.end.getTime());
 		var events = [];
 		var self = this;
+		var first_day = getExtentedOption(this, 'first_day');
 
 		$.each(this.options.events, function(k, event) {
 			if((parseInt(event.start) < end) && (parseInt(event.end) >= start)) {
 
 				event.start_day = new Date(parseInt(event.start)).getDay();
-				if(self.options.first_day == 1) {
+				if(first_day == 1) {
 					event.start_day = (event.start_day + 6) % 7;
 				}
 				if((event.end - event.start) <= 86400000) {
@@ -299,7 +311,7 @@ if(!String.prototype.format) {
 		var t = {};
 		var newmonth = month + 1;
 		t.data_day = this.options.position.start.getFullYear() + '-' + (newmonth < 10 ? '0' + newmonth : newmonth) + '-' + '01';
-		t.month_name = this.strings['m' + month];
+		t.month_name = this.locale['m' + month];
 
 		var curdate = new Date(this.options.position.start.getFullYear(), month, 1, 0, 0, 0);
 		var start = parseInt(curdate.getTime());
@@ -322,7 +334,7 @@ if(!String.prototype.format) {
 		var cls = this.options.classes.months.outmonth;
 
 		var firstday = this.options.position.start.getDay();
-		if(this.options.first_day == 2) {
+		if(getExtentedOption(this, 'first_day') == 2) {
 			firstday++;
 		} else {
 			firstday = (firstday == 0 ? 7 : firstday);
@@ -378,16 +390,16 @@ if(!String.prototype.format) {
 	}
 
 	Calendar.prototype._getHoliday = function(date) {
-		if(this.options.enable_easter_holidays) {
+		if(getExtentedOption(this, 'enable_easter_holidays')) {
 			var easter = getEasterDate(date.getFullYear());
 			if(easter.toDateString() == date.toDateString()) {
-				return this.strings.easter;
+				return this.locale.easter;
 			}
 			var easterMonday = new Date();
 			easterMonday.setTime(easter.getTime());
 			easterMonday.setDate(easter.getDate() + 1);
 			if(easterMonday.toDateString() == date.toDateString()) {
-				return this.strings.easterMonday;
+				return this.locale.easterMonday;
 			}
 		}
 		if(this.options.holidays) {
@@ -482,7 +494,7 @@ if(!String.prototype.format) {
 			to.start.setTime(new Date().getTime());
 		}
 		else {
-			$.error(this.strings.error_where.format(where))
+			$.error(this.locale.error_where.format(where))
 		}
 		this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
 		this.view();
@@ -506,7 +518,7 @@ if(!String.prototype.format) {
 			day = list[2];
 		}
 		else {
-			$.error(this.strings.error_dateformat.format(this.options.day));
+			$.error(this.locale.error_dateformat.format(this.options.day));
 		}
 
 		switch(this.options.view) {
@@ -525,12 +537,12 @@ if(!String.prototype.format) {
 			case 'week':
 				var curr = new Date(year, month, day);
 				var first = curr.getDate() - curr.getDay();
-				if(this.options.first_day == 1) first += 1;
+				if(getExtentedOption(this, 'first_day') == 1) first += 1;
 				this.options.position.start.setTime(new Date(year, month, first).getTime());
 				this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
 				break;
 			default:
-				$.error(this.strings.error_noview.format(this.options.view))
+				$.error(this.locale.error_noview.format(this.options.view))
 		}
 		return this;
 	};
@@ -539,16 +551,16 @@ if(!String.prototype.format) {
 		var p = this.options.position.start;
 		switch(this.options.view) {
 			case 'year':
-				return this.strings.title_year.format(p.getFullYear());
+				return this.locale.title_year.format(p.getFullYear());
 				break;
 			case 'month':
-				return this.strings.title_month.format(this.strings['m' + p.getMonth()], p.getFullYear());
+				return this.locale.title_month.format(this.locale['m' + p.getMonth()], p.getFullYear());
 				break;
 			case 'week':
-				return this.strings.title_week.format(p.getWeek(), p.getFullYear());
+				return this.locale.title_week.format(p.getWeek(), p.getFullYear());
 				break;
 			case 'day':
-				return this.strings.title_day.format(this.strings['d' + p.getDay()], p.getDate(), this.strings['m' + p.getMonth()], p.getFullYear());
+				return this.locale.title_day.format(this.locale['d' + p.getDay()], p.getDate(), this.locale['m' + p.getMonth()], p.getFullYear());
 				break;
 		}
 		return;
@@ -570,7 +582,7 @@ if(!String.prototype.format) {
 
 	Calendar.prototype._loadEvents = function() {
 		if(!this.options.events_url) {
-			$.error(this.strings.error_loadurl);
+			$.error(this.locale.error_loadurl);
 		}
 		var self = this;
 		this.options.onBeforeEventsLoad.call(this, function() {
@@ -645,7 +657,7 @@ if(!String.prototype.format) {
 		this._update_month_year();
 
 		var week = $(document.createElement('div')).attr('id', 'cal-week-box');
-		week.html(this.strings.week);
+		week.html(this.locale.week);
 		var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
 		$('.cal-month-box .cal-row-fluid').each(function(k, v) {
 			var row = $(v);

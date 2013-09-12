@@ -27,18 +27,18 @@ window.calendar_languages['es-ES'] = {
 	m10: 'Noviembre',
 	m11: 'Diciembre',
 
-    ms0: 'Ene',
-    ms1: 'Feb',
-    ms2: 'Mar',
-    ms3: 'Abr',
-    ms4: 'May',
-    ms5: 'Jun',
-    ms6: 'Jul',
-    ms7: 'Ago',
-    ms8: 'Sep',
-    ms9: 'Oct',
-    ms10: 'Nov',
-    ms11: 'Dic',
+	ms0: 'Ene',
+	ms1: 'Feb',
+	ms2: 'Mar',
+	ms3: 'Abr',
+	ms4: 'May',
+	ms5: 'Jun',
+	ms6: 'Jul',
+	ms7: 'Ago',
+	ms8: 'Sep',
+	ms9: 'Oct',
+	ms10: 'Nov',
+	ms11: 'Dic',
 
 	d0: 'Domingo',
 	d1: 'Lunes',
@@ -49,5 +49,8 @@ window.calendar_languages['es-ES'] = {
 	d6: 'S&aacute;bado',
 
 	easter: 'Pascuas',
-	easterMonday: 'Lunes de Pascuas'
+	easterMonday: 'Lunes de Pascuas',
+
+	enable_easter_holidays: true,
+	first_day: 1
 };
