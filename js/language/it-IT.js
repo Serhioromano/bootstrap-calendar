@@ -49,5 +49,8 @@ window.calendar_languages['it-IT'] = {
 	d6: 'Sabato',
 
 	easter: 'Pasqua',
-	easterMonday: 'Lunedì dell’Angelo'
+	easterMonday: 'Lunedì dell’Angelo',
+	
+	enable_easter_holidays: true,
+	first_day: 1
 };

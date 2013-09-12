@@ -27,18 +27,18 @@ window.calendar_languages['pl-PL'] = {
 	m10: 'Listopad',
 	m11: 'Grudzień',
 
-    ms0: 'Sty',
-    ms1: 'Lut',
-    ms2: 'Mar',
-    ms3: 'Kwi',
-    ms4: 'Maj',
-    ms5: 'Cze',
-    ms6: 'Lip',
-    ms7: 'Sie',
-    ms8: 'Wrz',
-    ms9: 'Paź',
-    ms10: 'Lis',
-    ms11: 'Gru',
+	ms0: 'Sty',
+	ms1: 'Lut',
+	ms2: 'Mar',
+	ms3: 'Kwi',
+	ms4: 'Maj',
+	ms5: 'Cze',
+	ms6: 'Lip',
+	ms7: 'Sie',
+	ms8: 'Wrz',
+	ms9: 'Paź',
+	ms10: 'Lis',
+	ms11: 'Gru',
 
 	d0: 'Niedziela',
 	d1: 'Poniedziałek',
@@ -49,5 +49,8 @@ window.calendar_languages['pl-PL'] = {
 	d6: 'Sobota',
 
 	easter: 'Wielkanoc',
-	easterMonday: 'Poniedziałek wielkanocny'
+	easterMonday: 'Poniedziałek wielkanocny',
+
+	enable_easter_holidays: true,
+	first_day: 1
 };

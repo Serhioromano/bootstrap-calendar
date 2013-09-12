@@ -27,18 +27,18 @@ window.calendar_languages['pt-BR'] = {
 	m10: 'Novembro',
 	m11: 'Dezembro',
 
-    ms0: 'Jan',
-    ms1: 'Fev',
-    ms2: 'Mar',
-    ms3: 'Abr',
-    ms4: 'Mai',
-    ms5: 'Jun',
-    ms6: 'Jul',
-    ms7: 'Ago',
-    ms8: 'Set',
-    ms9: 'Out',
-    ms10: 'Nov',
-    ms11: 'Dez',
+	ms0: 'Jan',
+	ms1: 'Fev',
+	ms2: 'Mar',
+	ms3: 'Abr',
+	ms4: 'Mai',
+	ms5: 'Jun',
+	ms6: 'Jul',
+	ms7: 'Ago',
+	ms8: 'Set',
+	ms9: 'Out',
+	ms10: 'Nov',
+	ms11: 'Dez',
 
 	d0: 'Domingo',
 	d1: 'Segunda',
@@ -49,5 +49,8 @@ window.calendar_languages['pt-BR'] = {
 	d6: 'Sábado',
 
 	easter: 'Easter',
-	easterMonday: 'Easter Monday'
+	easterMonday: 'Easter Monday',
+
+	enable_easter_holidays: true,
+	first_day: 2
 };

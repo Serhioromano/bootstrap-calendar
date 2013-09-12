@@ -2,7 +2,7 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 window.calendar_languages['fr-FR'] = {
-  error_noview: 'Calendrier: Vue {0} introuvable',
+	error_noview: 'Calendrier: Vue {0} introuvable',
 	error_dateformat: 'Calendrier: Format de date incorrect {0}. Formats acceptés : "now" ou "yyyy-mm-dd"',
 	error_loadurl: 'Calendrier: Events load URL is not set',
 	error_where: 'Calendrier: Mauvaise commande de navigation {0}. Commandes acceptées : "suivant", "précédent" or "aujourd\'hui"',
@@ -27,18 +27,18 @@ window.calendar_languages['fr-FR'] = {
 	m10: 'Novembre',
 	m11: 'Décembre',
 
-    ms0: 'Jan',
-    ms1: 'Fév',
-    ms2: 'Mar',
-    ms3: 'Avr',
-    ms4: 'Mai',
-    ms5: 'Jun',
-    ms6: 'Jul',
-    ms7: 'Aoû',
-    ms8: 'Sep',
-    ms9: 'Oct',
-    ms10: 'Nov',
-    ms11: 'Déc',
+	ms0: 'Jan',
+	ms1: 'Fév',
+	ms2: 'Mar',
+	ms3: 'Avr',
+	ms4: 'Mai',
+	ms5: 'Jun',
+	ms6: 'Jul',
+	ms7: 'Aoû',
+	ms8: 'Sep',
+	ms9: 'Oct',
+	ms10: 'Nov',
+	ms11: 'Déc',
 
 	d0: 'Dimanche',
 	d1: 'Lundi',
@@ -46,5 +46,11 @@ window.calendar_languages['fr-FR'] = {
 	d3: 'Mercredi',
 	d4: 'Jeudi',
 	d5: 'Vendredi',
-	d6: 'Samedi'
+	d6: 'Samedi',
+
+	easter: 'Pâques',
+	easterMonday: 'Lundi de Pâques',
+
+	enable_easter_holidays: true,
+	first_day: 1
 };
