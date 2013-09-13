@@ -51,6 +51,16 @@ window.calendar_languages['pt-BR'] = {
 	easter: 'Easter',
 	easterMonday: 'Easter Monday',
 
-	enable_easter_holidays: true,
-	first_day: 2
+	first_day: 2,
+
+	holidays: {
+		'01-01': "Ano Novo",
+		'21-04': "Dia de Tiradentes",
+		'01-05': "Dia do Trabalhador",
+		'07-09': "Dia da Independência",
+		'12-10': "Nossa Senhora Aparecida",
+		'02-11': "Dia de Finados",
+		'15-11': "Proclamação da República",
+		'25-12': "Natal"
+	}
 };

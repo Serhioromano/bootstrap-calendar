@@ -51,6 +51,16 @@ window.calendar_languages['es-MX'] = {
 	easter: 'Pascuas',
 	easterMonday: 'Lunes de Pascuas',
 
-	enable_easter_holidays: false,
-	first_day: 2
+	first_day: 1,
+
+	holidays: {
+		'01-01': "Año Nuevo",
+		'05-02': "Día de la Constitución",
+		'21-03': "Natalicio de Benito Juárez",
+		'01-05': "Día del Trabajo",
+		'16-09': "Día de la Independencia",
+		'20-11': "Día de la Revolución",
+		'01-12': "Transmisión del Poder Ejecutivo Federal",
+		'25-12': "Navidad"
+	}
 };

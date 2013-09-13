@@ -62,11 +62,35 @@ window.calendar_languages['en-US'] = {
 	d5: 'Friday',
 	d6: 'Saturday',
 
-	easter: 'Easter',
-	easterMonday: 'Easter Monday',
-
-	// Set to true if you want to enable Easter and Easter Monday as holidays
-	enable_easter_holidays: true,
 	// Which is the first day of the week (2 for sunday, 1 for monday)
-	first_day: 2
+	first_day: 2,
+
+	// The list of the holidays.
+	// Each holiday has a date definition and a name (in your language)
+	// For instance:
+	// holidays: {
+	// 	'date': 'name',
+	// 	'date': 'name',
+	// 	...
+	//   'date': 'name' //No ending comma for the last holiday
+	// }
+	// The format of the date may be one of the following:
+	// # For a holiday recurring every year in the same day: 'dd-mm' (dd is the day of the month, mm is the month). For example: '25-12'.
+	// # For a holiday that exists only in one specific year: 'dd-mm-yyyy' (dd is the day of the month, mm is the month, yyyy is the year). For example: '31-01-2013'
+	// # For Easter: use simply 'easter'
+	// # For holidays that are based on the Easter date: 'easter+offset in days'.
+	//   Some examples:
+	//   - 'easter-2' is Good Friday (2 days before Easter)
+	//   - 'easter+1' is Easter Monday (1 day after Easter)
+	//   - 'easter+39' is the Ascension Day
+	//   - 'easter+49' is Pentecost
+	// # For holidays that are on a specific weekday after the beginning of a month: 'mm+n*w', where 'mm' is the month, 'n' is the ordinal position, 'w' is the weekday being 0: Sunday, 1: Monday, ..., 6: Saturnday
+	//   For example:
+	//   - Second (2) Monday (1) in October (10): '10+2*1'
+	// # For holidays that are on a specific weekday before the ending of a month: 'mm-n*w', where 'mm' is the month, 'n' is the ordinal position, 'w' is the weekday being 0: Sunday, 1: Monday, ..., 6: Saturnday
+	//   For example:
+	//   - Last (1) Saturnday (6) in Match (03): '03-1*6'
+	//   - Last (1) Monday (1) in May (05): '05-1*1'
+	holidays: {
+	}
 };

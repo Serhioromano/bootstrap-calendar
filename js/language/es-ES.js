@@ -51,6 +51,22 @@ window.calendar_languages['es-ES'] = {
 	easter: 'Pascuas',
 	easterMonday: 'Lunes de Pascuas',
 
-	enable_easter_holidays: true,
-	first_day: 1
+	first_day: 1,
+
+	holidays: {
+		'01-01': "Año Nuevo",
+		'06-01': "Día de Reyes",
+		'19-03': "San José",
+		'easter-3': "Jueves Santo",
+		'easter-2': "Viernes Santo",
+		'easter': "Pascua",
+		'easter+1': "Lunes de Pascua",
+		'01-05': "Día del Trabajador",
+		'15-08': "Asunción",
+		'12-10': "Fiesta Nacional de España",
+		'01-11': "Día de todos los Santos",
+		'06-12': "Día de la Constitución",
+		'08-12': "Inmaculada Concepción",
+		'25-12': "Navidad"
+	}
 };
