@@ -233,54 +233,43 @@ if(!String.prototype.format) {
 		if(!(hash in getHolidays.cache)) {
 			var holidays = [];
 			$.each(holidays_def, function(key, name) {
-				var m, date;
-				m = /^(\d\d)-(\d\d)$/.exec(key);
-				date = null;
-				if(m) {
+				var m, date = null;
+				if(m = /^(\d\d)-(\d\d)$/.exec(key)) {
 					date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
 				}
-				else {
-					m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key);
-					if(m) {
-						if(parseInt(m[3], 10) == year) {
-							date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
-						}
+				else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key)) {
+					if(parseInt(m[3], 10) == year) {
+						date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
 					}
-					else {
-						m = /^easter(([+\-])(\d+))?$/.exec(key);
-						if(m) {
-							date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
-						}
-						else {
-							m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key);
-							if(m) {
-								var month = parseInt(m[1], 10) - 1;
-								var direction = m[2];
-								var offset = parseInt(m[3]);
-								var weekday = parseInt(m[4]);
-								switch(direction) {
-									case '+':
-										var d = new Date(year, month, 1 - 7);
-										while(d.getDay() != weekday) {
-											d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
-										}
-										date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
-										break;
-									case '-':
-										var d = new Date(year, month + 1, 0 + 7);
-										while(d.getDay() != weekday) {
-											d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
-										}
-										date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
-										break;
-								}
+				}
+				else if(m = /^easter(([+\-])(\d+))?$/.exec(key)) {
+					date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+				}
+				else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key)) {
+					var month = parseInt(m[1], 10) - 1;
+					var direction = m[2];
+					var offset = parseInt(m[3]);
+					var weekday = parseInt(m[4]);
+					switch(direction) {
+						case '+':
+							var d = new Date(year, month, 1 - 7);
+							while(d.getDay() != weekday) {
+								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
 							}
-							else {
-								if(window.console && console.log) {
-									console.log('Unknown holiday: ' + key);
-								}
+							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
+							break;
+						case '-':
+							var d = new Date(year, month + 1, 0 + 7);
+							while(d.getDay() != weekday) {
+								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
 							}
-						}
+							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
+							break;
+					}
+				}
+				else {
+					if(window.console && console.log) {
+						console.log('Unknown holiday: ' + key);
 					}
 				}
 				if(date) {
