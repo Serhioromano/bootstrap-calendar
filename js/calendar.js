@@ -83,6 +83,7 @@ if(!String.prototype.format) {
 				enable: 1
 			}
 		},
+		merge_holidays: false,
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
@@ -116,7 +117,28 @@ if(!String.prototype.format) {
 
 	var defaults_extended = {
 		first_day: 2,
-		enable_easter_holidays: false
+		holidays: {
+			// January 1
+			'01-01': "New Year's Day",
+			// Third (+3*) Monday (1) in January (01)
+			'01+3*1': "Birthday of Dr. Martin Luther King, Jr.",
+			// Third (+3*) Monday (1) in February (02)
+			'02+3*1': "Washington's Birthday",
+			// Last (-1*) Monday (1) in May (05)
+			'05-1*1': "Memorial Day",
+			// July 4
+			'04-07': "Independence Day",
+			// First (+1*) Monday (1) in September (09)
+			'09+1*1': "Labor Day",
+			// Second (+2*) Monday (1) in October (10)
+			'10+2*1': "Columbus Day",
+			// November 11
+			'11-11': "Veterans Day",
+			// Fourth (+4*) Thursday (4) in November (11)
+			'11+4*4': "Thanksgiving Day",
+			// December 25
+			'25-12': "Christmas"
+		}
 	};
 
 	var strings = {
@@ -164,10 +186,7 @@ if(!String.prototype.format) {
 		d3: 'Wednesday',
 		d4: 'Thursday',
 		d5: 'Friday',
-		d6: 'Saturday',
-
-		easter: 'Easter',
-		easterMonday: 'Easter Monday'
+		d6: 'Saturday'
 	};
 
 	function buildEventsUrl(events_url, data) {
@@ -182,14 +201,87 @@ if(!String.prototype.format) {
 	}
 
 	function getExtentedOption(cal, option_name) {
-		if(cal.options[option_name] != null) {
-			return cal.options[option_name];
+		var fromOptions = (cal.options[option_name] != null) ? cal.options[option_name] : null;
+		var fromLanguage = (cal.locale[option_name] != null) ? cal.locale[option_name] : null;
+		if((option_name == 'holidays') && cal.options.merge_holidays) {
+			var holidays = {};
+			$.extend(true, holidays, fromLanguage ? fromLanguage : defaults_extended.holidays);
+			if(fromOptions) {
+				$.extend(true, holidays, fromOptions);
+			}
+			return holidays;
 		}
-		if(cal.locale[option_name] != null) {
-			return cal.locale[option_name];
+		else {
+			if(fromOptions != null) {
+				return fromOptions;
+			}
+			if(fromLanguage != null) {
+				return fromLanguage;
+			}
+			return defaults_extended[option_name];
 		}
-		return defaults_extended[option_name];
 	}
+
+	function getHolidays(cal, year) {
+		var hash = [];
+		var holidays_def = getExtentedOption(cal, 'holidays');
+		for(var k in holidays_def) {
+			hash.push(k + ':' + holidays_def[k]);
+		}
+		hash.push(year);
+		hash = hash.join('|');
+		if(hash in getHolidays.cache) {
+			return getHolidays.cache[hash];
+		}
+		var holidays = [];
+		$.each(holidays_def, function(key, name) {
+			var m, date = null;
+			if(m = /^(\d\d)-(\d\d)$/.exec(key)) {
+				date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+			}
+			else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key)) {
+				if(parseInt(m[3], 10) == year) {
+					date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+				}
+			}
+			else if(m = /^easter(([+\-])(\d+))?$/.exec(key)) {
+				date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+			}
+			else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key)) {
+				var month = parseInt(m[1], 10) - 1;
+				var direction = m[2];
+				var offset = parseInt(m[3]);
+				var weekday = parseInt(m[4]);
+				switch(direction) {
+					case '+':
+						var d = new Date(year, month, 1 - 7);
+						while(d.getDay() != weekday) {
+							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+						}
+						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
+						break;
+					case '-':
+						var d = new Date(year, month + 1, 0 + 7);
+						while(d.getDay() != weekday) {
+							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
+						}
+						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
+						break;
+				}
+			}
+			else {
+				if(window.console && console.log) {
+					console.log('Unknown holiday: ' + key);
+				}
+			}
+			if(date) {
+				holidays.push({date: date, name: name});
+			}
+		});
+		getHolidays.cache[hash] = holidays;
+		return getHolidays.cache[hash];
+	}
+	getHolidays.cache = {};
 
 	function Calendar(params, context) {
 		this.options = $.extend(true, {}, defaults, params);
@@ -390,29 +482,14 @@ if(!String.prototype.format) {
 	}
 
 	Calendar.prototype._getHoliday = function(date) {
-		if(getExtentedOption(this, 'enable_easter_holidays')) {
-			var easter = getEasterDate(date.getFullYear());
-			if(easter.toDateString() == date.toDateString()) {
-				return this.locale.easter;
+		var result = false;
+		$.each(getHolidays(this, date.getFullYear()), function() {
+			if(this.date.toDateString() == date.toDateString()) {
+				result = this.name;
+				return false;
 			}
-			var easterMonday = new Date();
-			easterMonday.setTime(easter.getTime());
-			easterMonday.setDate(easter.getDate() + 1);
-			if(easterMonday.toDateString() == date.toDateString()) {
-				return this.locale.easterMonday;
-			}
-		}
-		if(this.options.holidays) {
-			var date_str = date.getDateFormatted() + '-' + date.getMonthFormatted();
-			if(date_str in this.options.holidays) {
-				return this.options.holidays[date_str];
-			}
-			date_str += '-' + date.getFullYear();
-			if(date_str in this.options.holidays) {
-				return this.options.holidays[date_str];
-			}
-		}
-		return false;
+		});
+		return result;
 	};
 
 	Calendar.prototype._getHolidayName = function(date) {
@@ -746,7 +823,7 @@ if(!String.prototype.format) {
 		});
 	};
 
-	function getEasterDate(year) {
+	function getEasterDate(year, offsetDays) {
 		var a = year % 19;
 		var b = Math.floor(year / 100);
 		var c = year % 100;
@@ -762,7 +839,7 @@ if(!String.prototype.format) {
 		var n0 = (h + l + 7 * m + 114)
 		var n = Math.floor(n0 / 31) - 1;
 		var p = n0 % 31 + 1;
-		return new Date(year, n, p, 0, 0, 0);
+		return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
 	}
 
 	$.fn.calendar = function(params) {

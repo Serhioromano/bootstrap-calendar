@@ -51,6 +51,19 @@ window.calendar_languages['sv-SE'] = {
 	easter: 'Påsk',
 	easterMonday: 'Påskmåndagen',
 
-	enable_easter_holidays: true,
-	first_day: 1
+	first_day: 1,
+
+	holidays: {
+		'01-01': "Nyårsdagen",
+		'06-01': "Trettondedag jul",
+		'easter-2': "Långfredagen",
+		'easter': "Påskdagen",
+		'easter+1': "Annandag påsk",
+		'01-05': "Första maj",
+		'easter+39': "Kristi himmelsfärdsdag",
+		'easter+49': "Pingstdagen",
+		'06-06': "Sveriges nationaldag",
+		'25-12': "Juldagen",
+		'26-12': "Annandag jul"
+	}
 };
