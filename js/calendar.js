@@ -128,9 +128,9 @@ if(!String.prototype.format) {
 			'05-1*1': "Memorial Day",
 			// July 4
 			'04-07': "Independence Day",
-			// First (+1*) Monday (1) in September (09)	
+			// First (+1*) Monday (1) in September (09)
 			'09+1*1': "Labor Day",
-			// Second (+2*) Monday (1) in October (10)	
+			// Second (+2*) Monday (1) in October (10)
 			'10+2*1': "Columbus Day",
 			// November 11
 			'11-11': "Veterans Day",
@@ -230,54 +230,55 @@ if(!String.prototype.format) {
 		}
 		hash.push(year);
 		hash = hash.join('|');
-		if(!(hash in getHolidays.cache)) {
-			var holidays = [];
-			$.each(holidays_def, function(key, name) {
-				var m, date = null;
-				if(m = /^(\d\d)-(\d\d)$/.exec(key)) {
+		if(hash in getHolidays.cache) {
+			return getHolidays.cache[hash];
+		}
+		var holidays = [];
+		$.each(holidays_def, function(key, name) {
+			var m, date = null;
+			if(m = /^(\d\d)-(\d\d)$/.exec(key)) {
+				date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+			}
+			else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key)) {
+				if(parseInt(m[3], 10) == year) {
 					date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
 				}
-				else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key)) {
-					if(parseInt(m[3], 10) == year) {
-						date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
-					}
+			}
+			else if(m = /^easter(([+\-])(\d+))?$/.exec(key)) {
+				date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+			}
+			else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key)) {
+				var month = parseInt(m[1], 10) - 1;
+				var direction = m[2];
+				var offset = parseInt(m[3]);
+				var weekday = parseInt(m[4]);
+				switch(direction) {
+					case '+':
+						var d = new Date(year, month, 1 - 7);
+						while(d.getDay() != weekday) {
+							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+						}
+						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
+						break;
+					case '-':
+						var d = new Date(year, month + 1, 0 + 7);
+						while(d.getDay() != weekday) {
+							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
+						}
+						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
+						break;
 				}
-				else if(m = /^easter(([+\-])(\d+))?$/.exec(key)) {
-					date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+			}
+			else {
+				if(window.console && console.log) {
+					console.log('Unknown holiday: ' + key);
 				}
-				else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key)) {
-					var month = parseInt(m[1], 10) - 1;
-					var direction = m[2];
-					var offset = parseInt(m[3]);
-					var weekday = parseInt(m[4]);
-					switch(direction) {
-						case '+':
-							var d = new Date(year, month, 1 - 7);
-							while(d.getDay() != weekday) {
-								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
-							}
-							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
-							break;
-						case '-':
-							var d = new Date(year, month + 1, 0 + 7);
-							while(d.getDay() != weekday) {
-								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
-							}
-							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
-							break;
-					}
-				}
-				else {
-					if(window.console && console.log) {
-						console.log('Unknown holiday: ' + key);
-					}
-				}
-				if(date) {
-					holidays.push({date: date, name: name});
-				}
-			});
-			getHolidays.cache[hash] = holidays;
-		}
+			}
+			if(date) {
+				holidays.push({date: date, name: name});
+			}
+		});
+		getHolidays.cache[hash] = holidays;
 		return getHolidays.cache[hash];
 	}
 	getHolidays.cache = {};
