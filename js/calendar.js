@@ -777,12 +777,12 @@ if(!String.prototype.format) {
 				console.log(activecell);
 				if($(v).children('[data-cal-date]').text() == activecell) return;
 				downbox.show().appendTo(v);
+				$(this).on('click', function(event){
+					activecell = showEventsList(event, downbox, slider, self);
+				});
 			});
 			$(v).on('mouseleave', function() {
 				downbox.hide();
-			});
-			$(v).on('click', function(event){
-				activecell = showEventsList(event, downbox, slider, self);
 			});
 		});
 
