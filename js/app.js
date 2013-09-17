@@ -8,11 +8,6 @@
 		tmpl_path: 'tmpls/',
 		tmpl_cache: false,
 		day: '2013-03-12',
-		holidays: {
-			'08-03': 'International Women\'s Day',
-			'25-12': 'Christmas\'s',
-			'01-05': "International labor day"
-		},
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;

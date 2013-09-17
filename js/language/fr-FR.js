@@ -48,9 +48,22 @@ window.calendar_languages['fr-FR'] = {
 	d5: 'Vendredi',
 	d6: 'Samedi',
 
-	easter: 'Pâques',
-	easterMonday: 'Lundi de Pâques',
+	first_day: 1,
 
-	enable_easter_holidays: true,
-	first_day: 1
+	holidays: {
+		'01-01': "Premier de l'an",
+		'easter-2': "Vendredi Saint",
+		'easter': "Pâques",
+		'easter+1': "Lundi de Pâques",
+		'01-05': "Fête du Travail",
+		'easter+39': "Ascension",
+		'easter+49': "Pentecôte",
+		'easter+50': "Lundi de Pentecôte",
+		'14-07': "Fête Nationale",
+		'15-08': "Assomption",
+		'01-11': "Toussaint",
+		'11-11': "Armistice 1918",
+		'25-12': "Noël",
+		'26-12': "Saint Etienne"
+	}
 };

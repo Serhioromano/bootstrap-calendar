@@ -51,6 +51,8 @@ window.calendar_languages['ru-RU'] = {
 	easter: 'Пасха',
 	easterMonday: 'Пасхальный понедельник',
 
-	enable_easter_holidays: false,
-	first_day: 1
+	first_day: 1,
+
+	holidays: {
+	}
 };

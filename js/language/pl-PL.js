@@ -51,6 +51,21 @@ window.calendar_languages['pl-PL'] = {
 	easter: 'Wielkanoc',
 	easterMonday: 'Poniedziałek wielkanocny',
 
-	enable_easter_holidays: true,
-	first_day: 1
+	first_day: 1,
+
+	holidays: {
+		'01-01': "Nowy Rok",
+		'06-01': "Trzech Króli",
+		'easter': "Niedziela Wielkanocna",
+		'easter+1': "Poniedziałek Wielkanocny",
+		'01-05': "Święto Pracy",
+		'03-05': "Święto Konstytucji Trzeciego Maja",
+		'easter+49': "Zielone Świątki",
+		'easter+60': "Boże Ciało",
+		'15-08': "Wniebowzięcie Najświętszej Maryi Panny",
+		'01-11': "Wszystkich Świętych",
+		'11-11': "Dzień Niepodległości",
+		'25-12': "Pierwszy dzień Bożego Narodzenia",
+		'26-12': "Drugi dzień Bożego Narodzenia"
+	}
 };
