@@ -772,12 +772,12 @@ if(!String.prototype.format) {
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
 
 		$('.cal-month-day, .cal-year-box .span3').each(function(k, v) {
-			$(v).bind('mouseenter', function() {
+			$(v).on('mouseenter', function() {
 				if($('.events-list', v).length == 0) return;
 				if($(v).children('[data-cal-date]').text() == activecell) return;
 				downbox.show().appendTo(v);
 			});
-			$(v).bind('mouseleave', function() {
+			$(v).on('mouseleave', function() {
 				downbox.hide();
 			});
 		});
