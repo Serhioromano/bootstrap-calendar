@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-calendar",
-  "version": "0.1.1-Beta",
+  "version": "0.1.1-Beta-bs3",
   "description": "Bootstrap full view calendar",
   "main": [
     "./js/calendar.js"
