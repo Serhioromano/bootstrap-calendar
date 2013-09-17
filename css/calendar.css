@@ -132,7 +132,7 @@
 #cal-week-box {
   position: absolute;
   width: 50px;
-  left: -61px;
+  left: -50px;
   top: -1px;
   padding: 8px 5px;
   cursor: pointer;
@@ -145,7 +145,7 @@
   cursor: pointer;
   z-index: 5;
   text-align: center;
-  width: 20px;
+  width: 28px;
   margin-right: -17px;
 }
 .cal-year-box #cal-day-box {
