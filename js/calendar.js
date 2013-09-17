@@ -774,11 +774,15 @@ if(!String.prototype.format) {
 		$('.cal-month-day, .cal-year-box .span3').each(function(k, v) {
 			$(v).on('mouseenter', function() {
 				if($('.events-list', v).length == 0) return;
+				console.log(activecell);
 				if($(v).children('[data-cal-date]').text() == activecell) return;
 				downbox.show().appendTo(v);
 			});
 			$(v).on('mouseleave', function() {
 				downbox.hide();
+			});
+			$(v).on('click', function(event){
+				activecell = showEventsList(event, downbox, slider, self);
 			});
 		});
 
@@ -791,37 +795,44 @@ if(!String.prototype.format) {
 		this._loadTemplate('events-list');
 
 		downbox.click(function(event) {
-
-			event.stopPropagation();
-
-			var $this = $(this);
-			var cell = $this.parents('.cal-cell');
-			var row = $this.parents('.cal-row-fluid');
-			var tick_position = cell.data('cal-row');
-
-			$this.fadeOut('fast');
-
-			slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
-				.slideUp('fast', function() {
-					row.after(slider);
-					activecell = $('[data-cal-date]', cell).text();
-					$('#cal-slide-tick').addClass('tick' + tick_position).show();
-					slider.slideDown('fast', function() {
-						$('body').one('click', function() {
-							slider.slideUp('fast');
-							activecell = 0;
-						});
-					});
-				});
-
-			$('a.event-item').mouseenter(function() {
-				$('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
-			});
-			$('a.event-item').mouseleave(function() {
-				$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
-			});
+			activecell = showEventsList(event, $(this), slider, self);
 		});
 	};
+
+	function showEventsList(event, that, slider, self) {
+
+		event.stopPropagation();
+
+		var that = $(that);
+		var cell = that.parents('.cal-cell');
+		var row = that.parents('.cal-row-fluid');
+		var tick_position = cell.data('cal-row');
+		var activecell = 0;
+
+		that.fadeOut('fast');
+
+		slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
+			.slideUp('fast', function() {
+				row.after(slider);
+				activecell = $('[data-cal-date]', cell).text();
+				$('#cal-slide-tick').addClass('tick' + tick_position).show();
+				slider.slideDown('fast', function() {
+					$('body').one('click', function() {
+						slider.slideUp('fast');
+						activecell = 0;
+					});
+				});
+			});
+
+		$('a.event-item').mouseenter(function() {
+			$('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+		});
+		$('a.event-item').mouseleave(function() {
+			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
+		});
+
+		return activecell;
+	}
 
 	function getEasterDate(year, offsetDays) {
 		var a = year % 19;
