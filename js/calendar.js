@@ -736,17 +736,17 @@ if(!String.prototype.format) {
 		var week = $(document.createElement('div')).attr('id', 'cal-week-box');
 		week.html(this.locale.week);
 		var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
-		$('.cal-month-box .cal-row-fluid').each(function(k, v) {
-			var row = $(v);
-			row.bind('mouseenter',function() {
-				var child = $('.cal-cell1:first-child .cal-month-day', row);
+		$('.cal-month-box .cal-row-fluid')
+			.on('mouseenter',function() {
+				var child = $('.cal-cell1:first-child .cal-month-day', this);
 				var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-date]', child).text());
 				day = (day < 10 ? '0' + day : day);
 				week.attr('data-cal-week', start + day).show().appendTo(child);
-			}).bind('mouseleave', function() {
-					week.hide();
-				});
-		});
+			})
+			.on('mouseleave', function() {
+				week.hide();
+			})
+		;
 
 		var self = this;
 
