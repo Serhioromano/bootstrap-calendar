@@ -767,25 +767,25 @@ if(!String.prototype.format) {
 		if(!this.options.views[this.options.view].slide_events) {
 			return;
 		}
-    
 		var self = this;
-    var activecell = 0;
+		var activecell = 0;
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
 
-		$('.cal-month-day, .cal-year-box .span3').each(function(k, v) {
-			$(v).on('mouseenter', function() {
-				if($('.events-list', v).length == 0) return;
+		$('.cal-month-day, .cal-year-box .span3')
+			.on('mouseenter', function() {
+				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
-				downbox.show().appendTo(v);
-			}).on('mouseleave', function() {
+				downbox.show().appendTo(this);
+			})
+			.on('mouseleave', function() {
 				downbox.hide();
-			}).on('click', function(event){
-				if($('.events-list', v).length == 0) return;
+			})
+			.on('click', function(event){
+				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
-        showEventsList(event, downbox, slider, self);
-      });
-		});
-
+				showEventsList(event, downbox, slider, self);
+			})
+		;
 
 		var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
 		slider.hide().click(function(event) {
