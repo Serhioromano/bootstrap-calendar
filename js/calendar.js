@@ -288,7 +288,7 @@ if(!String.prototype.format) {
 		this.setLanguage(this.options.language);
 		this.context = context;
 
-		context.css('width', this.options.width);
+		context.css('width', this.options.width).addClass('cal-context');
 
 		this.view();
 		return this;
@@ -767,23 +767,23 @@ if(!String.prototype.format) {
 		if(!this.options.views[this.options.view].slide_events) {
 			return;
 		}
-		var activecell = 0;
+    
 		var self = this;
+    var activecell = 0;
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-box').html('<i class="icon-chevron-down"></i>');
 
 		$('.cal-month-day, .cal-year-box .span3').each(function(k, v) {
 			$(v).on('mouseenter', function() {
 				if($('.events-list', v).length == 0) return;
-				console.log(activecell);
-				if($(v).children('[data-cal-date]').text() == activecell) return;
+				if($(this).children('[data-cal-date]').text() == self.activecell) return;
 				downbox.show().appendTo(v);
-				$(this).on('click', function(event){
-					activecell = showEventsList(event, downbox, slider, self);
-				});
-			});
-			$(v).on('mouseleave', function() {
+			}).on('mouseleave', function() {
 				downbox.hide();
-			});
+			}).on('click', function(event){
+				if($('.events-list', v).length == 0) return;
+				if($(this).children('[data-cal-date]').text() == self.activecell) return;
+        showEventsList(event, downbox, slider, self);
+      });
 		});
 
 
@@ -795,7 +795,7 @@ if(!String.prototype.format) {
 		this._loadTemplate('events-list');
 
 		downbox.click(function(event) {
-			activecell = showEventsList(event, $(this), slider, self);
+			showEventsList(event, $(this), slider, self);
 		});
 	};
 
@@ -807,19 +807,18 @@ if(!String.prototype.format) {
 		var cell = that.parents('.cal-cell');
 		var row = that.parents('.cal-row-fluid');
 		var tick_position = cell.data('cal-row');
-		var activecell = 0;
 
 		that.fadeOut('fast');
 
 		slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
 			.slideUp('fast', function() {
 				row.after(slider);
-				activecell = $('[data-cal-date]', cell).text();
+				self.activecell = $('[data-cal-date]', cell).text();
 				$('#cal-slide-tick').addClass('tick' + tick_position).show();
 				slider.slideDown('fast', function() {
 					$('body').one('click', function() {
 						slider.slideUp('fast');
-						activecell = 0;
+						self.activecell = 0;
 					});
 				});
 			});
@@ -831,7 +830,6 @@ if(!String.prototype.format) {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 
-		return activecell;
 	}
 
 	function getEasterDate(year, offsetDays) {
