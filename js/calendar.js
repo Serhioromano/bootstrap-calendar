@@ -590,9 +590,9 @@ if(!String.prototype.format) {
 			day = date.getDate();
 		} else if(this.options.day.match(/^\d{4}-\d{2}-\d{2}$/g)) {
 			var list = this.options.day.split('-');
-			year = list[0];
-			month = list[1] - 1;
-			day = list[2];
+			year = parseInt(list[0], 10);
+			month = parseInt(list[1], 10) - 1;
+			day = parseInt(list[2], 10);
 		}
 		else {
 			$.error(this.locale.error_dateformat.format(this.options.day));
