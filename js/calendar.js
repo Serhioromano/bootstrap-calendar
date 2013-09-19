@@ -805,23 +805,23 @@ if(!String.prototype.format) {
 
 		var that = $(that);
 		var cell = that.closest('.cal-cell');
-		var row = that.closest('.cal-row-fluid');
+		var slider_after = (self.options.view == 'year') ? that.closest('.cal-cell') : that.closest('.cal-row-fluid');
 		var tick_position = cell.data('cal-row');
 
 		that.fadeOut('fast');
 
-		slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
-			.slideUp('fast', function() {
-				row.after(slider);
-				self.activecell = $('[data-cal-date]', cell).text();
-				$('#cal-slide-tick').addClass('tick' + tick_position).show();
-				slider.slideDown('fast', function() {
-					$('body').one('click', function() {
-						slider.slideUp('fast');
-						self.activecell = 0;
-					});
+		slider.slideUp('fast', function() {
+			slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
+			slider_after.after(slider);
+			self.activecell = $('[data-cal-date]', cell).text();
+			$('#cal-slide-tick').addClass('tick' + tick_position).show();
+			slider.slideDown('fast', function() {
+				$('body').one('click', function() {
+					slider.slideUp('fast');
+					self.activecell = 0;
 				});
 			});
+		});
 
 		$('a.event-item').mouseenter(function() {
 			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));

@@ -153,6 +153,8 @@
 }
 #cal-slide-box {
   position: relative;
+  float: left;
+  width: 100%;
 }
 #cal-slide-tick {
   position: absolute;
