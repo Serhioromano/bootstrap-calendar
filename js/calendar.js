@@ -810,18 +810,18 @@ if(!String.prototype.format) {
 
 		that.fadeOut('fast');
 
-		slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
-			.slideUp('fast', function() {
-				row.after(slider);
-				self.activecell = $('[data-cal-date]', cell).text();
-				$('#cal-slide-tick').addClass('tick' + tick_position).show();
-				slider.slideDown('fast', function() {
-					$('body').one('click', function() {
-						slider.slideUp('fast');
-						self.activecell = 0;
-					});
+		slider.slideUp('fast', function() {
+			slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
+			row.after(slider);
+			self.activecell = $('[data-cal-date]', cell).text();
+			$('#cal-slide-tick').addClass('tick' + tick_position).show();
+			slider.slideDown('fast', function() {
+				$('body').one('click', function() {
+					slider.slideUp('fast');
+					self.activecell = 0;
 				});
 			});
+		});
 
 		$('a.event-item').mouseenter(function() {
 			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
