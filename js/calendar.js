@@ -756,7 +756,7 @@ if(!String.prototype.format) {
 		});
 
 		$('a.event').mouseenter(function() {
-			$('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 		$('a.event').mouseleave(function() {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
@@ -804,8 +804,8 @@ if(!String.prototype.format) {
 		event.stopPropagation();
 
 		var that = $(that);
-		var cell = that.parents('.cal-cell');
-		var row = that.parents('.cal-row-fluid');
+		var cell = that.closest('.cal-cell');
+		var row = that.closest('.cal-row-fluid');
 		var tick_position = cell.data('cal-row');
 
 		that.fadeOut('fast');
@@ -824,7 +824,7 @@ if(!String.prototype.format) {
 			});
 
 		$('a.event-item').mouseenter(function() {
-			$('a.event' + $(this).data('event-id')).parents('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 		$('a.event-item').mouseleave(function() {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
