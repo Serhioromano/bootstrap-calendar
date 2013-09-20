@@ -145,7 +145,7 @@
   cursor: pointer;
   z-index: 5;
   text-align: center;
-  width: 20px;
+  width: 26px;
   margin-right: -17px;
 }
 .cal-year-box #cal-day-box {
@@ -404,4 +404,7 @@ span[data-cal-date]:hover {
 a.cal-event-week {
   text-decoration: none;
   color: #151515;
+}
+.badge-important {
+	background-color:#b94a48;
 }
