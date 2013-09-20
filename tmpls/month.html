@@ -6,7 +6,7 @@
 <div class="cal-month-box">
 	<% for(i = 0; i < 6; i++) { %>
 		<% if(cal.stop_cycling == true) break; %>
-		<div class="cal-row-fluid">
+		<div class="cal-row-fluid cal-before-eventlist">
 			<div class="cal-cell1 cal-cell" data-cal-row="-day1"><%= cal._day(i, day++) %></div>
 			<div class="cal-cell1 cal-cell" data-cal-row="-day2"><%= cal._day(i, day++) %></div>
 			<div class="cal-cell1 cal-cell" data-cal-row="-day3"><%= cal._day(i, day++) %></div>

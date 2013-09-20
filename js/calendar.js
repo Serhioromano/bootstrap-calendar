@@ -805,7 +805,7 @@ if(!String.prototype.format) {
 
 		var that = $(that);
 		var cell = that.closest('.cal-cell');
-		var row = that.closest('.cal-row-fluid');
+		var row = cell.closest('.cal-before-eventlist');
 		var tick_position = cell.data('cal-row');
 
 		that.fadeOut('fast');
