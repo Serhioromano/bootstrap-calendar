@@ -613,8 +613,13 @@ if(!String.prototype.format) {
 				break;
 			case 'week':
 				var curr = new Date(year, month, day);
-				var first = curr.getDate() - curr.getDay();
-				if(getExtentedOption(this, 'first_day') == 1) first += 1;
+				var first;
+				if(getExtentedOption(this, 'first_day') == 1) {
+					first = curr.getDate() - ((curr.getDay() + 6) % 7);
+				}
+				else {
+					first = curr.getDate() - curr.getDay();
+				}
 				this.options.position.start.setTime(new Date(year, month, first).getTime());
 				this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
 				break;
