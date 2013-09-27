@@ -8,32 +8,30 @@
 	<meta name="author" content="Serhioromano">
 	<meta charset="UTF-8">
 
-	<link rel="stylesheet" href="components/bootstrap2/docs/assets/css/bootstrap.css">
-	<link rel="stylesheet" href="components/bootstrap2/docs/assets/css/bootstrap-responsive.css">
+	<link rel="stylesheet" href="components/bootstrap3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="components/bootstrap3/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/calendar.css">
 
 	<style type="text/css">
 		.btn-twitter {
 			padding-left: 30px;
-			background: rgba(0, 0, 0, 0) url(https://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) -20px 6px no-repeat;
-			background-position: -20px 11px !important;
+			background: rgba(0, 0, 0, 0) url(https://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) -20px 9px no-repeat;
 		}
 		.btn-twitter:hover {
-			background-position:  -20px -18px !important;
+			background-position:  -21px -16px;
 		}
 	</style>
 </head>
 <body>
 <div class="container">
-	<br>
-	<div class="hero-unit jumbotron">
+	<div class="jumbotron">
 		<h1>Bootstrap Calendar Demo</h1>
 
 		<p>Bootstrap based full view calendar. Template based.</p>
 
-		<a class="btn btn-inverse" href="https://github.com/Serhioromano/bootstrap-calendar">Fork on GitHub</a>
-		<a class="btn" href="index-bs3.html">Use bootstrap 3</a>
-		<a href="https://twitter.com/serhioromano" class="btn btn-twitter" data-show-count="false" data-size="large">Follow @serhioromano</a>
+		<a class="btn btn-default btn-primary" href="https://github.com/Serhioromano/bootstrap-calendar">Fork on GitHub</a>
+		<a class="btn btn-default" href="index.html">Use bootstrap 2</a>
+		<a href="https://twitter.com/serhioromano" class="btn btn-default btn-twitter" data-show-count="false" data-size="large">Follow @serhioromano</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 		</script>
 	</div>
@@ -59,17 +57,17 @@
 	</div>
 
 	<div class="row">
-		<div class="span9">
+		<div class="col-md-9">
 			<div id="calendar"></div>
 		</div>
-		<div class="span3">
-			<div class="row-fluid">
-				<select id="first_day" class="span12">
+		<div class="col-md-3">
+			<div class="row">
+				<select id="first_day" class="form-control">
 					<option value="" selected="selected">First day of week language-dependant</option>
 					<option value="2">First day of week is Sunday</option>
 					<option value="1">First day of week is Monday</option>
 				</select>
-				<select id="language" class="span12">
+				<select id="language" class="form-control">
 					<option value="">Select Language (default: en-US)</option>
 					<option value="fr-FR">France</option>
 					<option value="el-GR">Greek</option>
@@ -91,23 +89,13 @@
 
 	<div class="clearfix"></div>
 	<br><br>
-	<a href="https://github.com/Serhioromano/bootstrap-calendar/issues" class="btn btn-block btn-info">
-		<center>
-			<span class="lead">
-				Submit an issue, ask questions or give your ideas here!<br>
-			</span>
-			<small>Please do not post your "How to ..." questions in comments. use GitHub issue tracker.</small>
-		</center>
-	</a>
-	<br><br>
-
 	<div id="disqus_thread"></div>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
 	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
-	<script type="text/javascript" src="components/bootstrap2/docs/assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="components/bootstrap3/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/language/fr-FR.js"></script>
 	<script type="text/javascript" src="js/language/el-GR.js"></script>
 	<script type="text/javascript" src="js/language/it-IT.js"></script>

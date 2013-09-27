@@ -118,9 +118,6 @@
 .cal-row-head [class*="cal-cell"] {
   min-height: auto;
 }
-.cal-year-box [class*="span"] {
-  position: relative;
-}
 .cal-events-num {
   margin-top: 20px;
 }
@@ -132,7 +129,7 @@
 #cal-week-box {
   position: absolute;
   width: 50px;
-  left: -61px;
+  left: -51px;
   top: -1px;
   padding: 8px 5px;
   cursor: pointer;
@@ -145,7 +142,7 @@
   cursor: pointer;
   z-index: 5;
   text-align: center;
-  width: 20px;
+  width: 26px;
   margin-right: -17px;
 }
 .cal-year-box #cal-day-box {
@@ -310,6 +307,8 @@
 .cal-year-box .row-fluid,
 .cal-month-box .cal-row-fluid {
   border-bottom: 1px solid #e1e1e1;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .cal-year-box .row-fluid:last-child,
 .cal-month-box .cal-row-fluid:last-child {
@@ -404,4 +403,7 @@ span[data-cal-date]:hover {
 a.cal-event-week {
   text-decoration: none;
   color: #151515;
+}
+.badge-important {
+  background-color: #b94a48;
 }
