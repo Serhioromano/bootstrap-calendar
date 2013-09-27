@@ -189,6 +189,18 @@ if(!String.prototype.format) {
 		d6: 'Saturday'
 	};
 
+	var browser_timezone = '';
+	try {
+		if($.type(window.jstz) == 'object' && $.type(jstz.determine) == 'function') {
+			browser_timezone = jstz.determine().name();
+			if($.type(browser_timezone) !== 'string') {
+				browser_timezone = '';
+			}
+		}
+	}
+	catch(e) {
+	}
+
 	function buildEventsUrl(events_url, data) {
 		var separator, key, url;
 		url = events_url;
@@ -667,9 +679,13 @@ if(!String.prototype.format) {
 			$.error(this.locale.error_loadurl);
 		}
 		var self = this;
+		var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
+		if(browser_timezone.length) {
+			params.browser_timezone = browser_timezone;
+		}
 		this.options.onBeforeEventsLoad.call(this, function() {
 			$.ajax({
-				url: buildEventsUrl(self.options.events_url, {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()}),
+				url: buildEventsUrl(self.options.events_url, params),
 				dataType: 'json',
 				type: 'GET',
 				async: false
