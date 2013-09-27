@@ -1,5 +1,4 @@
 .idea
 node_modules
-components/*
-
+components/
 .DS_Store
