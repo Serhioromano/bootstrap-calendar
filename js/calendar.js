@@ -39,11 +39,14 @@ if(!String.prototype.format) {
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
-		// URL to return JSON list of events in special format.
-		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
-		// events: [...] as described in events property description
-		// The start and end variables will be sent to this url
-		events_url: '',
+		// Source of events data. It can be one of the following:
+		// - URL to return JSON list of events in special format.
+		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
+		//   events: [...] as described in events property description
+		//   The start and end variables will be sent to this url
+		// - A function that received the start and end date, and that
+		//   returns an array of events (as described in events property description)
+		events_source: '',
 		// Path to templates should end with slash /. It can be as relative
 		// /component/bootstrap-calendar/tmpls/
 		// or absolute
@@ -675,27 +678,46 @@ if(!String.prototype.format) {
 	}
 
 	Calendar.prototype._loadEvents = function() {
-		if(!this.options.events_url) {
+		var self = this;
+		var loader;
+		switch($.type(this.options.events_source)) {
+			case 'function':
+				loader = function() {
+					return this.options.events_source(self.options.position.start, self.options.position.end, browser_timezone);
+				};
+				break;
+			case 'string':
+				if(this.options.events_source.length) {
+					loader = function() {
+						var events = [];
+						var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
+						if(browser_timezone.length) {
+							params.browser_timezone = browser_timezone;
+						}
+						$.ajax({
+							url: buildEventsUrl(self.options.events_source, params),
+							dataType: 'json',
+							type: 'GET',
+							async: false
+						}).done(function(json) {
+							if(!json.success) {
+								$.error(json.error);
+							}
+							if(json.result) {
+								events = json.result;
+							}
+						});
+						return events;
+					};
+				}
+				break;
+		}
+		if(!loader) {
 			$.error(this.locale.error_loadurl);
 		}
-		var self = this;
-		var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
-		if(browser_timezone.length) {
-			params.browser_timezone = browser_timezone;
-		}
 		this.options.onBeforeEventsLoad.call(this, function() {
-			$.ajax({
-				url: buildEventsUrl(self.options.events_url, params),
-				dataType: 'json',
-				type: 'GET',
-				async: false
-			}).done(function(json) {
-					if(!json.success) {
-						$.error(json.error);
-					}
-					self.options.events = json.result || [];
-					self.options.onAfterEventsLoad.call(self, json.result);
-				});
+			self.options.events = loader();
+			self.options.onAfterEventsLoad.call(self, self.options.events);
 		});
 	};
 
