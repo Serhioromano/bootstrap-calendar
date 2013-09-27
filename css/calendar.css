@@ -307,6 +307,8 @@
 .cal-year-box .row-fluid,
 .cal-month-box .cal-row-fluid {
   border-bottom: 1px solid #e1e1e1;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .cal-year-box .row-fluid:last-child,
 .cal-month-box .cal-row-fluid:last-child {
