@@ -684,7 +684,7 @@ if(!String.prototype.format) {
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
 		var source = null;
-		if('events_source' in this.options) {
+		if('events_source' in this.options && this.options.events_source !== '') {
 			source = this.options.events_source;
 		}
 		else if('events_url' in this.options) {
