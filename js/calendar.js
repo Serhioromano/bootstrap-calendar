@@ -419,7 +419,7 @@ if(!String.prototype.format) {
 	Calendar.prototype._month = function(month) {
 		this._loadTemplate('year-month');
 
-		var t = {};
+		var t = {cal: this};
 		var newmonth = month + 1;
 		t.data_day = this.options.position.start.getFullYear() + '-' + (newmonth < 10 ? '0' + newmonth : newmonth) + '-' + '01';
 		t.month_name = this.locale['m' + month];
@@ -441,7 +441,7 @@ if(!String.prototype.format) {
 	Calendar.prototype._day = function(week, day) {
 		this._loadTemplate('month-day');
 
-		var t = {tooltip: ''};
+		var t = {tooltip: '', cal: this};
 		var cls = this.options.classes.months.outmonth;
 
 		var firstday = this.options.position.start.getDay();
@@ -874,7 +874,7 @@ if(!String.prototype.format) {
 		that.fadeOut('fast');
 
 		slider.slideUp('fast', function() {
-			slider.html(self.options.templates['events-list']({events: $('.events-list a.event', cell)}))
+			slider.html(self.options.templates['events-list']({cal: self, events: $('.events-list a.event', cell)}))
 			row.after(slider);
 			self.activecell = $('[data-cal-date]', cell).text();
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
