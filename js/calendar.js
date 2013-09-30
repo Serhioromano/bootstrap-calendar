@@ -285,9 +285,7 @@ if(!String.prototype.format) {
 				}
 			}
 			else {
-				if(window.console && console.log) {
-					console.log('Unknown holiday: ' + key);
-				}
+				warn('Unknown holiday: ' + key);
 			}
 			if(date) {
 				holidays.push({date: date, name: name});
@@ -297,6 +295,12 @@ if(!String.prototype.format) {
 		return getHolidays.cache[hash];
 	}
 	getHolidays.cache = {};
+
+	function warn(message) {
+		if($.type(window.console) == 'object' && $.type(window.console.warn) == 'function') {
+			window.console.warn('[Bootstrap-Calendar] ' + message);
+		}
+	}
 
 	function Calendar(params, context) {
 		this.options = $.extend(true, {}, defaults, params);
@@ -679,15 +683,23 @@ if(!String.prototype.format) {
 
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
+		var source = null;
+		if('events_source' in this.options) {
+			source = this.options.events_source;
+		}
+		else if('events_url' in this.options) {
+			source = this.options.events_url;
+			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
+		}
 		var loader;
-		switch($.type(this.options.events_source)) {
+		switch($.type(source)) {
 			case 'function':
 				loader = function() {
-					return this.options.events_source(self.options.position.start, self.options.position.end, browser_timezone);
+					return source(self.options.position.start, self.options.position.end, browser_timezone);
 				};
 				break;
 			case 'string':
-				if(this.options.events_source.length) {
+				if(source.length) {
 					loader = function() {
 						var events = [];
 						var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
@@ -695,7 +707,7 @@ if(!String.prototype.format) {
 							params.browser_timezone = browser_timezone;
 						}
 						$.ajax({
-							url: buildEventsUrl(self.options.events_source, params),
+							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
 							async: false
