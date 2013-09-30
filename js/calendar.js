@@ -717,6 +717,14 @@ if(!String.prototype.format) {
 							}
 							if(json.result) {
 								events = json.result;
+								events.sort(function(a, b) {
+									var delta;
+									delta = a.start - b.start;
+									if(delta == 0) {
+										delta = a.end - b.end;
+									}
+									return delta;
+								});
 							}
 						});
 						return events;
