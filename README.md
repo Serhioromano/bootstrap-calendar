@@ -74,7 +74,7 @@ Where xx-XX is the language code. When you initializing the calendar, you have t
 
 To feed the calendar with events you need to provide a URL where AJAX request will be sent.
 
-	var calendar = $('#calendar').calendar({events_url:'/api/events.php'});
+	var calendar = $('#calendar').calendar({events_source:'/api/events.php'});
 
 It will `GET` two parameters, `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
 

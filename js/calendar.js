@@ -39,11 +39,14 @@ if(!String.prototype.format) {
 		view: 'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day: 'now',
-		// URL to return JSON list of events in special format.
-		// {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
-		// events: [...] as described in events property description
-		// The start and end variables will be sent to this url
-		events_url: '',
+		// Source of events data. It can be one of the following:
+		// - URL to return JSON list of events in special format.
+		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
+		//   events: [...] as described in events property description
+		//   The start and end variables will be sent to this url
+		// - A function that received the start and end date, and that
+		//   returns an array of events (as described in events property description)
+		events_source: '',
 		// Path to templates should end with slash /. It can be as relative
 		// /component/bootstrap-calendar/tmpls/
 		// or absolute
@@ -282,9 +285,7 @@ if(!String.prototype.format) {
 				}
 			}
 			else {
-				if(window.console && console.log) {
-					console.log('Unknown holiday: ' + key);
-				}
+				warn('Unknown holiday: ' + key);
 			}
 			if(date) {
 				holidays.push({date: date, name: name});
@@ -294,6 +295,12 @@ if(!String.prototype.format) {
 		return getHolidays.cache[hash];
 	}
 	getHolidays.cache = {};
+
+	function warn(message) {
+		if($.type(window.console) == 'object' && $.type(window.console.warn) == 'function') {
+			window.console.warn('[Bootstrap-Calendar] ' + message);
+		}
+	}
 
 	function Calendar(params, context) {
 		this.options = $.extend(true, {}, defaults, params);
@@ -675,27 +682,54 @@ if(!String.prototype.format) {
 	}
 
 	Calendar.prototype._loadEvents = function() {
-		if(!this.options.events_url) {
+		var self = this;
+		var source = null;
+		if('events_source' in this.options) {
+			source = this.options.events_source;
+		}
+		else if('events_url' in this.options) {
+			source = this.options.events_url;
+			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
+		}
+		var loader;
+		switch($.type(source)) {
+			case 'function':
+				loader = function() {
+					return source(self.options.position.start, self.options.position.end, browser_timezone);
+				};
+				break;
+			case 'string':
+				if(source.length) {
+					loader = function() {
+						var events = [];
+						var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
+						if(browser_timezone.length) {
+							params.browser_timezone = browser_timezone;
+						}
+						$.ajax({
+							url: buildEventsUrl(source, params),
+							dataType: 'json',
+							type: 'GET',
+							async: false
+						}).done(function(json) {
+							if(!json.success) {
+								$.error(json.error);
+							}
+							if(json.result) {
+								events = json.result;
+							}
+						});
+						return events;
+					};
+				}
+				break;
+		}
+		if(!loader) {
 			$.error(this.locale.error_loadurl);
 		}
-		var self = this;
-		var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
-		if(browser_timezone.length) {
-			params.browser_timezone = browser_timezone;
-		}
 		this.options.onBeforeEventsLoad.call(this, function() {
-			$.ajax({
-				url: buildEventsUrl(self.options.events_url, params),
-				dataType: 'json',
-				type: 'GET',
-				async: false
-			}).done(function(json) {
-					if(!json.success) {
-						$.error(json.error);
-					}
-					self.options.events = json.result || [];
-					self.options.onAfterEventsLoad.call(self, json.result);
-				});
+			self.options.events = loader();
+			self.options.onAfterEventsLoad.call(self, self.options.events);
 		});
 	};
 
