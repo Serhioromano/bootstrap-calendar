@@ -336,7 +336,6 @@ if(!String.prototype.format) {
 		this.stop_cycling = false;
 
 		var data = {};
-		data.events = [];
 		data.cal = this;
 		data.day = 1;
 
@@ -351,11 +350,7 @@ if(!String.prototype.format) {
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
 
-		$.each(this.options.events, function(k, event) {
-			if((parseInt(event.start) < end) && (parseInt(event.end) >= start)) {
-				data.events.push(event);
-			}
-		});
+		data.events = this.getEventsBetween(start, end);
 
 		switch(this.options.view) {
 			case 'month':
@@ -383,33 +378,30 @@ if(!String.prototype.format) {
 		var self = this;
 		var first_day = getExtentedOption(this, 'first_day');
 
-		$.each(this.options.events, function(k, event) {
-			if((parseInt(event.start) < end) && (parseInt(event.end) >= start)) {
-
-				event.start_day = new Date(parseInt(event.start)).getDay();
-				if(first_day == 1) {
-					event.start_day = (event.start_day + 6) % 7;
-				}
-				if((event.end - event.start) <= 86400000) {
-					event.days = 1;
-				} else {
-					event.days = ((event.end - event.start) / 86400000);
-				}
-
-				if(event.start < start) {
-
-					event.days = event.days - ((start - event.start) / 86400000);
-					event.start_day = 0;
-				}
-
-				event.days = Math.ceil(event.days);
-
-				if(event.start_day + event.days > 7) {
-					event.days = 7 - (event.start_day);
-				}
-
-				events.push(event);
+		$.each(this.getEventsBetween(start, end), function(k, event) {
+			event.start_day = new Date(parseInt(event.start)).getDay();
+			if(first_day == 1) {
+				event.start_day = (event.start_day + 6) % 7;
 			}
+			if((event.end - event.start) <= 86400000) {
+				event.days = 1;
+			} else {
+				event.days = ((event.end - event.start) / 86400000);
+			}
+
+			if(event.start < start) {
+
+				event.days = event.days - ((start - event.start) / 86400000);
+				event.start_day = 0;
+			}
+
+			event.days = Math.ceil(event.days);
+
+			if(event.start_day + event.days > 7) {
+				event.days = 7 - (event.start_day);
+			}
+
+			events.push(event);
 		});
 		t.events = events;
 		t.cal = this;
@@ -427,14 +419,7 @@ if(!String.prototype.format) {
 		var curdate = new Date(this.options.position.start.getFullYear(), month, 1, 0, 0, 0);
 		var start = parseInt(curdate.getTime());
 		var end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 0, 0, 0, 0).getTime());
-		var events = [];
-
-		$.each(this.options.events, function(k, event) {
-			if((parseInt(event.start) < end) && (parseInt(event.end) >= start)) {
-				events.push(event);
-			}
-		});
-		t.events = events;
+		t.events = this.getEventsBetween(start, end);
 		return this.options.templates['year-month'](t);
 	}
 
@@ -488,15 +473,7 @@ if(!String.prototype.format) {
 
 		var start = parseInt(curdate.getTime());
 		var end = parseInt(start + 86400000);
-		var events = [];
-
-		$.each(this.options.events, function(k, event) {
-			if((parseInt(event.start) < end) && (parseInt(event.end) >= start)) {
-				events.push(event);
-			}
-		});
-
-		t.events = events;
+		t.events = this.getEventsBetween(start, end);
 		return this.options.templates['month-day'](t);
 	}
 
@@ -860,6 +837,16 @@ if(!String.prototype.format) {
 		downbox.click(function(event) {
 			showEventsList(event, $(this), slider, self);
 		});
+	};
+
+	Calendar.prototype.getEventsBetween = function(start, end) {
+		var events = [];
+		$.each(this.options.events, function() {
+			if((parseInt(this.start) < end) && (parseInt(this.end) >= start)) {
+				events.push(this);
+			}
+		});
+		return events;
 	};
 
 	function showEventsList(event, that, slider, self) {
