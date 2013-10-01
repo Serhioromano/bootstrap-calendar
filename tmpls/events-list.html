@@ -4,7 +4,7 @@
 		<% _.each(events, function(event) { %>
 			<li>
 				<span class="pull-left event <%= event['class'] %>"></span>&nbsp;
-				<a href="<%= event.url.length ? event.url : '#' %>" data-event-id="<%= event.id %>"
+				<a href="<%= event.url ? event.url : '#' %>" data-event-id="<%= event.id %>"
 					data-event-class="<%= event['class'] %>" class="event-item">
 					<%= event.title %></a>
 			</li>
