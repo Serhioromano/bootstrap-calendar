@@ -105,10 +105,6 @@ if(!String.prototype.format) {
 		// INTERNAL USE ONLY. DO NOT ASSIGN IT WILL BE OVERRIDDEN ANYWAY
 		// -------------------------------------------------------------
 		events: [],
-		position: {
-			start: new Date(),
-			end: new Date()
-		},
 		templates: {
 			year: '',
 			month: '',
@@ -303,7 +299,7 @@ if(!String.prototype.format) {
 	}
 
 	function Calendar(params, context) {
-		this.options = $.extend(true, {}, defaults, params);
+		this.options = $.extend(true, {position: {start: new Date(), end: new Date()}}, defaults, params);
 		this.setLanguage(this.options.language);
 		this.context = context;
 
