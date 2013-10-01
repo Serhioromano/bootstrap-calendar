@@ -413,9 +413,9 @@ if(!String.prototype.format) {
 		t.month_name = this.locale['m' + month];
 
 		var curdate = new Date(this.options.position.start.getFullYear(), month, 1, 0, 0, 0);
-		var start = parseInt(curdate.getTime());
-		var end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 0, 0, 0, 0).getTime());
-		t.events = this.getEventsBetween(start, end);
+		t.start = parseInt(curdate.getTime());
+		t.end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 0, 0, 0, 0).getTime());
+		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['year-month'](t);
 	}
 
@@ -467,9 +467,9 @@ if(!String.prototype.format) {
 		t.cls = cls;
 		t.day = day;
 
-		var start = parseInt(curdate.getTime());
-		var end = parseInt(start + 86400000);
-		t.events = this.getEventsBetween(start, end);
+		t.start = parseInt(curdate.getTime());
+		t.end = parseInt(t.start + 86400000);
+		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['month-day'](t);
 	}
 
@@ -857,7 +857,11 @@ if(!String.prototype.format) {
 		that.fadeOut('fast');
 
 		slider.slideUp('fast', function() {
-			slider.html(self.options.templates['events-list']({cal: self, events: $('.events-list a.event', cell)}))
+			var event_list = $('.events-list', cell);
+			slider.html(self.options.templates['events-list']({
+				cal: self,
+				events: self.getEventsBetween(parseInt(event_list.data('cal-start')), parseInt(event_list.data('cal-end')))
+			}));
 			row.after(slider);
 			self.activecell = $('[data-cal-date]', cell).text();
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
