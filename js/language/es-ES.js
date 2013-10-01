@@ -27,18 +27,18 @@ window.calendar_languages['es-ES'] = {
 	m10: 'Noviembre',
 	m11: 'Diciembre',
 
-    ms0: 'Ene',
-    ms1: 'Feb',
-    ms2: 'Mar',
-    ms3: 'Abr',
-    ms4: 'May',
-    ms5: 'Jun',
-    ms6: 'Jul',
-    ms7: 'Ago',
-    ms8: 'Sep',
-    ms9: 'Oct',
-    ms10: 'Nov',
-    ms11: 'Dic',
+	ms0: 'Ene',
+	ms1: 'Feb',
+	ms2: 'Mar',
+	ms3: 'Abr',
+	ms4: 'May',
+	ms5: 'Jun',
+	ms6: 'Jul',
+	ms7: 'Ago',
+	ms8: 'Sep',
+	ms9: 'Oct',
+	ms10: 'Nov',
+	ms11: 'Dic',
 
 	d0: 'Domingo',
 	d1: 'Lunes',
@@ -49,5 +49,24 @@ window.calendar_languages['es-ES'] = {
 	d6: 'S&aacute;bado',
 
 	easter: 'Pascuas',
-	easterMonday: 'Lunes de Pascuas'
+	easterMonday: 'Lunes de Pascuas',
+
+	first_day: 1,
+
+	holidays: {
+		'01-01': "Año Nuevo",
+		'06-01': "Día de Reyes",
+		'19-03': "San José",
+		'easter-3': "Jueves Santo",
+		'easter-2': "Viernes Santo",
+		'easter': "Pascua",
+		'easter+1': "Lunes de Pascua",
+		'01-05': "Día del Trabajador",
+		'15-08': "Asunción",
+		'12-10': "Fiesta Nacional de España",
+		'01-11': "Día de todos los Santos",
+		'06-12': "Día de la Constitución",
+		'08-12': "Inmaculada Concepción",
+		'25-12': "Navidad"
+	}
 };

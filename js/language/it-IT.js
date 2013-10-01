@@ -48,6 +48,20 @@ window.calendar_languages['it-IT'] = {
 	d5: 'Venerdì',
 	d6: 'Sabato',
 
-	easter: 'Pasqua',
-	easterMonday: 'Lunedì dell’Angelo'
+	first_day: 1,
+
+	holidays: {
+		'01-01': 'Capodanno',
+		'06-01': 'Epifania',
+		'easter': 'Pasqua',
+		'easter+1': 'Lunedì dell’Angelo',
+		'25-04': 'Festa della Liberazione',
+		'01-05': 'Festa del Lavoro',
+		'02-06': 'Festa della Repubblica',
+		'15-08': 'Ferragosto',
+		'01-11': 'Ognissanti',
+		'08-12': 'Immacolata Concezione',
+		'25-12': 'Natale',
+		'26-12': 'Santo Stefano'
+	}
 };

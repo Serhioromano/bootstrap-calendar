@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-calendar",
-  "version": "0.1.0-Beta",
+  "version": "0.1.1-Beta",
   "main": [
     "./js/language/en-GB.js",
     "./js/calendar.js",
@@ -13,7 +13,7 @@
     "less"
   ],
   "dependencies": {
-    "jquery": "~1.8.3",
+    "jquery": "~1.10.2",
     "bootstrap": "~2.3.1",
     "underscore": "~1.4.4",
     "moment": "~2.0.0"

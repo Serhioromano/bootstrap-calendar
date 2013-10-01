@@ -1,12 +1,12 @@
-<span class="hide" id="cal-slide-tick"></span>
+<span id="cal-slide-tick" style="display: none"></span>
 <div id="cal-slide-content" class="cal-event-list">
-	<ul class="unstyled">
-		<% _.each(events, function(event){ %>
+	<ul class="unstyled list-unstyled">
+		<% _.each(events, function(event) { %>
 			<li>
-				<span class="pull-left event <%= $(event).data('event-class') %>"></span>&nbsp;
-				<a href="<%= $(event).attr('href') %>" data-event-id="<%= $(event).data('event-id') %>"
-						data-event-class="<%= $(event).data('event-class') %>" class="event-item">
-					<%= $(event).data('original-title') %></a>
+				<span class="pull-left event <%= event['class'] %>"></span>&nbsp;
+				<a href="<%= event.url ? event.url : '#' %>" data-event-id="<%= event.id %>"
+					data-event-class="<%= event['class'] %>" class="event-item">
+					<%= event.title %></a>
 			</li>
 		<% }) %>
 	</ul>
