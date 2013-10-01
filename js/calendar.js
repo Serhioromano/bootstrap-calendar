@@ -302,6 +302,7 @@ if(!String.prototype.format) {
 		this.options = $.extend(true, {position: {start: new Date(), end: new Date()}}, defaults, params);
 		this.setLanguage(this.options.language);
 		this.context = context;
+		this.strings = this.options.strings;
 
 		context.css('width', this.options.width).addClass('cal-context');
 
