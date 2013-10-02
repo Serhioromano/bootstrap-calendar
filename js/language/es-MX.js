@@ -3,9 +3,9 @@ if(!window.calendar_languages) {
 }
 window.calendar_languages['es-MX'] = {
 	error_noview: 'Calendar: Vista {0} no encontrada',
-	error_dateformat: 'Calendar: Formato de Fecha Inv&aacute;lido {0}. Debe ser "now" o con el formato "yyyy-mm-dd"',
+	error_dateformat: 'Calendar: Formato de Fecha Inválido {0}. Debe ser "now" o con el formato "yyyy-mm-dd"',
 	error_loadurl: 'Calendar: URL de datos no definida',
-	error_where: 'Calendar: Direcci&oacute;nd de navegaci&oacute;n err&oacute;nea {0}. Valores v&aacute;lidos: "next" o "prev" o "today"',
+	error_where: 'Calendar: Direcciónd de navegación errónea {0}. Valores válidos: "next" o "prev" o "today"',
 
 	title_year: 'Año {0}',
 	title_month: '{0} año {1}',
@@ -43,10 +43,10 @@ window.calendar_languages['es-MX'] = {
 	d0: 'Domingo',
 	d1: 'Lunes',
 	d2: 'Martes',
-	d3: 'Mi&eacute;rcoles',
+	d3: 'Miércoles',
 	d4: 'Jueves',
 	d5: 'Viernes',
-	d6: 'S&aacute;bado',
+	d6: 'Sábado',
 
 	easter: 'Pascuas',
 	easterMonday: 'Lunes de Pascuas',
