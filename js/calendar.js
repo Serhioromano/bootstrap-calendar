@@ -248,45 +248,76 @@ if(!String.prototype.format) {
 		}
 		var holidays = [];
 		$.each(holidays_def, function(key, name) {
-			var m, date = null;
-			if(m = /^(\d\d)-(\d\d)$/.exec(key)) {
-				date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
-			}
-			else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(key)) {
-				if(parseInt(m[3], 10) == year) {
+			var firstDay = null, lastDay = null, failed = false;
+			$.each(key.split('>'), function(i, chunk) {
+				var m, date = null;
+				if(m = /^(\d\d)-(\d\d)$/.exec(chunk)) {
 					date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
 				}
-			}
-			else if(m = /^easter(([+\-])(\d+))?$/.exec(key)) {
-				date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
-			}
-			else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(key)) {
-				var month = parseInt(m[1], 10) - 1;
-				var direction = m[2];
-				var offset = parseInt(m[3]);
-				var weekday = parseInt(m[4]);
-				switch(direction) {
-					case '+':
-						var d = new Date(year, month, 1 - 7);
-						while(d.getDay() != weekday) {
-							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
-						}
-						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
-						break;
-					case '-':
-						var d = new Date(year, month + 1, 0 + 7);
-						while(d.getDay() != weekday) {
-							d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
-						}
-						date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
-						break;
+				else if(m = /^(\d\d)-(\d\d)-(\d\d\d\d)$/.exec(chunk)) {
+					if(parseInt(m[3], 10) == year) {
+						date = new Date(year, parseInt(m[2], 10) - 1, parseInt(m[1], 10));
+					}
 				}
-			}
-			else {
-				warn('Unknown holiday: ' + key);
-			}
-			if(date) {
-				holidays.push({date: date, name: name});
+				else if(m = /^easter(([+\-])(\d+))?$/.exec(chunk)) {
+					date = getEasterDate(year, m[1] ? parseInt(m[1], 10) : 0);
+				}
+				else if(m = /^(\d\d)([+\-])([1-5])\*([0-6])$/.exec(chunk)) {
+					var month = parseInt(m[1], 10) - 1;
+					var direction = m[2];
+					var offset = parseInt(m[3]);
+					var weekday = parseInt(m[4]);
+					switch(direction) {
+						case '+':
+							var d = new Date(year, month, 1 - 7);
+							while(d.getDay() != weekday) {
+								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+							}
+							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 7 * offset);
+							break;
+						case '-':
+							var d = new Date(year, month + 1, 0 + 7);
+							while(d.getDay() != weekday) {
+								d = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1);
+							}
+							date = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 7 * offset);
+							break;
+					}
+				}
+				if(!date) {
+					warn('Unknown holiday: ' + key);
+					failed = true;
+					return false;
+				}
+				switch(i) {
+					case 0:
+						firstDay = date;
+						break;
+					case 1:
+						if(date.getTime() <= firstDay.getTime()) {
+							warn('Unknown holiday: ' + key);
+							failed = true;
+							return false;
+						}
+						lastDay = date;
+						break;
+					default:
+						warn('Unknown holiday: ' + key);
+						failed = true;
+						return false;
+				}
+			});
+			if(!failed) {
+				var days = [];
+				if(lastDay) {
+					for(var date = new Date(firstDay.getTime()); date.getTime() <= lastDay.getTime(); date.setDate(date.getDate() + 1)) {
+						days.push(new Date(date.getTime()));
+					}
+				}
+				else {
+					days.push(firstDay);
+				}
+				holidays.push({name: name, days: days});
 			}
 		});
 		getHolidays.cache[hash] = holidays;
@@ -478,7 +509,14 @@ if(!String.prototype.format) {
 	Calendar.prototype._getHoliday = function(date) {
 		var result = false;
 		$.each(getHolidays(this, date.getFullYear()), function() {
-			if(this.date.toDateString() == date.toDateString()) {
+			var found = false;
+			$.each(this.days, function() {
+				if(this.toDateString() == date.toDateString()) {
+					found = true;
+					return false;
+				}
+			});
+			if(found) {
 				result = this.name;
 				return false;
 			}
