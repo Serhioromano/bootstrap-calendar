@@ -12,6 +12,8 @@ window.calendar_languages['en-US'] = {
 	error_loadurl: 'Calendar: Event URL is not set',
 	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
+	no_events_in_day: 'No events in this day.',
+
 	// {0} will be replaced with the year (example: 2013)
 	title_year: '{0}',
 	// {0} will be replaced with the month name (example: September)
