@@ -146,6 +146,8 @@ if(!String.prototype.format) {
 		error_loadurl: 'Calendar: Event URL is not set',
 		error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
+		no_events_in_day: 'No events in this day.',
+
 		title_year: '{0}',
 		title_month: '{0} {1}',
 		title_week: 'week {0} of {1}',

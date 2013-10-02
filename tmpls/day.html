@@ -1,8 +1,12 @@
-<ul class="unstyled list-unstyled cal-event-list">
-	<% _.each(events, function(event){ %>
-		<li><span class="pull-left event <%= event['class'] %>"></span>
-			<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
-				data-event-class="<%= event['class'] %>" class="event-item">
-				<%= event.title %></a></li>
-	<% }) %>
-</ul>
+<% if(events.length) { %>
+	<ul class="unstyled list-unstyled cal-event-list">
+		<% _.each(events, function(event){ %>
+			<li><span class="pull-left event <%= event['class'] %>"></span>
+				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
+					data-event-class="<%= event['class'] %>" class="event-item">
+					<%= event.title %></a></li>
+		<% }) %>
+	</ul>
+<% } else  { %>
+	<p><%= cal.locale.no_events_in_day %></p>
+<% }  %>

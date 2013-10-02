@@ -7,6 +7,8 @@ window.calendar_languages['it-IT'] = {
 	error_loadurl: 'Calendario: URL di caricamento degli eventi non impostato',
 	error_where: 'Calendario: direzione di spostamento {0} non valida. I valori validi sono "next" o "prev" o "today"',
 
+	no_events_in_day: 'Nessun evento in questo giorno.',
+
 	title_year: 'Anno {0}',
 	title_month: '{0} {1}',
 	title_week: 'Settimana {0} del {1}',
