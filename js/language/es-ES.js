@@ -7,6 +7,8 @@ window.calendar_languages['es-ES'] = {
 	error_loadurl: 'Calendario: URL de carga de eventos no configurada',
 	error_where: 'Calendario: Direcci&oacute;n de navegaci&oacute;n incorrecta {0}. Los valores correctos son "next" o "prev" o "today"',
 
+	no_events_in_day: 'No hay eventos hoy',
+
 	title_year: 'A&ntilde;o {0}',
 	title_month: '{0} {1}',
 	title_week: 'Semana {0} del {1}',
