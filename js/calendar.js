@@ -692,14 +692,6 @@ if(!String.prototype.format) {
 							}
 							if(json.result) {
 								events = json.result;
-								events.sort(function(a, b) {
-									var delta;
-									delta = a.start - b.start;
-									if(delta == 0) {
-										delta = a.end - b.end;
-									}
-									return delta;
-								});
 							}
 						});
 						return events;
@@ -712,6 +704,14 @@ if(!String.prototype.format) {
 		}
 		this.options.onBeforeEventsLoad.call(this, function() {
 			self.options.events = loader();
+			self.options.events.sort(function(a, b) {
+				var delta;
+				delta = a.start - b.start;
+				if(delta == 0) {
+					delta = a.end - b.end;
+				}
+				return delta;
+			});
 			self.options.onAfterEventsLoad.call(self, self.options.events);
 		});
 	};
