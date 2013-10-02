@@ -3,10 +3,29 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		cssmin: {
-			compress: {
+		less: {
+			options: {
+				ieCompat: true,
+				strictImports: false,
+				syncImport: false,
+				report: 'min'
+			},
+			css: {
+				options: {
+					compress: false,
+					yuicompress: false
+				},
 				files: {
-					'css/calendar.min.css': ['css/calendar.css']
+					'css/calendar.css': 'less/calendar.less',
+				}
+			},
+			css_min: {
+				options: {
+					compress: true,
+					yuicompress: true
+				},
+				files: {
+					'css/calendar.min.css': 'css/calendar.css'
 				}
 			}
 		},
@@ -21,11 +40,11 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	// Load the plugin that provides the tasks.
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Default task(s).
-	grunt.registerTask('default', ['cssmin', 'uglify']);
+	grunt.registerTask('default', ['less:css', 'less:css_min', 'uglify']);
 
 };

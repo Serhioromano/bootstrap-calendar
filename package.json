@@ -21,7 +21,7 @@
   "gitHead": "fc46075a07e08b1796f959c6562d851acce00751",
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-cssmin": "~0.5.0",
+    "grunt-contrib-less": "~0.7.0",
     "grunt-contrib-uglify": "~0.2.0",
     "bower": "~0.8.5"
   }
