@@ -93,6 +93,11 @@ window.calendar_languages['en-US'] = {
 	//   For example:
 	//   - Last (1) Saturnday (6) in Match (03): '03-1*6'
 	//   - Last (1) Monday (1) in May (05): '05-1*1'
+	// # You can also specify a holiday that lasts more than one day. To do that use the format 'start>end' where 'start' and 'end' are specified as above.
+	//   For example:
+	//   - From 1 January to 6 January: '01-01>06-01'
+	//   - Easter and the day after Easter: 'easter>easter+1'
+	//   Limitations: currently the multi-day holydays can't cross an year. So, for example, you can't specify a range as '30-12>01-01'; as a workaround you can specify two distinct holidays (for instance '30-12>31-12' and '01-01'). 
 	holidays: {
 	}
 };
