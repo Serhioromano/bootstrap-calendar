@@ -70,6 +70,8 @@ if(!String.prototype.format) {
 				today: 'cal-day-today'
 			}
 		},
+		// ID of the element of modal window. If set, events URLs will be opend in modal windows.
+		modal: null,
 		views: {
 			year: {
 				slide_events: 1,
@@ -756,6 +758,26 @@ if(!String.prototype.format) {
 		});
 
 		this['_update_' + this.options.view]();
+
+		this._update_modal();
+
+	};
+
+	Calendar.prototype._update_modal = function() {
+		var self = this;
+
+		if(!self.options.modal) {
+			return;
+		}
+
+		$('a[data-event-id]').on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			var url = $(this).attr('href');
+
+			$(self.options.modal).modal();
+		});
 	};
 
 	Calendar.prototype._update_day = function() {
@@ -882,6 +904,7 @@ if(!String.prototype.format) {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 
+		self._update_modal();
 	}
 
 	function getEasterDate(year, offsetDays) {
