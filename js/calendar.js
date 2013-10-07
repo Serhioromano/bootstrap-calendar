@@ -770,13 +770,29 @@ if(!String.prototype.format) {
 			return;
 		}
 
+		var modal = $(self.options.modal);
+
+		if(!modal.length) {
+			return;
+		}
+
+		var ifrm = $(document.createElement("iframe"))
+			.attr({
+				width: "100%",
+				height: "100%",
+				frameborder:"0"
+			});
+
+
 		$('a[data-event-id]').on('click', function(event) {
 			event.preventDefault();
 			event.stopPropagation();
 
 			var url = $(this).attr('href');
+			ifrm.attr('src', url);
+			$('.modal-body', modal).html(ifrm);
 
-			$(self.options.modal).modal();
+			modal.modal();
 		});
 	};
 
