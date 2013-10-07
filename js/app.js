@@ -8,7 +8,6 @@
 		tmpl_path: 'tmpls/',
 		tmpl_cache: false,
 		day: '2013-03-12',
-		modal: '#events-modal',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
@@ -60,5 +59,11 @@
     $('#language').change(function(){
         calendar.setLanguage($(this).val());
         calendar.view();
+    });
+
+	$('#events-in-modal').change(function(){
+		var val = $(this).is(':checked') ? $(this).val() : null;
+		calendar.setOptions({modal: val});
+		calendar._update_modal();
     });
 }(jQuery));
