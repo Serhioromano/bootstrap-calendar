@@ -766,7 +766,7 @@ if(!String.prototype.format) {
 	Calendar.prototype._update_modal = function() {
 		var self = this;
 
-		$('a[data-event-id]').unbind('click');
+		$('a[data-event-id]', this.context).unbind('click');
 
 		if(!self.options.modal) {
 			return;
@@ -781,12 +781,11 @@ if(!String.prototype.format) {
 		var ifrm = $(document.createElement("iframe"))
 			.attr({
 				width: "100%",
-				height: "100%",
 				frameborder:"0"
 			});
 
 
-		$('a[data-event-id]').on('click', function(event) {
+		$('a[data-event-id]', this.context).on('click', function(event) {
 			event.preventDefault();
 			event.stopPropagation();
 
@@ -794,6 +793,16 @@ if(!String.prototype.format) {
 			ifrm.attr('src', url);
 			$('.modal-body', modal).html(ifrm);
 
+			if(!modal.data('handled.bootstrap-calendar')) {
+				modal
+					.on('show.bs.modal', function () {
+						var modal_body = $(this).find('.modal-body');
+						debugger
+						var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
+						$(this).find('iframe').height(Math.max(height, 50));
+					})
+					.data('handled.bootstrap-calendar', true);
+			}
 			modal.modal();
 		});
 	};
