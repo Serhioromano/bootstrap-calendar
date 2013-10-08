@@ -79,6 +79,9 @@
 					<option value="ru-RU">Russian</option>
 					<option value="sv-SE">Swedish</option>
 				</select>
+				<label class="checkbox">
+					<input type="checkbox" value="#events-modal" id="events-in-modal"> Open events in modal window
+				</label>
 			</div>
 
 			<h4>Events</h4>
@@ -92,6 +95,17 @@
 	<div id="disqus_thread"></div>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
+	<div class="modal hide fade" id="events-modal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>Event</h3>
+		</div>
+		<div class="modal-body" style="height: 400px">
+		</div>
+		<div class="modal-footer">
+			<a href="#" data-dismiss="modal" class="btn">Close</a>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
