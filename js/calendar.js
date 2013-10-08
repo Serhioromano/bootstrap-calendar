@@ -797,13 +797,12 @@ if(!String.prototype.format) {
 				modal
 					.on('show.bs.modal', function () {
 						var modal_body = $(this).find('.modal-body');
-						debugger
 						var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
 						$(this).find('iframe').height(Math.max(height, 50));
 					})
 					.data('handled.bootstrap-calendar', true);
 			}
-			modal.modal();
+			modal.modal('show');
 		});
 	};
 
