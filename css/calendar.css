@@ -116,9 +116,9 @@
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
-	min-height: auto;
-  	overflow: hidden;
-	text-overflow: ellipsis;
+  min-height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cal-events-num {
   margin-top: 20px;
