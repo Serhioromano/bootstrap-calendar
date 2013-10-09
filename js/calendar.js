@@ -318,6 +318,9 @@ if(!String.prototype.format) {
 		if('language' in object) {
 			this.setLanguage(object.language);
 		}
+		if('modal' in object) {
+			this._update_modal();
+		}
 	}
 
 	Calendar.prototype.setLanguage = function(lang) {

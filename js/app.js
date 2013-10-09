@@ -64,6 +64,5 @@
 	$('#events-in-modal').change(function(){
 		var val = $(this).is(':checked') ? $(this).val() : null;
 		calendar.setOptions({modal: val});
-		calendar._update_modal();
     });
 }(jQuery));
