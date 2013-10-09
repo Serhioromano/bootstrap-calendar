@@ -70,6 +70,8 @@ if(!String.prototype.format) {
 				today: 'cal-day-today'
 			}
 		},
+		// ID of the element of modal window. If set, events URLs will be opend in modal windows.
+		modal: null,
 		views: {
 			year: {
 				slide_events: 1,
@@ -346,6 +348,9 @@ if(!String.prototype.format) {
 		$.extend(this.options, object);
 		if('language' in object) {
 			this.setLanguage(object.language);
+		}
+		if('modal' in object) {
+			this._update_modal();
 		}
 	}
 
@@ -794,6 +799,52 @@ if(!String.prototype.format) {
 		});
 
 		this['_update_' + this.options.view]();
+
+		this._update_modal();
+
+	};
+
+	Calendar.prototype._update_modal = function() {
+		var self = this;
+
+		$('a[data-event-id]', this.context).unbind('click');
+
+		if(!self.options.modal) {
+			return;
+		}
+
+		var modal = $(self.options.modal);
+
+		if(!modal.length) {
+			return;
+		}
+
+		var ifrm = $(document.createElement("iframe"))
+			.attr({
+				width: "100%",
+				frameborder:"0"
+			});
+
+
+		$('a[data-event-id]', this.context).on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			var url = $(this).attr('href');
+			ifrm.attr('src', url);
+			$('.modal-body', modal).html(ifrm);
+
+			if(!modal.data('handled.bootstrap-calendar')) {
+				modal
+					.on('show.bs.modal', function () {
+						var modal_body = $(this).find('.modal-body');
+						var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
+						$(this).find('iframe').height(Math.max(height, 50));
+					})
+					.data('handled.bootstrap-calendar', true);
+			}
+			modal.modal('show');
+		});
 	};
 
 	Calendar.prototype._update_day = function() {
@@ -920,6 +971,7 @@ if(!String.prototype.format) {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 
+		self._update_modal();
 	}
 
 	function getEasterDate(year, offsetDays) {
