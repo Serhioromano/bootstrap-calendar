@@ -883,7 +883,7 @@ if(!String.prototype.format) {
 		});
 
 		$('a.event').mouseenter(function() {
-			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+			$('a[data-event-id="' + $(this).data('event-id')+'"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 		$('a.event').mouseleave(function() {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
@@ -965,7 +965,7 @@ if(!String.prototype.format) {
 		});
 
 		$('a.event-item').mouseenter(function() {
-			$('a.event' + $(this).data('event-id')).closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
+			$('a[data-event-id="' + $(this).data('event-id')+'"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 		$('a.event-item').mouseleave(function() {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
