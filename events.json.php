@@ -3,7 +3,7 @@
 	"result": [
 		{
 			"id": "293",
-			"title": "This is worning class eve",
+			"title": "This is warning class event",
 			"url": "http://www.example.com/",
 			"class": "event-warning",
 			"start": "1362938400000",
@@ -11,7 +11,7 @@
 		},
 		{
 			"id": "294",
-			"title": "This is infor class ",
+			"title": "This is information class ",
 			"url": "http://www.example.com/",
 			"class": "event-info",
 			"start": "1363111200000",
@@ -19,7 +19,7 @@
 		},
 		{
 			"id": "297",
-			"title": "This is success evert",
+			"title": "This is success event",
 			"url": "http://www.example.com/",
 			"class": "event-success",
 			"start": "1363284000000",
