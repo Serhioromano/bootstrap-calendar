@@ -70,13 +70,19 @@ Where xx-XX is the language code. When you initializing the calendar, you have t
 
 
 
-### Feed with events
+## Feed with events
 
-To feed the calendar with events you need to provide a URL where AJAX request will be sent.
+To feed the calendar with events you should use `events_source` parameter. It may be a function, array or URL. In all cases you have to set it with valid events array.
 
-	var calendar = $('#calendar').calendar({events_source:'/api/events.php'});
+See [events.json.php](https://github.com/Serhioromano/bootstrap-calendar/blob/master/events.json.php) file for more details.
 
-It will `GET` two parameters, `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
+`start` and `end` contain dates when event starts (inclusive) and ends (exclusive) in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change the color of your event indicators.
+
+### Feed URL
+
+	var calendar = $('#calendar').calendar({events_source: '/api/events.php'});
+
+It will send two parameters by `GET` named `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
 
 	{
 		"success": 1,
@@ -84,16 +90,53 @@ It will `GET` two parameters, `from` and `to`, which will tell you what period i
 			{
 				"id: 293,
 				"title": "Event 1",
-				"url": "http://someurl.com",
+				"url": "http://example.com",
 				"class": 'event-important',
-				start: 12039485678000, // Milliseconds
-				end: 1234576967000 // Milliseconds
+				"start": 12039485678000, // Milliseconds
+				"end": 1234576967000 // Milliseconds
 			},
 			...
 		]
 	}
 
-See `events.json.php` file for more details. `start` and `end` contain dates when event starts (inclusive) and ends (exclusive) in Unix timestamp. Classes are `event-important`, `event-success`, `event-warning`, `event-info`, `event-inverse` and `event-special`. This wil change the color of your event indicators.
+### Feed array
+
+You can set events list array directly to `events_source` parameter.
+
+	var calendar = $('#calendar').calendar({
+	    events_source: [
+            {
+                "id: 293,
+                "title": "Event 1",
+                "url": "http://example.com",
+                "class": 'event-important',
+                "start": 12039485678000, // Milliseconds
+                "end": 1234576967000 // Milliseconds
+            },
+            ...
+        ]});
+
+
+### Feed function
+
+Or you can use function. You have to return array of events.
+
+	var calendar = $('#calendar').calendar({events_source: function(){
+	    return  [
+           {
+               "id: 293,
+               "title": "Event 1",
+               "url": "http://example.com",
+               "class": 'event-important',
+               "start": 12039485678000, // Milliseconds
+               "end": 1234576967000 // Milliseconds
+           },
+           ...
+       ];
+	}});
+
+
+### PHP example
 
 Note that `start` and `end` dates are in milliseconds, thus you need to divide it by 1000 to get seconds. PHP example.
 
@@ -130,7 +173,7 @@ echo json_encode($out);
 exit;
 ```
 
-### Usage warning.
+## Usage warning.
 
 You cannot use the calendar from a local file. 
 The following error will be displayed :
