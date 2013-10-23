@@ -46,6 +46,7 @@ if(!String.prototype.format) {
 		//   The start and end variables will be sent to this url
 		// - A function that received the start and end date, and that
 		//   returns an array of events (as described in events property description)
+		// - An array containing the events
 		events_source: '',
 		// Path to templates should end with slash /. It can be as relative
 		// /component/bootstrap-calendar/tmpls/
@@ -714,6 +715,11 @@ if(!String.prototype.format) {
 			case 'function':
 				loader = function() {
 					return source(self.options.position.start, self.options.position.end, browser_timezone);
+				};
+				break;
+			case 'array':
+				loader = function() {
+					return [].concat(source);
 				};
 				break;
 			case 'string':
