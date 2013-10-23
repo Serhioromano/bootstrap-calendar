@@ -929,7 +929,7 @@ if(!String.prototype.format) {
 	Calendar.prototype.getEventsBetween = function(start, end) {
 		var events = [];
 		$.each(this.options.events, function() {
-			if((parseInt(this.start) < end) && (parseInt(this.end) >= start)) {
+			if((parseInt(this.start) < end || this.start == null) && (parseInt(this.end) >= start || this.end == null)) {
 				events.push(this);
 			}
 		});
