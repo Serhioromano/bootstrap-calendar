@@ -15,9 +15,9 @@
   },
   "license": "BSD",
   "require": {
-    "components/jquery": "~1.10.2",
-    "components/underscore": "~1.4.4",
-    "twitter/bootstrap": "~2.3.1",
-    "moment/moment": "~2.0.0"
+    "components/jquery": "~1",
+    "components/underscore": "~1",
+    "twitter/bootstrap": ">2.0.0",
+    "moment/moment": "~2"
   }
 }
