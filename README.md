@@ -88,7 +88,7 @@ It will send two parameters by `GET` named `from` and `to`, which will tell you 
 		"success": 1,
 		"result": [
 			{
-				"id: 293,
+				"id": 293,
 				"title": "Event 1",
 				"url": "http://example.com",
 				"class": 'event-important',
@@ -106,7 +106,7 @@ You can set events list array directly to `events_source` parameter.
 	var calendar = $('#calendar').calendar({
 	    events_source: [
             {
-                "id: 293,
+                "id": 293,
                 "title": "Event 1",
                 "url": "http://example.com",
                 "class": 'event-important',
@@ -124,7 +124,7 @@ Or you can use function. You have to return array of events.
 	var calendar = $('#calendar').calendar({events_source: function(){
 	    return  [
            {
-               "id: 293,
+               "id": 293,
                "title": "Event 1",
                "url": "http://example.com",
                "class": 'event-important',
