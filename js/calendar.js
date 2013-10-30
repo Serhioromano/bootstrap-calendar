@@ -117,13 +117,11 @@ if(!String.prototype.format) {
 		stop_cycling: false,
         onAddEventClicked: function(e) {
           // show modal window.
-          console.log(this, e);
           $('#add-events-modal').modal('show');
         },
         onSaveEventClicked: function(e) {
           // save input.
           $('#add-events-modal').modal('hide');
-          console.log(this, e);
         }
 	};
 
