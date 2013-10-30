@@ -119,13 +119,41 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
-	<script type="text/javascript" src="components/bootstrap2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
-	<script type="text/javascript" src="js/language/fr-FR.js"></script>
-	<script type="text/javascript" src="js/language/de-DE.js"></script>
-	<script type="text/javascript" src="js/language/el-GR.js"></script>
+    <div class="modal hide fade" id="add-events-modal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>Event Form</h3>
+		</div>
+		<div class="modal-body" style="height: 300px">
+          <form class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="inputTitle">Title</label>
+              <div class="controls">
+                <input type="text" id="inputTitle" placeholder="Title">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="inputAddress">Address</label>
+              <div class="controls">
+                <input type="text" id="inputAddress" placeholder="Address">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:void(0)"  class="btn btn-primary btn-save">Save</a>
+          <a href="#" data-dismiss="modal" class="btn">Close</a>
+        </div>
+    </div>
+
+
+<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="components/bootstrap2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
+<script type="text/javascript" src="js/language/fr-FR.js"></script>
+<script type="text/javascript" src="js/language/de-DE.js"></script>
+<script type="text/javascript" src="js/language/el-GR.js"></script>
 	<script type="text/javascript" src="js/language/it-IT.js"></script>
 	<script type="text/javascript" src="js/language/pl-PL.js"></script>
 	<script type="text/javascript" src="js/language/pt-BR.js"></script>

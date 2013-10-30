@@ -114,7 +114,17 @@ if(!String.prototype.format) {
 			week: '',
 			day: ''
 		},
-		stop_cycling: false
+		stop_cycling: false,
+        onAddEventClicked: function(e) {
+          // show modal window.
+          console.log(this, e);
+          $('#add-events-modal').modal('show');
+        },
+        onSaveEventClicked: function(e) {
+          // save input.
+          $('#add-events-modal').modal('hide');
+          console.log(this, e);
+        }
 	};
 
 	var defaults_extended = {
@@ -803,6 +813,23 @@ if(!String.prototype.format) {
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);
 		});
+
+        $('.cal-month-day').hover(function() {
+          $(this).children('.addEvent').removeClass('hide')
+        }, function() {
+          $(this).children('.addEvent').addClass('hide')
+        });
+
+        $('.cal-month-day .addEvent').click(function(e) {
+          e.preventDefault();
+          self.options.onAddEventClicked.call(self, e)
+        });
+
+        $('#add-events-modal .btn-save').click(function(e) {
+          e.preventDefault();
+          self.options.onSaveEventClicked.call(self, e)
+        });
+
 
 		this['_update_' + this.options.view]();
 
