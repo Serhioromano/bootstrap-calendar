@@ -65,4 +65,8 @@
 		var val = $(this).is(':checked') ? $(this).val() : null;
 		calendar.setOptions({modal: val});
 	});
+	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
+		e.preventDefault();
+		e.stopPropagation();
+	});
 }(jQuery));
