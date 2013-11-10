@@ -453,7 +453,7 @@ if(!String.prototype.format) {
 
 		var curdate = new Date(this.options.position.start.getFullYear(), month, 1, 0, 0, 0);
 		t.start = parseInt(curdate.getTime());
-		t.end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 0, 0, 0, 0).getTime());
+		t.end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 1, 0, 0, 0).getTime());
 		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['year-month'](t);
 	}
