@@ -885,6 +885,9 @@ if(!String.prototype.format) {
 
 		week.click(function() {
 			self.options.day = $(this).data('cal-week');
+			if (!self.options.views['week'].enable) {
+				return;
+			}
 			self.view('week');
 		});
 
