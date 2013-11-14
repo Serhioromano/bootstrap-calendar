@@ -153,24 +153,30 @@ Here is the example of PHP script.
 
 ```php
 <?php
-$db    = new PDO('mysql:host=localhost;dbname=testdb;charset=utf8', 'username', 'password');
-$start = $_REQUEST['from'] / 1000;
-$end   = $_REQUEST['to'] / 1000;
-$sql   = sprintf('SELECT * FROM events WHERE `datetime` BETWEEN %s and %s',
-    $db->quote(date('Y-m-d', $start)), $db->quote(date('Y-m-d', $end)))
 
-$out = array()
-foreach($db->query($sql) as $row) {
-    $out[] = array(
-        'id' => $row->id,
-        'title' => $row->name,
-        'url' => Helper::url($row->id),
-        'start' => strtotime($row->datetime) . '000'
-    );
+	$link = mysql_connect("localhost", "user", "pass");
+
+	mysql_select_db("database",$link) OR DIE ("Error: We can't connect to the database..");
+
+	mysql_set_charset('utf8');
+	
+	$events = mysql_query("SELECT * FROM events",$link);
+
+   	while($all = mysql_fetch_assoc($events)){
+    		$e = array();
+    		$e['id'] = $all['id'];
+    		$e['start'] = $all['start'];
+    		$e['end'] = $all['end'];
+    		$e['title'] = $all['title'];
+    		$e['class'] = $all['class'];
+    		$result[] = $e;
 }
+	
+	echo json_encode(array('success' => 1, 'result' => $result));
+	
+	
+?>
 
-echo json_encode($out);
-exit;
 ```
 
 ## Usage warning.
