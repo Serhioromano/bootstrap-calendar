@@ -112,6 +112,38 @@
 		</div>
 	</div>
 
+    <div class="modal fade" id="add-events-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add a Event</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="inputTitle">Title</label>
+                <div class="controls">
+                  <input type="text" id="inputTitle" placeholder="Title">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputAddress">Address</label>
+                <div class="controls">
+                  <input type="text" id="inputAddress" placeholder="Address">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-save">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
 	<script type="text/javascript" src="components/bootstrap3/js/bootstrap.min.js"></script>
