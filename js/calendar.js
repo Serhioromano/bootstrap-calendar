@@ -564,7 +564,7 @@ if(!String.prototype.format) {
 	};
 
 	Calendar.prototype.view = function(view) {
-		if (!self.options.views[view].enable) {
+		if (view && !this.options.views[view].enable) {
 			return;
 		}
 		if(view) this.options.view = view;
