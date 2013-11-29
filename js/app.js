@@ -66,7 +66,7 @@
 		calendar.setOptions({modal: val});
 	});
 	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
-		e.preventDefault();
-		e.stopPropagation();
+		//e.preventDefault();
+		//e.stopPropagation();
 	});
 }(jQuery));
