@@ -375,13 +375,18 @@ if(!String.prototype.format) {
 		data.day = 1;
 
 		// Getting list of days in a week in correct order. Works for month and week views
-		if(getExtentedOption(this, 'first_day') == 1) {
-			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
-		} else {
-			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
-		}
+        data.months = [];
+        var index = getExtentedOption(this, 'first_day');
+        for(var i=0; i<7; i++){
+            if(index==7){
+                index = 0;
+            }
+            data.months.push(this.locale["d"+(index)]);
+            index++;
 
-		// Get all events between start and end
+        }
+
+        // Get all events between start and end
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
 
@@ -464,14 +469,46 @@ if(!String.prototype.format) {
 		var t = {tooltip: '', cal: this};
 		var cls = this.options.classes.months.outmonth;
 
-		var firstday = this.options.position.start.getDay();
-		if(getExtentedOption(this, 'first_day') == 2) {
-			firstday++;
-		} else {
-			firstday = (firstday == 0 ? 7 : firstday);
-		}
+        var firstday = this.options.position.start.getDay(),
+            userFirstDay = getExtentedOption(this, 'first_day'),
+            add = 0;
+        switch (userFirstDay){
+            case 1:
+                add = 0;
+                break;
+            case 2:
+                add = -1;
+                break;
+            case 3:
+                add = -2;
+                break;
+            case 4:
+                add = 4;
+                break;
+            case 5:
+                add = 3;
+                break;
+            case 6:
+                add = 2;
+                break;
+            case 7:
+                add = 1;
+                break;
+            default:
+                break;
+        }
+
+        firstday = (firstday == 0 ? 7 : firstday);
+
+        firstday += add;
+        if(firstday>7){
+            firstday-=7;
+        }else if(firstday<1){
+            firstday+=7;
+        }
 
 		day = (day - firstday) + 1;
+
 		var curdate = new Date(this.options.position.start.getFullYear(), this.options.position.start.getMonth(), day, 0, 0, 0);
 
 		// if day of the current month
