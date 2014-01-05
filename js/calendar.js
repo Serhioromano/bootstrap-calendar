@@ -687,14 +687,15 @@ if(!String.prototype.format) {
 				this.options.position.end.setTime(new Date(year, month, day + 1).getTime());
 				break;
 			case 'week':
-				var curr = new Date(year, month, day);
-				var first;
-				if(getExtentedOption(this, 'first_day') == 1) {
-					first = curr.getDate() - ((curr.getDay() + 6) % 7);
-				}
-				else {
-					first = curr.getDate() - curr.getDay();
-				}
+				var curr = new Date(year, month, day),
+                    curDay = curr.getDay(),
+                    userFirstDay = getExtentedOption(this, 'first_day'),
+                    first;
+                userFirstDay = (userFirstDay==7) ? 0 : userFirstDay;
+                var add = curDay - userFirstDay;
+                first = curr.getDate() - add;
+
+                console.log('si entra');
 				this.options.position.start.setTime(new Date(year, month, first).getTime());
 				this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
 				break;
