@@ -91,7 +91,7 @@ It will send two parameters by `GET` named `from` and `to`, which will tell you 
 				"id": 293,
 				"title": "Event 1",
 				"url": "http://example.com",
-				"class": 'event-important',
+				"class": "event-important",
 				"start": 12039485678000, // Milliseconds
 				"end": 1234576967000 // Milliseconds
 			},
@@ -109,7 +109,7 @@ You can set events list array directly to `events_source` parameter.
                 "id": 293,
                 "title": "Event 1",
                 "url": "http://example.com",
-                "class": 'event-important',
+                "class": "event-important",
                 "start": 12039485678000, // Milliseconds
                 "end": 1234576967000 // Milliseconds
             },
@@ -127,7 +127,7 @@ Or you can use function. You have to return array of events.
                "id": 293,
                "title": "Event 1",
                "url": "http://example.com",
-               "class": 'event-important',
+               "class": "event-important",
                "start": 12039485678000, // Milliseconds
                "end": 1234576967000 // Milliseconds
            },
@@ -180,3 +180,44 @@ The following error will be displayed :
 Failed to load resource: Origin null is not allowed by Access-Control-Allow-Origin. 
 
 Using Ajax with local resources (file:///), is not permited. You will need to deploy this to the web instead.
+
+## Modal popup
+
+You can enable a bootstrap modal popup to show when clicking an event instead of redirecting to event.url. 
+To enable boostrap modal, first add the modal html to your page and provide boostrap-calendar with the ID:
+
+    <div class="modal hide fade" id="events-modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Event</h3>
+        </div>
+        <div class="modal-body" style="height: 400px">
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
+        </div>
+    </div>
+
+and then set:
+
+	modal: "#events-modal"
+
+This will enable the modal, and populate it with an iframe with the contents of event.url .
+
+### Modal content source
+
+There are three options for populating the contents of the modal, controlled by the `modal_type` option:
+- **iframe** (default) - populates modal with iframe, iframe.src set to event.url
+- **ajax** - gets html from event.url, this is useful when you just have a snippet of html and want to take advantage of styles in the calendar page
+- **template** - will render a template (example in tmpls/modal.html) that gets the `event` and a reference to the `calendar` object.
+
+### Modal title
+
+The modal title can be customized by defining the `modal_title` option as a function. This function will receive the event as its only parameter. For example, this could be used to set the title of the modal to the title of the event:
+
+	modal_title: function(event) { return event.title }
+
+A calendar set up to use modals would look like this:
+
+	$("#calendar").calendar({modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
+
