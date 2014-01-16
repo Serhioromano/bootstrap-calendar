@@ -73,6 +73,10 @@ if(!String.prototype.format) {
 		},
 		// ID of the element of modal window. If set, events URLs will be opend in modal windows.
 		modal: null,
+		//	modal handling setting, one of "iframe", "ajax" or "template"
+        modal_type: "iframe",
+        //	function to set modal title, will be passed the event as a parameter
+        modal_title: null,
 		views: {
 			year: {
 				slide_events: 1,
@@ -825,11 +829,14 @@ if(!String.prototype.format) {
 			return;
 		}
 
-		var ifrm = $(document.createElement("iframe"))
+		var ifrm = null;
+		if (self.options.modal_type == "iframe") {
+			ifrm = $(document.createElement("iframe"))
 			.attr({
 				width: "100%",
 				frameborder:"0"
 			});
+		}
 
 
 		$('a[data-event-id]', this.context).on('click', function(event) {
@@ -837,17 +844,38 @@ if(!String.prototype.format) {
 			event.stopPropagation();
 
 			var url = $(this).attr('href');
-			ifrm.attr('src', url);
-			$('.modal-body', modal).html(ifrm);
+			var id = $(this).data("event-id");
+			var event = _.find(self.options.events, function (event) { return event.id == id});
 
-			if(!modal.data('handled.bootstrap-calendar')) {
+			if (self.options.modal_typ == "iframe") {
+				ifrm.attr('src', url);
+				$('.modal-body', modal).html(ifrm);
+			}
+
+			if(!modal.data('handled.bootstrap-calendar') || (modal.data('handled.bootstrap-calendar') && modal.data('handled.event-id') != event.id)) {
 				modal
 					.on('show.bs.modal', function () {
 						var modal_body = $(this).find('.modal-body');
-						var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
-						$(this).find('iframe').height(Math.max(height, 50));
+                        switch(self.options.modal_type) {
+                            case "iframe" : 	var height = modal_body.height() - parseInt(modal_body.css('padding-top'), 10) - parseInt(modal_body.css('padding-bottom'), 10);
+						                        $(this).find('iframe').height(Math.max(height, 50));
+                                                break;
+
+                            case "ajax":        $.ajax({url : url, dataType: "html", async : false, success : function (data) { modal_body.html(data); }});
+                                                break;
+
+                            case "template":    self._loadTemplate("modal");
+                            					//	also serve calendar instance to underscore template to be able to access current language strings
+                                                modal_body.html(self.options.templates["modal"]({"event" : event, "calendar" : self}))
+                                                break;
+                        }
+
+                		//	set the title of the bootstrap modal
+                        if (_.isFunction(self.options.modal_title)) {
+                            modal.find("h3").html(self.options.modal_title(event));
+                        }
 					})
-					.data('handled.bootstrap-calendar', true);
+					.data('handled.bootstrap-calendar', true).data('handled.event-id', event.id);
 			}
 			modal.modal('show');
 		});
