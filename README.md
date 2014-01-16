@@ -194,7 +194,7 @@ To enable boostrap modal, first add the modal html to your page and provide boos
         <div class="modal-body" style="height: 400px">
         </div>
         <div class="modal-footer">
-            <a href="#" data-dismiss="modal" class="btn">Închide</a>
+            <a href="#" data-dismiss="modal" class="btn">Close</a>
         </div>
     </div>
 
