@@ -12,7 +12,7 @@ window.calendar_languages['pl-PL'] = {
 	title_week: '{0} tydzień roku {1}',
 	title_day: '{0} {1} {2} rok {3}',
 
-	week:'Tydzień',
+	week:'Tydzień {0}',
 
 	m0: 'Styczeń',
 	m1: 'Luty',

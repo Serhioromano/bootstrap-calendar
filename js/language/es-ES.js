@@ -14,7 +14,7 @@ window.calendar_languages['es-ES'] = {
 	title_week: 'Semana {0} del {1}',
 	title_day: '{0} {1} {2} {3}',
 
-	week:'Semana',
+	week:'Semana {0}',
 
 	m0: 'Enero',
 	m1: 'Febrero',

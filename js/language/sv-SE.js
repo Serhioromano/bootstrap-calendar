@@ -12,7 +12,7 @@ window.calendar_languages['sv-SE'] = {
 	title_week: '{0} vecka år {1}',
 	title_day: '{0} {1} {2} år {3}',
 
-	week:'Vecka',
+	week:'Vecka {0}',
 
 	m0: 'Januari',
 	m1: 'Februari',

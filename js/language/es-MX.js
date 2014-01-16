@@ -12,7 +12,7 @@ window.calendar_languages['es-MX'] = {
 	title_week: '{0} semana del año {1}',
 	title_day: '{0} {1} {2} año {3}',
 
-	week:'Semana',
+	week:'Semana {0}',
 
 	m0: 'Enero',
 	m1: 'Febrero',

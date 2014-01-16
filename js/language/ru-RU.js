@@ -12,7 +12,7 @@ window.calendar_languages['ru-RU'] = {
 	title_week: '{0} неделя года {1}',
 	title_day: '{0}, {1} {2} {3}',
 
-	week:'Неделя',
+	week:'Неделя {0}',
 
 	m0: 'Январь',
 	m1: 'Февраль',

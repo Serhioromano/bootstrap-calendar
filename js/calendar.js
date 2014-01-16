@@ -160,7 +160,7 @@ if(!String.prototype.format) {
 		title_week: 'week {0} of {1}',
 		title_day: '{0} {1} {2}, {3}',
 
-		week:'Week',
+		week:'Week {0}',
 
 		m0: 'January',
 		m1: 'February',
@@ -894,22 +894,24 @@ if(!String.prototype.format) {
 	Calendar.prototype._update_month = function() {
 		this._update_month_year();
 
+		var self = this;
+
 		var week = $(document.createElement('div')).attr('id', 'cal-week-box');
-		week.html(this.locale.week);
 		var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
 		$('.cal-month-box .cal-row-fluid')
-			.on('mouseenter',function() {
+			.on('mouseenter', function () {
+				var p = new Date(self.options.position.start);
 				var child = $('.cal-cell1:first-child .cal-month-day', this);
 				var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-date]', child).text());
+				p.setDate(parseInt(day));
 				day = (day < 10 ? '0' + day : day);
+				week.html(self.locale.week.format(p.getWeek()));
 				week.attr('data-cal-week', start + day).show().appendTo(child);
 			})
 			.on('mouseleave', function() {
 				week.hide();
 			})
 		;
-
-		var self = this;
 
 		week.click(function() {
 			self.options.day = $(this).data('cal-week');
