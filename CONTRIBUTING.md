@@ -9,5 +9,7 @@ If you want to contribute please follow this instruction.
        npm install
 5. Create new `fix` or `feature` branch
 6. Make modifications
-7. Pefore you pull your changes to github please change version in `component.json` and `package.json` and run `grunt` command to minify `calendar.js` file. 
+
+   Please do not make magnified version of `calendar.js`
+
 8. Pull to github and send Pull Request.
