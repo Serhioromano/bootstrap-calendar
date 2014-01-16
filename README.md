@@ -219,5 +219,5 @@ The modal title can be customized by defining the `modal_title` option as a func
 
 A calendar set up to use modals would look like this:
 
-	$("#calendar").calendar({modal : "events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
+	$("#calendar").calendar({modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
 
