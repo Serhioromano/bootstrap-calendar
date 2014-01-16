@@ -298,6 +298,7 @@
 .cal-month-box [class*="cal-cell"] {
   min-height: 100px;
   border-right: 1px solid #e1e1e1;
+  position: relative;
 }
 .cal-year-box [class*="span"] {
   min-height: 60px;
