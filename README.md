@@ -91,7 +91,7 @@ It will send two parameters by `GET` named `from` and `to`, which will tell you 
 				"id": 293,
 				"title": "Event 1",
 				"url": "http://example.com",
-				"class": 'event-important',
+				"class": "event-important",
 				"start": 12039485678000, // Milliseconds
 				"end": 1234576967000 // Milliseconds
 			},
@@ -109,7 +109,7 @@ You can set events list array directly to `events_source` parameter.
                 "id": 293,
                 "title": "Event 1",
                 "url": "http://example.com",
-                "class": 'event-important',
+                "class": "event-important",
                 "start": 12039485678000, // Milliseconds
                 "end": 1234576967000 // Milliseconds
             },
@@ -127,7 +127,7 @@ Or you can use function. You have to return array of events.
                "id": 293,
                "title": "Event 1",
                "url": "http://example.com",
-               "class": 'event-important',
+               "class": "event-important",
                "start": 12039485678000, // Milliseconds
                "end": 1234576967000 // Milliseconds
            },
