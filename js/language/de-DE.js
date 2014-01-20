@@ -59,7 +59,7 @@ window.calendar_languages['de-DE'] = {
 		'01-05': 'Erster Mai',
 		'easter+39': 'Himmelfahrt',
 		'easter+49': 'Pfingstsonntag',
-		'easter+49': 'Pfingstmontag',
+		'easter+50': 'Pfingstmontag',
 		'03-10': 'Tag der Deutschen Einheit',
 		'25-12': 'Erster Weihnachtsfeiertag',
 		'26-12': 'Zweiter Weihnachtsfeiertag',
