@@ -54,16 +54,16 @@ window.calendar_languages['nl-NL'] = {
 
         holidays: {
                 '01-01': 'Nieuwjaarsdag',
-				'06-01': 'Drie koningen',
-                '18-04': 'Goede vrijdag',
-				'20-04': '1e paasdag',
-                '21-04': '2e paasdag',
-				'26-04': 'Koningsdag',
-				'05-05': 'Bevrijdingsdag',
-				'29-05': 'Hemelvaartsdag',
-				'08-06': '1e pinksterdag',
-                '09-06': '2e pinksterdag',
-				'25-12': '1e kerstdag',
+                '06-01': 'Drie koningen',
+                'easter-2': 'Goede vrijdag',
+                'easter': '1e paasdag',
+                'easter+1': '2e paasdag',
+                '26-04': 'Koningsdag',
+                '05-05': 'Bevrijdingsdag',
+                'easter+39': 'Hemelvaartsdag',
+                'easter+49': '1e pinksterdag',
+                'easter+50': '2e pinksterdag',
+                '25-12': '1e kerstdag',
                 '26-12': '2e kerstdag'
         }
 };
