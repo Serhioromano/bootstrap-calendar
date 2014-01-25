@@ -215,6 +215,12 @@
   border-radius: 8px;
   border: 1px solid #ffffff;
 }
+.event-block {
+  display: block;
+  background-color:  #c3c3c3;
+  width: 20px;
+  height: 100%;
+}
 .cal-event-list .event.pull-left {
   margin-top: 3px;
 }
@@ -273,6 +279,9 @@
   position: absolute;
   height: 100%;
   z-index: -1;
+}
+.cal-col-cell {
+  height: 30px;
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
