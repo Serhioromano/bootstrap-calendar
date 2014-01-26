@@ -282,6 +282,7 @@
 }
 .cal-col-cell {
   height: 30px;
+  border-bottom: thin dashed #000000 !important;
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
