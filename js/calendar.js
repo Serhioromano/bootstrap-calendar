@@ -38,6 +38,10 @@ if(!String.prototype.format) {
 		view:               'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day:                'now',
+		// Day Start time and end time with time intervals
+		time_start: '06:00',
+		time_end: '22:00',
+		time_split: '30',
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -193,11 +197,7 @@ if(!String.prototype.format) {
 		d3: 'Wednesday',
 		d4: 'Thursday',
 		d5: 'Friday',
-		d6: 'Saturday', 
-
-        time_start: '06:00',
-        time_end: '22:00',
-        time_split: '30'
+		d6: 'Saturday'
 	};
 
 	var browser_timezone = '';
@@ -413,23 +413,23 @@ if(!String.prototype.format) {
 	};
 	
 	Calendar.prototype._calculate_hour_minutes = function(data) { 
-		var time_start = this.locale.time_start.split(":");
-                var time_end = this.locale.time_end.split(":");
-		var module=60/parseInt(this.locale.time_split);
+		var time_start = this.options.time_start.split(":");
+		var time_end = this.options.time_end.split(":");
+		var module=60/parseInt(this.options.time_split);
 		var t=(parseInt(time_end[0]) - parseInt(time_start[0]))*module;
-                var hour=0;
+		var hour=0;
 		var minutes=0;
-                data.times = [];
-                for (var i=0;t>=i;i++) {
+		data.times = [];
+		for (var i=0;t>=i;i++) {
 			if (hour == 0)
 				hour = parseInt(time_start[0]);
-                        else if (i%module==0) {
-                                hour = hour + 1;
-				minutes = 0;
-                        } else
-                                minutes = parseInt(this.locale.time_split)+minutes;
-                        data.times.push(this._formatNumberLength(hour,2)+':'+this._formatNumberLength(minutes,2));
-                }
+		else if (i%module==0) {
+			hour = hour + 1;
+			minutes = 0;
+		} else
+			minutes = parseInt(this.options.time_split)+minutes;
+			data.times.push(this._formatNumberLength(hour,2)+':'+this._formatNumberLength(minutes,2));
+		}
 	};
 
 	Calendar.prototype._formatNumberLength = function(num, length) {
@@ -578,7 +578,7 @@ if(!String.prototype.format) {
 
         var times = time.split(":");
         var title = '';
-        var time_split = parseInt(this.locale.time_split);
+        var time_split = parseInt(this.options.time_split);
         $.each(this.options.events, function() {
         	var date_current = new Date(year,month,day,times[0], times[1], 0,0);
         	var next_hour = parseInt(times[0]);
