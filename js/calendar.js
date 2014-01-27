@@ -571,7 +571,7 @@ if(!String.prototype.format) {
 		return (holiday === false) ? "" : holiday;
 	};
 	
-	Calendar.prototype.__getTimeAppointment = function(time) {
+	Calendar.prototype._getTimeAppointment = function(time) {
 		var year = this.options.position.start.getFullYear();
 		var month = this.options.position.start.getMonth();
 		var day = this.options.position.start.getDate();
