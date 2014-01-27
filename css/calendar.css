@@ -128,6 +128,9 @@
   display: block;
   width: 100%;
 }
+.cal-day {
+  width: 100%;
+}
 #cal-week-box {
   position: absolute;
   width: 70px;
