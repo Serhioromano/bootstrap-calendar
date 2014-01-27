@@ -7,7 +7,7 @@
                 <% _.each(times, function(time){ %>
                         <div class="cal-row-fluid">
                                 <div class="cal-cell1 cal-offset-1"><%= time %></div>
-                                <div class="cal-cell6 cal-offset-2 pull-left cal-col-cell"><%= cal.__getTimeAppointment(time) %></div>
+                                <div class="cal-cell6 cal-offset-2 pull-left cal-col-cell"><%= cal._getTimeAppointment(time) %></div>
                         </div>
                 <% }); %>
         </div>
