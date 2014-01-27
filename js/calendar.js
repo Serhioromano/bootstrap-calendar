@@ -361,7 +361,7 @@ if(!String.prototype.format) {
 		if('modal' in object) {
 			this._update_modal();
 		}
-	};
+	}
 
 	Calendar.prototype.setLanguage = function(lang) {
 		if(window.calendar_languages && (lang in window.calendar_languages)) {
@@ -371,7 +371,7 @@ if(!String.prototype.format) {
 			this.locale = strings;
 			delete this.options.language;
 		}
-	};
+	}
 
 	Calendar.prototype._render = function() {
 		this.context.html('');
@@ -384,9 +384,9 @@ if(!String.prototype.format) {
 
 		// Getting list of days in a week in correct order. Works for month and week views
 		if(getExtentedOption(this, 'first_day') == 1) {
-			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0];
+			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
 		} else {
-			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6];
+			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
 		}
 
 		this._calculate_hour_minutes(data);
@@ -477,7 +477,7 @@ if(!String.prototype.format) {
 		t.events = events;
 		t.cal = this;
 		return self.options.templates['week-days'](t);
-	};
+	}
 
 	Calendar.prototype._month = function(month) {
 		this._loadTemplate('year-month');
@@ -492,7 +492,7 @@ if(!String.prototype.format) {
 		t.end = parseInt(new Date(this.options.position.start.getFullYear(), month + 1, 1, 0, 0, 0).getTime());
 		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['year-month'](t);
-	};
+	}
 
 	Calendar.prototype._day = function(week, day) {
 		this._loadTemplate('month-day');
@@ -546,7 +546,7 @@ if(!String.prototype.format) {
 		t.end = parseInt(t.start + 86400000);
 		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['month-day'](t);
-	};
+	}
 
 	Calendar.prototype._getHoliday = function(date) {
 		var result = false;
@@ -668,7 +668,7 @@ if(!String.prototype.format) {
 			to.start.setTime(new Date().getTime());
 		}
 		else {
-			$.error(this.locale.error_where.format(where));
+			$.error(this.locale.error_where.format(where))
 		}
 		this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
 		this.view();
@@ -749,15 +749,15 @@ if(!String.prototype.format) {
 		var now = new Date().getTime();
 
 		return ((now > this.options.position.start) && (now < this.options.position.end));
-	};
+	}
 
 	Calendar.prototype.getStartDate = function() {
 		return this.options.position.start;
-	};
+	}
 
 	Calendar.prototype.getEndDate = function() {
 		return this.options.position.end;
-	};
+	}
 
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
@@ -901,7 +901,7 @@ if(!String.prototype.format) {
 			var url = $(this).attr('href');
 			var id = $(this).data("event-id");
 			var event = _.find(self.options.events, function(event) {
-				return event.id == id;
+				return event.id == id
 			});
 
 			if(self.options.modal_type == "iframe") {
@@ -928,7 +928,7 @@ if(!String.prototype.format) {
 							case "template":
 								self._loadTemplate("modal");
 								//	also serve calendar instance to underscore template to be able to access current language strings
-								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}));
+								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}))
 								break;
 						}
 
@@ -1085,7 +1085,7 @@ if(!String.prototype.format) {
 		var k = c % 4;
 		var l = (32 + 2 * e + 2 * i - h - k) % 7;
 		var m = Math.floor((a + 11 * h + 22 * l) / 451);
-		var n0 = (h + l + 7 * m + 114);
+		var n0 = (h + l + 7 * m + 114)
 		var n = Math.floor(n0 / 31) - 1;
 		var p = n0 % 31 + 1;
 		return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
@@ -1093,5 +1093,5 @@ if(!String.prototype.format) {
 
 	$.fn.calendar = function(params) {
 		return new Calendar(params, this);
-	};
+	}
 }(jQuery));
