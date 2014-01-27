@@ -571,28 +571,28 @@ if(!String.prototype.format) {
 		return (holiday === false) ? "" : holiday;
 	};
 	
-    Calendar.prototype.__getTimeAppointment = function(time) {
-        var year = this.options.position.start.getFullYear();
-        var month = this.options.position.start.getMonth();
-        var day = this.options.position.start.getDate();
-
-        var times = time.split(":");
-        var title = '';
-        var time_split = parseInt(this.options.time_split);
-        $.each(this.options.events, function() {
-        	var date_current = new Date(year,month,day,times[0], times[1], 0,0);
-        	var next_hour = parseInt(times[0]);
-        	var next_minute = parseInt(times[1])+time_split;
-        	var date_next = new Date(year,month,day,next_hour, next_minute, 0,0);
-
-        	if (date_current.getTime() <= this.start && date_next.getTime() > this.start) {
-        		var eventurl =  this.url ?this.url : 'javascript:void(0)';
-        		// TODO Split this out into the template. Just return the event.
-        		title +='<span class="pull-left event-block '+this.class+'"></span><a href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
-        	}  
-        });
-        return title;
-    };
+	Calendar.prototype.__getTimeAppointment = function(time) {
+		var year = this.options.position.start.getFullYear();
+		var month = this.options.position.start.getMonth();
+		var day = this.options.position.start.getDate();
+	
+		var times = time.split(":");
+		var title = '';
+		var time_split = parseInt(this.options.time_split);
+		$.each(this.options.events, function() {
+			var date_current = new Date(year,month,day,times[0], times[1], 0,0);
+			var next_hour = parseInt(times[0]);
+			var next_minute = parseInt(times[1])+time_split;
+			var date_next = new Date(year,month,day,next_hour, next_minute, 0,0);
+	
+			if (date_current.getTime() <= this.start && date_next.getTime() > this.start) {
+				var eventurl =  this.url ?this.url : 'javascript:void(0)';
+				// TODO Split this out into the template. Just return the event.
+				title +='<span class="pull-left event-block '+this.class+'"></span><a href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
+			}  
+		});
+		return title;
+	};
 
 	Calendar.prototype._getDayClass = function(class_group, date) {
 		var self = this;
