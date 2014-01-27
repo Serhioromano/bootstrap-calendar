@@ -11,15 +11,15 @@
 Date.prototype.getWeek = function() {
 	var onejan = new Date(this.getFullYear(), 0, 1);
 	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
-};
+}
 Date.prototype.getMonthFormatted = function() {
 	var month = this.getMonth() + 1;
 	return month < 10 ? '0' + month : month;
-};
+}
 Date.prototype.getDateFormatted = function() {
 	var date = this.getDate();
 	return date < 10 ? '0' + date : date;
-};
+}
 if(!String.prototype.format) {
 	String.prototype.format = function() {
 		var args = arguments;
