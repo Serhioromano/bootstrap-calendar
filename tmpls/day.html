@@ -1,16 +1,14 @@
-<div class="cal-day">
-  <div style="position: relative" class="cal-day-box">
-    <div class="cal-offset1 cal-column"></div>
-    <div class="cal-offset6 cal-column"></div>
-    <div class="cal-row-fluid cal-row-head">
-      <div class="cal-cell1 time">Times</div>
-      <hr>
-      <% _.each(times, function(time){ %>
-      <div class="cal-row-fluid">
-        <div class="cal-cell1 cal-offset-1"><%= time %></div>
-        <div class="cal-cell5 cal-offset-2 pull-left cal-col-cell"><%= cal.__getTimeAppointment(time) %></div>
-      </div>
-      <% }); %>
-    </div>
-  </div>
+<div style="position: relative" class="cal-day-box">
+    	<div class="cal-offset1 cal-column"></div>
+        <div class="cal-offset7 cal-column"></div>
+        <div class="cal-row-fluid cal-row-head">
+                <div class="cal-cell1 time">Times</div>
+                <hr>
+                <% _.each(times, function(time){ %>
+                        <div class="cal-row-fluid">
+                                <div class="cal-cell1 cal-offset-1"><%= time %></div>
+                                <div class="cal-cell6 cal-offset-2 pull-left cal-col-cell"><%= cal.__getTimeAppointment(time) %></div>
+                        </div>
+                <% }); %>
+        </div>
 </div>
