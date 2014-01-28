@@ -588,7 +588,7 @@ if(!String.prototype.format) {
 			if (date_current.getTime() <= this.start && date_next.getTime() > this.start) {
 				var eventurl =  this.url ?this.url : 'javascript:void(0)';
 				// TODO Split this out into the template. Just return the event.
-				title +='<span class="pull-left event-block '+this.class+'"></span><a href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
+				title +='<span class="pull-left event-block '+this.class+'"></span><a class="'+this.class+'-text"href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
 			}  
 		});
 		return title;
