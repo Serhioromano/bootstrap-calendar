@@ -38,6 +38,10 @@ if(!String.prototype.format) {
 		view:               'month',
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day:                'now',
+		// Day Start time and end time with time intervals
+		time_start: '06:00',
+		time_end: '22:00',
+		time_split: '30',
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -385,6 +389,7 @@ if(!String.prototype.format) {
 			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
 		}
 
+		this._calculate_hour_minutes(data);
 		// Get all events between start and end
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
@@ -405,6 +410,33 @@ if(!String.prototype.format) {
 
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
+	};
+	
+	Calendar.prototype._calculate_hour_minutes = function(data) { 
+		var time_start = this.options.time_start.split(":");
+		var time_end = this.options.time_end.split(":");
+		var module=60/parseInt(this.options.time_split);
+		var t=(parseInt(time_end[0]) - parseInt(time_start[0]))*module;
+		var hour=0;
+		var minutes=0;
+		data.times = [];
+		for (var i=0;t>=i;i++) {
+			if (hour == 0)
+				hour = parseInt(time_start[0]);
+		else if (i%module==0) {
+			hour = hour + 1;
+			minutes = 0;
+		} else
+			minutes = parseInt(this.options.time_split)+minutes;
+			data.times.push(this._formatNumberLength(hour,2)+':'+this._formatNumberLength(minutes,2));
+		}
+	};
+
+	Calendar.prototype._formatNumberLength = function(num, length) {
+    		var r = "" + num;
+    		while (r.length < length)
+        		r = "0" + r;
+    		return r;
 	};
 
 	Calendar.prototype._week = function(event) {
@@ -537,6 +569,29 @@ if(!String.prototype.format) {
 	Calendar.prototype._getHolidayName = function(date) {
 		var holiday = this._getHoliday(date);
 		return (holiday === false) ? "" : holiday;
+	};
+	
+	Calendar.prototype._getTimeAppointment = function(time) {
+		var year = this.options.position.start.getFullYear();
+		var month = this.options.position.start.getMonth();
+		var day = this.options.position.start.getDate();
+	
+		var times = time.split(":");
+		var title = '';
+		var time_split = parseInt(this.options.time_split);
+		$.each(this.options.events, function() {
+			var date_current = new Date(year,month,day,times[0], times[1], 0,0);
+			var next_hour = parseInt(times[0]);
+			var next_minute = parseInt(times[1])+time_split;
+			var date_next = new Date(year,month,day,next_hour, next_minute, 0,0);
+	
+			if (date_current.getTime() <= this.start && date_next.getTime() > this.start) {
+				var eventurl =  this.url ?this.url : 'javascript:void(0)';
+				// TODO Split this out into the template. Just return the event.
+				title +='<span class="pull-left event-block '+this.class+'"></span><a href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
+			}  
+		});
+		return title;
 	};
 
 	Calendar.prototype._getDayClass = function(class_group, date) {

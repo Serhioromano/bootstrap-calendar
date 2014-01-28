@@ -1,12 +1,14 @@
-<% if(events.length) { %>
-	<ul class="unstyled list-unstyled cal-event-list">
-		<% _.each(events, function(event){ %>
-			<li><span class="pull-left event <%= event['class'] %>"></span>
-				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
-					data-event-class="<%= event['class'] %>" class="event-item">
-					<%= event.title %></a></li>
-		<% }) %>
-	</ul>
-<% } else  { %>
-	<p><%= cal.locale.no_events_in_day %></p>
-<% }  %>
+<div class="cal-day-box">
+    	<div class="cal-offset1 cal-column"></div>
+        <div class="cal-offset7 cal-column"></div>
+        <div class="cal-row-fluid cal-row-head">
+                <div class="cal-cell1 time">Times</div>
+                <hr>
+                <% _.each(times, function(time){ %>
+                        <div class="cal-row-fluid">
+                                <div class="cal-cell1 cal-offset-1"><%= time %></div>
+                                <div class="cal-cell6 cal-offset-2 pull-left cal-col-cell"><%= cal._getTimeAppointment(time) %></div>
+                        </div>
+                <% }); %>
+        </div>
+</div>
