@@ -7,26 +7,26 @@ if(!window.calendar_languages) {
 // First letters: the language code (lower case). See http://www.loc.gov/standards/iso639-2/php/code_list.php
 // Last letters: the Country code (upper case). See http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm
 window.calendar_languages['zh-CN'] = {
-        error_noview: 'Calendar: View {0} not found',
-        error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
-        error_loadurl: 'Calendar: Event URL is not set',
+        error_noview: 'Calendar: 没有发现视图 {0} ',
+        error_dateformat: 'Calendar: 日期格式不正确： {0}. 应当为 "now" 或者 "yyyy-mm-dd"',
+        error_loadurl: 'Calendar: 没有设置事件的 URL',
         error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
 
-        no_events_in_day: 'No events in this day.',
+        no_events_in_day: '今天没有事件。',
 
         // {0} will be replaced with the year (example: 2013)
         title_year: '{0}',
         // {0} will be replaced with the month name (example: September)
         // {1} will be replaced with the year (example: 2013)
-        title_month: '{0} {1}',
+        title_month: '{1} 年 {0}',
         // {0} will be replaced with the week number (example: 37)
         // {1} will be replaced with the year (example: 2013)
-        title_week: 'week {0} of {1}',
+        title_week: '{1} 年 第 {0} 周 ',
         // {0} will be replaced with the weekday name (example: Thursday)
         // {1} will be replaced with the day of the month (example: 12)
         // {2} will be replaced with the month name (example: September)
         // {3} will be replaced with the year (example: 2013)
-        title_day: '{0} {1} {2}, {3}',
+        title_day: '{3} 年 {2} {1} 日， {0} ',
 
         week:'第{0}周',
 
@@ -43,18 +43,18 @@ window.calendar_languages['zh-CN'] = {
         m10: '11 月',
         m11: '12 月',
 
-        ms0: 'Jan',
-        ms1: 'Feb',
-        ms2: 'Mar',
-        ms3: 'Apr',
-        ms4: 'May',
-        ms5: 'Jun',
-        ms6: 'Jul',
-        ms7: 'Aug',
-        ms8: 'Sep',
-        ms9: 'Oct',
-        ms10: 'Nov',
-        ms11: 'Dec',
+        ms0: '1 月',
+        ms1: '2 月',
+        ms2: '3 月',
+        ms3: '4 月',
+        ms4: '5 月',
+        ms5: '6 月',
+        ms6: '7 月',
+        ms7: '8 月',
+        ms8: '9 月',
+        ms9: '10 月',
+        ms10: '11 月',
+        ms11: '12 月',
 
         d0: '周日',
         d1: '周一',
@@ -99,6 +99,11 @@ window.calendar_languages['zh-CN'] = {
         //   - Easter and the day after Easter: 'easter>easter+1'
         //   Limitations: currently the multi-day holydays can't cross an year. So, for example, you can't specify a range as '30-12>01-01'; as a workaround you can specify two distinct holidays (for instance '30-12>31-12' and '01-01').
         holidays: {
-          '01-01':'元旦'
+          '01-01':'元旦',
+          '08-03':'妇女节',
+          '01-05':'国际劳动节',
+          '04-05':'青年节',
+          '01-06':'儿童节',
+          '01-10':'国庆节'
         }
 };
