@@ -11,6 +11,7 @@ window.calendar_languages['en-US'] = {
 	error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
 	error_loadurl: 'Calendar: Event URL is not set',
 	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
+	error_timedevide: 'Calendar: Time split parameter should divide 60 without decimals. Something like 10, 15, 30',
 
 	no_events_in_day: 'No events in this day.',
 
@@ -29,6 +30,11 @@ window.calendar_languages['en-US'] = {
 	title_day: '{0} {1} {2}, {3}',
 
 	week:'Week',
+	all_day:     'All day',
+	time:        'Time',
+	events:      'Events',
+	before_time: 'Ends before timeline',
+	after_time:  'Starts after timeline',
 
 	m0: 'January',
 	m1: 'February',
