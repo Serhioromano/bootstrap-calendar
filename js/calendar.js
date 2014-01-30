@@ -4,7 +4,6 @@
  * https://github.com/Serhioromano/bootstrap-calendar
  *
  * User: Sergey Romanov <serg4172@mail.ru>
- * Version 0.1
  */
 "use strict";
 
