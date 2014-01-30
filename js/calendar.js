@@ -412,23 +412,16 @@ if(!String.prototype.format) {
 		this._update();
 	};
 	
-	Calendar.prototype._calculate_hour_minutes = function(data) { 
+    Calendar.prototype._calculate_hour_minutes = function(data) {
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
-		var module=60/parseInt(this.options.time_split);
-		var t=(parseInt(time_end[0]) - parseInt(time_start[0]))*module;
-		var hour=0;
-		var minutes=0;
+        var time_split = this.options.time_split;
+		var t=(((parseInt(time_end[0])*60) + parseInt(time_end[1])) - ((parseInt(time_start[0])*60) + parseInt(time_start[1])))/time_split;
+		var start_minutes = (parseInt(time_start[0])*60) + parseInt(time_start[1]);
 		data.times = [];
 		for (var i=0;t>=i;i++) {
-			if (hour == 0)
-				hour = parseInt(time_start[0]);
-		else if (i%module==0) {
-			hour = hour + 1;
-			minutes = 0;
-		} else
-			minutes = parseInt(this.options.time_split)+minutes;
-			data.times.push(this._formatNumberLength(hour,2)+':'+this._formatNumberLength(minutes,2));
+            var t_minutes = start_minutes + (i * time_split);
+            data.times.push(this._formatNumberLength(Math.floor(t_minutes/60),2)+':'+this._formatNumberLength(t_minutes%60,2));
 		}
 	};
 
