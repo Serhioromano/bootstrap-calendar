@@ -227,20 +227,38 @@
 .event-important {
   background-color: #ad2121;
 }
+.event-important-text {
+  color: #ad2121;
+}
 .event-info {
   background-color: #1e90ff;
+}
+.event-info-text {
+  color: #1e90ff;
 }
 .event-warning {
   background-color: #e3bc08;
 }
+.event-warning-text {
+  color: #e3bc08;
+}
 .event-inverse {
   background-color: #1b1b1b;
+}
+.event-inverse-text {
+  color: #1b1b1b;
 }
 .event-success {
   background-color: #006400;
 }
+.event-success-text {
+  color: #006400;
+}
 .event-special {
   background-color: #800080;
+}
+.event-special-text {
+  color: #800080;
 }
 .day-highlight:hover,
 .day-highlight {
