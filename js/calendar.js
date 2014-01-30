@@ -27,6 +27,14 @@ if(!String.prototype.format) {
 		});
 	};
 }
+if(!String.prototype.formatNum) {
+	String.prototype.formatNum = function(decimal) {
+		var r = "" + this;
+		while (r.length < decimal)
+			r = "0" + r;
+		return r;
+	};
+}
 
 (function($) {
 
@@ -154,6 +162,7 @@ if(!String.prototype.format) {
 		error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
 		error_loadurl:    'Calendar: Event URL is not set',
 		error_where:      'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
+		error_timedevide: 'Calendar: Time split parameter should divide 60 without decimals. Something like 10, 15, 30',
 
 		no_events_in_day: 'No events in this day.',
 
@@ -163,6 +172,12 @@ if(!String.prototype.format) {
 		title_day:   '{0} {1} {2}, {3}',
 
 		week: 'Week {0}',
+		all_day: 'All day',
+		time: 'Time',
+		events: 'Events',
+		before_time: 'Ends before timeline',
+		after_time: 'Starts after timeline',
+
 
 		m0:  'January',
 		m1:  'February',
@@ -388,7 +403,6 @@ if(!String.prototype.format) {
 			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
 		}
 
-		this._calculate_hour_minutes(data);
 		// Get all events between start and end
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
@@ -399,8 +413,10 @@ if(!String.prototype.format) {
 			case 'month':
 				break;
 			case 'week':
+				this._calculate_hour_minutes(data);
 				break;
 			case 'day':
+				this._calculate_hour_minutes(data);
 				break;
 		}
 
@@ -412,31 +428,82 @@ if(!String.prototype.format) {
 	};
 	
 	Calendar.prototype._calculate_hour_minutes = function(data) { 
+		data.in_hour    = 60 / parseInt(this.options.time_split);
+		data.hour_split = parseInt(this.options.time_split);
+
+		if(!/^\d+$/.exec(data.in_hour)) {
+			$.error(this.locale.error_timedevide);
+		}
+
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
-		var module=60/parseInt(this.options.time_split);
-		var t=(parseInt(time_end[0]) - parseInt(time_start[0]))*module;
-		var hour=0;
-		var minutes=0;
-		data.times = [];
-		for (var i=0;t>=i;i++) {
-			if (hour == 0)
-				hour = parseInt(time_start[0]);
-		else if (i%module==0) {
-			hour = hour + 1;
-			minutes = 0;
-		} else
-			minutes = parseInt(this.options.time_split)+minutes;
-			data.times.push(this._formatNumberLength(hour,2)+':'+this._formatNumberLength(minutes,2));
-		}
+
+		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
+		var lines = data.hours * data.in_hour;
+		var ms_per_line = (60000 * parseInt(this.options.time_split));
+
+		var start = new Date(this.options.position.start.getTime());
+		start.setHours(time_start[0]);
+		start.setMinutes(time_start[1]);
+		var end = new Date(this.options.position.start.getTime());
+		end.setHours(time_end[0]);
+		end.setMinutes(time_end[1]);
+
+		data.all_day = [];
+		data.by_hour = [];
+		data.after_time = [];
+		data.before_time = [];
+		$.each(data.events, function(k, e){
+			var s = new Date(parseInt(e.start));
+			var f = new Date(parseInt(e.end));
+
+			if(e.start < start.getTime() && e.end > end.getTime()) {
+				data.all_day.push(e);
+				return;
+			}
+
+			if(e.end < start.getTime()) {
+				data.before_time.push(e);
+				return;
+			}
+
+			if(e.start > end.getTime()) {
+				data.after_time.push(e);
+				return;
+			}
+
+			var event_start = start.getTime() - e.start;
+
+			if(event_start >= 0) {
+				e.top = 0;
+			} else {
+				e.top = Math.abs(event_start) / ms_per_line;
+			}
+
+			var lines_left = lines - e.top;
+			var lines_in_event = (e.end - e.start) / ms_per_line;
+
+			e.lines = lines_in_event;
+			if(lines_in_event > lines_left) {
+				e.lines = lines_left;
+			}
+
+			data.by_hour.push(e);
+		});
+
+		var d = new Date('2013-03-19 23:00:00');
+		console.log(d.getTime());
+
 	};
 
-	Calendar.prototype._formatNumberLength = function(num, length) {
-    		var r = "" + num;
-    		while (r.length < length)
-        		r = "0" + r;
-    		return r;
-	};
+	Calendar.prototype._hour = function(hour, part) {
+		var time_start = this.options.time_start.split(":");
+
+		var hour = "" + (parseInt(time_start[0]) + hour);
+		var minute = "" + (this.options.time_split * part);
+
+		return hour.formatNum(2) + ":" + minute.formatNum(2);
+	}
 
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');
@@ -568,29 +635,6 @@ if(!String.prototype.format) {
 	Calendar.prototype._getHolidayName = function(date) {
 		var holiday = this._getHoliday(date);
 		return (holiday === false) ? "" : holiday;
-	};
-	
-	Calendar.prototype._getTimeAppointment = function(time) {
-		var year = this.options.position.start.getFullYear();
-		var month = this.options.position.start.getMonth();
-		var day = this.options.position.start.getDate();
-	
-		var times = time.split(":");
-		var title = '';
-		var time_split = parseInt(this.options.time_split);
-		$.each(this.options.events, function() {
-			var date_current = new Date(year,month,day,times[0], times[1], 0,0);
-			var next_hour = parseInt(times[0]);
-			var next_minute = parseInt(times[1])+time_split;
-			var date_next = new Date(year,month,day,next_hour, next_minute, 0,0);
-	
-			if (date_current.getTime() <= this.start && date_next.getTime() > this.start) {
-				var eventurl =  this.url ?this.url : 'javascript:void(0)';
-				// TODO Split this out into the template. Just return the event.
-				title +='<span class="pull-left event-block '+this.class+'"></span><a href='+eventurl+' data-event-id='+this.id+' data-event-class='+this.class+' class="event-item">'+this.title+'</a>';
-			}  
-		});
-		return title;
 	};
 
 	Calendar.prototype._getDayClass = function(class_group, date) {
@@ -943,6 +987,7 @@ if(!String.prototype.format) {
 	};
 
 	Calendar.prototype._update_day = function() {
+		$('#cal-day-panel').height($('#cal-day-panel-hour').height());
 	};
 
 	Calendar.prototype._update_week = function() {

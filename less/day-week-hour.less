@@ -1,7 +1,26 @@
 #cal-day-box {
-	position: relative;
-	.cal-col-cell {
-        height: 30px;
-        border-bottom: thin dashed #000000 !important;
-    }
+  .cal-day-hour-part {
+    height: 30px;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    border-bottom: thin dashed @borderColor;
+  }
+  .cal-day-hour:nth-child(odd) {
+    background-color: @rowHover;
+  }
+  #cal-day-panel {
+    position: relative;
+    padding-left: 60px;
+  }
+  #cal-day-panel-hour {
+    position: absolute;
+    width: 100%;
+    margin-left: -60px;
+    z-index: -1;
+  }
+  .day-event {
+    max-width: 200px;
+    overflow: hidden;
+  }
 }
