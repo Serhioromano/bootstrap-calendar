@@ -4,7 +4,7 @@
 		<div class="span11 col-xs-11 cal-cell"><%= cal.locale.events %></div>
 	</div>
 	<% if(all_day.length) {%>
-		<div class="row-fluid cal-day-hour">
+		<div class="row-fluid clearfix cal-day-hour">
 			<div class="span1 col-xs-1"><b><%= cal.locale.all_day %></b></div>
 			<div class="span11 col-xs-11">
 				<% _.each(all_day, function(event){ %>
@@ -16,8 +16,8 @@
 		</div>
 	<% }; %>
 	<% if(before_time.length) {%>
-		<div class="row-fluid cal-day-hour">
-			<div class="span1 col-xs-1"><b><%= cal.locale.before_time %></b></div>
+		<div class="row-fluid clearfix cal-day-hour">
+			<div class="span1 col-xs-3"><b><%= cal.locale.before_time %></b></div>
 			<div class="span5 col-xs-5">
 				<% _.each(before_time, function(event){ %>
 					<div class="day-highlight dh-<%= event.class %>">
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 	<% }; %>
-	<div id="cal-day-panel">
+	<div id="cal-day-panel" class="clearfix">
 		<% _.each(by_hour, function(event){ %>
 			<div class="pull-left day-event day-highlight dh-<%= event.class %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px">
 				<%= event.title %>
@@ -48,9 +48,9 @@
 		</div>
 	</div>
 	<% if(after_time.length) {%>
-	<div class="row-fluid cal-day-hour">
-		<div class="span1 col-xs-1"><b><%= cal.locale.after_time %></b></div>
-		<div class="span11 col-xs-11">
+	<div class="row-fluid clearfix cal-day-hour">
+		<div class="span1 col-xs-3"><b><%= cal.locale.after_time %></b></div>
+		<div class="span11 col-xs-9">
 			<% _.each(after_time, function(event){ %>
 			<div class="day-highlight dh-<%= event.class %>">
 				<%= event.title %>
@@ -60,4 +60,3 @@
 	</div>
 	<% }; %>
 </div>
-<div class="clearfix"></div>
