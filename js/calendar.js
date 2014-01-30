@@ -30,7 +30,7 @@ if(!String.prototype.format) {
 if(!String.prototype.formatNum) {
 	String.prototype.formatNum = function(decimal) {
 		var r = "" + this;
-		while (r.length < decimal)
+		while(r.length < decimal)
 			r = "0" + r;
 		return r;
 	};
@@ -46,9 +46,9 @@ if(!String.prototype.formatNum) {
 		// Initial date. No matter month, week or day this will be a starting point. Can be 'now' or a date in format 'yyyy-mm-dd'
 		day:                'now',
 		// Day Start time and end time with time intervals
-		time_start: '06:00',
-		time_end: '22:00',
-		time_split: '30',
+		time_start:         '06:00',
+		time_end:           '22:00',
+		time_split:         '30',
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -171,12 +171,12 @@ if(!String.prototype.formatNum) {
 		title_week:  'week {0} of {1}',
 		title_day:   '{0} {1} {2}, {3}',
 
-		week: 'Week {0}',
-		all_day: 'All day',
-		time: 'Time',
-		events: 'Events',
+		week:        'Week {0}',
+		all_day:     'All day',
+		time:        'Time',
+		events:      'Events',
 		before_time: 'Ends before timeline',
-		after_time: 'Starts after timeline',
+		after_time:  'Starts after timeline',
 
 
 		m0:  'January',
@@ -426,9 +426,9 @@ if(!String.prototype.formatNum) {
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
 	};
-	
-	Calendar.prototype._calculate_hour_minutes = function(data) { 
-		data.in_hour    = 60 / parseInt(this.options.time_split);
+
+	Calendar.prototype._calculate_hour_minutes = function(data) {
+		data.in_hour = 60 / parseInt(this.options.time_split);
 		data.hour_split = parseInt(this.options.time_split);
 
 		if(!/^\d+$/.exec(data.in_hour)) {
@@ -453,7 +453,7 @@ if(!String.prototype.formatNum) {
 		data.by_hour = [];
 		data.after_time = [];
 		data.before_time = [];
-		$.each(data.events, function(k, e){
+		$.each(data.events, function(k, e) {
 			var s = new Date(parseInt(e.start));
 			var f = new Date(parseInt(e.end));
 
