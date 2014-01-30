@@ -22,15 +22,15 @@
 			"title": "This is success event",
 			"url": "http://www.example.com/",
 			"class": "event-success",
-			"start": "1363284000000",
-			"end":   "1363284086400"
+			"start": "1363234500000",
+			"end":   "1363284062400"
 		},
 		{
 			"id": "54",
 			"title": "This is simple event",
 			"url": "http://www.example.com/",
 			"class": "",
-			"start": "1363629600000",
+			"start": "1363712400000",
 			"end":   "1363716086400"
 		},
 		{
