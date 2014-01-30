@@ -300,7 +300,7 @@
 }
 .cal-col-cell {
   height: 30px;
-  border-bottom: thin dashed #000000 !important;
+  border-bottom: thin dashed rgb(192,192,192) !important;
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
