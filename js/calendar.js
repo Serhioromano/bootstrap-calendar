@@ -431,7 +431,7 @@ if(!String.prototype.formatNum) {
 		data.in_hour = 60 / parseInt(this.options.time_split);
 		data.hour_split = parseInt(this.options.time_split);
 
-		if(!/^\d+$/.exec(data.in_hour)) {
+		if(!/^\d+$/.exec(data.in_hour) || this.options.time_split > 30) {
 			$.error(this.locale.error_timedevide);
 		}
 
@@ -490,10 +490,6 @@ if(!String.prototype.formatNum) {
 
 			data.by_hour.push(e);
 		});
-
-		var d = new Date('2013-03-19 23:00:00');
-		console.log(d.getTime());
-
 	};
 
 	Calendar.prototype._hour = function(hour, part) {
