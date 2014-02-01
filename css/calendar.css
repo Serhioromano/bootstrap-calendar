@@ -276,17 +276,12 @@
 .event-special {
   background-color: #800080;
 }
+.day-highlight,
 .day-highlight:hover,
-.day-highlight {
-  background-color: #dddddd;
+.day-highlight:visited{
   line-height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  border: 1px solid #c3c3c3;
-  margin: 1px 0;
+  color: #000;
+  text-decoration:none;
 }
 .day-highlight.dh-event-important:hover,
 .day-highlight.dh-event-important {
