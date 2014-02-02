@@ -3,11 +3,27 @@
 	"result": [
 		{
 			"id": "293",
-			"title": "This is warning class event",
+			"title": "This is warning class event with very long title to check how it fits to evet in day view",
 			"url": "http://www.example.com/",
 			"class": "event-warning",
 			"start": "1362938400000",
 			"end":   "1363197686300"
+		},
+		{
+			"id": "256",
+			"title": "Event that ends on timeline",
+			"url": "http://www.example.com/",
+			"class": "event-warning",
+			"start": "1363155300000",
+			"end":   "1363227600000"
+		},
+		{
+			"id": "276",
+			"title": "Short day event",
+			"url": "http://www.example.com/",
+			"class": "event-success",
+			"start": "1363245600000",
+			"end":   "1363252200000"
 		},
 		{
 			"id": "294",
