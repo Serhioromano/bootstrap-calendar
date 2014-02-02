@@ -428,6 +428,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data) {
+		var $self = this;
 		data.in_hour = 60 / parseInt(this.options.time_split);
 		data.hour_split = parseInt(this.options.time_split);
 
@@ -457,6 +458,9 @@ if(!String.prototype.formatNum) {
 			var s = new Date(parseInt(e.start));
 			var f = new Date(parseInt(e.end));
 
+			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
+			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
+
 			if(e.start < start.getTime() && e.end > end.getTime()) {
 				data.all_day.push(e);
 				return;
@@ -482,14 +486,24 @@ if(!String.prototype.formatNum) {
 
 			var lines_left = lines - e.top;
 			var lines_in_event = (e.end - e.start) / ms_per_line;
+			if(event_start >=0 ) {
+				lines_in_event = (e.end - start.getTime()) / ms_per_line;
+			}
+
 
 			e.lines = lines_in_event;
 			if(lines_in_event > lines_left) {
 				e.lines = lines_left;
 			}
 
+			warn(e.lines);
+			warn(e.title);
+
 			data.by_hour.push(e);
 		});
+
+		var d = new Date('2013-03-14 13:20:00');
+		//warn(d.getTime());
 	};
 
 	Calendar.prototype._hour = function(hour, part) {
