@@ -213,12 +213,21 @@
   height: 100%;
   z-index: -1;
 }
+#cal-day-box {
+  text-wrap: none;
+}
 #cal-day-box .cal-day-hour-part {
   height: 30px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border-bottom: thin dashed #e1e1e1;
+}
+#cal-day-box .cal-day-hour .day-highlight {
+  height: 30px;
+}
+#cal-day-box .cal-hours {
+  font-weight: bolder;
 }
 #cal-day-box .cal-day-hour:nth-child(odd) {
   background-color: #fafafa;
@@ -236,6 +245,37 @@
 #cal-day-box .day-event {
   max-width: 200px;
   overflow: hidden;
+}
+#cal-day-box .day-highlight {
+  line-height: 30px;
+  padding-left: 8px;
+  padding-right: 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #c3c3c3;
+  margin: 1px 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#cal-day-box .day-highlight.dh-event-important {
+  border: 1px solid #ad2121;
+}
+#cal-day-box .day-highlight.dh-event-warning {
+  border: 1px solid #e3bc08;
+}
+#cal-day-box .day-highlight.dh-event-info {
+  border: 1px solid #1e90ff;
+}
+#cal-day-box .day-highlight.dh-event-inverse {
+  border: 1px solid #1b1b1b;
+}
+#cal-day-box .day-highlight.dh-event-success {
+  border: 1px solid #006400;
+}
+#cal-day-box .day-highlight.dh-event-special {
+  background-color: #ffe6ff;
+  border: 1px solid #800080;
 }
 .event {
   display: block;
@@ -279,44 +319,30 @@
 .day-highlight:hover,
 .day-highlight {
   background-color: #dddddd;
-  line-height: 30px;
-  padding-left: 8px;
-  padding-right: 8px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  border: 1px solid #c3c3c3;
-  margin: 1px 0;
 }
 .day-highlight.dh-event-important:hover,
 .day-highlight.dh-event-important {
   background-color: #fae3e3;
-  border: 1px solid #ad2121;
 }
 .day-highlight.dh-event-warning:hover,
 .day-highlight.dh-event-warning {
   background-color: #fdf1ba;
-  border: 1px solid #e3bc08;
 }
 .day-highlight.dh-event-info:hover,
 .day-highlight.dh-event-info {
   background-color: #d1e8ff;
-  border: 1px solid #1e90ff;
 }
 .day-highlight.dh-event-inverse:hover,
 .day-highlight.dh-event-inverse {
   background-color: #c1c1c1;
-  border: 1px solid #1b1b1b;
 }
 .day-highlight.dh-event-success:hover,
 .day-highlight.dh-event-success {
   background-color: #caffca;
-  border: 1px solid #006400;
 }
 .day-highlight.dh-event-special:hover,
 .day-highlight.dh-event-special {
   background-color: #ffe6ff;
-  border: 1px solid #800080;
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
