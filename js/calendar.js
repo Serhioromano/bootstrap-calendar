@@ -461,6 +461,16 @@ if(!String.prototype.formatNum) {
 			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
 			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
 
+			if(e.start < start.getTime()) {
+				warn(1);
+				e.start_hour = s.getDate() + ' ' + $self.locale['ms' + s.getMonth()] + ' ' + e.start_hour;
+			}
+
+			if(e.end > end.getTime()) {
+				warn(1);
+				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
+			}
+
 			if(e.start < start.getTime() && e.end > end.getTime()) {
 				data.all_day.push(e);
 				return;
@@ -486,7 +496,7 @@ if(!String.prototype.formatNum) {
 
 			var lines_left = lines - e.top;
 			var lines_in_event = (e.end - e.start) / ms_per_line;
-			if(event_start >=0 ) {
+			if(event_start >= 0) {
 				lines_in_event = (e.end - start.getTime()) / ms_per_line;
 			}
 
@@ -496,13 +506,10 @@ if(!String.prototype.formatNum) {
 				e.lines = lines_left;
 			}
 
-			warn(e.lines);
-			warn(e.title);
-
 			data.by_hour.push(e);
 		});
 
-		var d = new Date('2013-03-14 13:20:00');
+		//var d = new Date('2013-03-14 13:20:00');
 		//warn(d.getTime());
 	};
 
