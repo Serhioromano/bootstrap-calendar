@@ -169,7 +169,7 @@ foreach($db->query($sql) as $row) {
     );
 }
 
-echo json_encode($out);
+echo json_encode(array('success' => 1, 'result' => $out));
 exit;
 ```
 
