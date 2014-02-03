@@ -203,15 +203,48 @@
 #cal-slide-content ul.unstyled {
   margin-bottom: 0;
 }
-.cal-week-box [class*="cal-cell"] {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.cal-week-box {
+  position: relative;
 }
-.cal-column {
+.cal-week-box [data-event-class] {
+  white-space: nowrap;
+  height: 30px;
+  margin: 1px 1px;
+  line-height: 30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-left: 10px;
+}
+.cal-week-box .cal-column {
   position: absolute;
   height: 100%;
   z-index: -1;
+}
+.cal-week-box .arrow-before,
+.cal-week-box .arrow-after {
+  position: relative;
+}
+.cal-week-box .arrow-after:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  width: 0;
+  height: 0;
+  right: 0;
+  border-top: 15px solid #ffffff;
+  border-left: 8px solid;
+  border-bottom: 15px solid #FFFFFF;
+}
+.cal-week-box .arrow-before:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  width: 0;
+  height: 0;
+  left: 1px;
+  border-top: 15px solid transparent;
+  border-left: 8px solid #FFFFFF;
+  border-bottom: 15px solid transparent;
 }
 #cal-day-box {
   text-wrap: none;
