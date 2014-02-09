@@ -683,7 +683,13 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype.view = function(view) {
-		if(view) this.options.view = view;
+		if(view) {
+			if(!this.options.views[view].enable) {
+				return;
+			}
+			this.options.view = view;
+		}
+
 
 		this._init_position();
 		this._loadEvents();
@@ -908,17 +914,11 @@ if(!String.prototype.formatNum) {
 
 		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
-			if(!self.options.views[view].enable) {
-				return;
-			}
 			self.options.day = $(this).data('cal-date');
 			self.view(view);
 		});
 		$('.cal-cell').dblclick(function() {
 			var view = $('[data-cal-date]', this).data('cal-view');
-			if(!self.options.views[view].enable) {
-				return;
-			}
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);
 		});
