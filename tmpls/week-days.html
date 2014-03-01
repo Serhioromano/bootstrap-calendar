@@ -1,7 +1,13 @@
 <% _.each(events, function(event){ %>
 <div class="cal-row-fluid">
-	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>">
-		<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" class="cal-event-week event<%= event.id %>"><%= event.title %></a>
+	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>"
+	style="position: absolute; margin-top: <%= (event.top * 40) %>px; height: <%= (event.lines * 40) %>px">
+	<!-- Need to a the link to the whole box instead of just the letters -->
+		<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" class="cal-event-week event<%= event.id %> cal-week-link">
+			<span class="cal-hours"><%= event.display_start_hour %> - <%= event.display_end_hour %></span>
+			<p><%= event.title %></p>
+		</a>
+	
 	</div>
 </div>
 <% }); %>
