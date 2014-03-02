@@ -679,6 +679,9 @@ if(!String.prototype.formatNum) {
 				addClass("saturday", classes);
 				break;
 		}
+		
+		addClass(date.toDateString(), classes);
+
 		return classes.join(" ");
 	};
 
