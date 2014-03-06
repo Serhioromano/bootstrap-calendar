@@ -387,8 +387,10 @@ a.cal-week-link {
   z-index: -1;
 }
 #cal-day-box .day-event {
-  max-width: 200px;
+  padding-left: 10px;
   overflow: hidden;
+  position: absolute;
+  width: 90%;
 }
 #cal-day-box .day-highlight {
   line-height: 30px;

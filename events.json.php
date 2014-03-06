@@ -13,7 +13,7 @@
                         "id": "277",
                         "title": "Event 2",
                         "url": "http://www.example.com/",
-                        "class": "event-success",
+                        "class": "event-inverse",
                         "start": "1363325600000",
                         "end":   "1363332200000"
                 },
@@ -21,12 +21,36 @@
                         "id": "278",
                         "title": "Event 3",
                         "url": "http://www.example.com/",
-                        "class": "event-success",
+                        "class": "event-info",
+                        "start": "1363325600000",
+                        "end":   "1363332200000"
+                },
+                                {
+                        "id": "281",
+                        "title": "Event 4",
+                        "url": "http://www.example.com/",
+                        "class": "event-info",
+                        "start": "1363325600000",
+                        "end":   "1363332200000"
+                },
+                {
+                        "id": "279",
+                        "title": "Event 5",
+                        "url": "http://www.example.com/",
+                        "class": "event-info",
+                        "start": "1363334400000",
+                        "end":   "1363338000000"
+                },
+                {
+                        "id": "279",
+                        "title": "New EWvent ",
+                        "url": "http://www.example.com/",
+                        "class": "event-warning",
                         "start": "1363237200000",
                         "end":   "1363240800000"
                 },
                 {
-                        "id": "279",
+                        "id": "280",
                         "title": "Day with Pre-start hour",
                         "url": "http://www.example.com/",
                         "class": "event-success",
@@ -41,7 +65,7 @@
                         "start": "1363284000000",
                         "end":   "1363296600000"
                 },
-		{
+                {
                         "id": "231",
                         "title": "Event going on to the next day",
                         "url": "http://www.example.com/",

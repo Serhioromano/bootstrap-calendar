@@ -454,73 +454,117 @@ if(!String.prototype.formatNum) {
 		data.by_hour = [];
 		data.after_time = [];
 		data.before_time = [];
-		$.each(data.events, function(k, e) {
-			var s = new Date(parseInt(e.start));
-			var f = new Date(parseInt(e.end));
+		$.each(data.events, function(key, event) {
+			var event_start_date = new Date(parseInt(event.start));
+			var event_end_date = new Date(parseInt(event.end));
+			event.width = $self._day_hour_interchange_calculate_width(event, data.events);
+			
+			event.start_hour = event_start_date.getHours().toString().formatNum(2) + ':' + event_start_date.getMinutes().toString().formatNum(2);
+			event.end_hour = event_end_date.getHours().toString().formatNum(2) + ':' + event_end_date.getMinutes().toString().formatNum(2);
 
-			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
-			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
-
-			if(e.start < start.getTime()) {
+			if(event.start < start.getTime()) {
 				warn(1);
-				e.start_hour = s.getDate() + ' ' + $self.locale['ms' + s.getMonth()] + ' ' + e.start_hour;
+				event.start_hour = event_start_date.getDate() + ' ' + $self.locale['ms' + event_start_date.getMonth()] + ' ' + event.start_hour;
 			}
 
-			if(e.end > end.getTime()) {
+			if(event.end > end.getTime()) {
 				warn(1);
-				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
+				event.end_hour = event_end_date.getDate() + ' ' + $self.locale['ms' + event_end_date.getMonth()] + ' ' + event.end_hour;
 			}
 
-			if(e.start < start.getTime() && e.end > end.getTime()) {
-				data.all_day.push(e);
+			if(event.start < start.getTime() && event.end > end.getTime()) {
+				data.all_day.push(event);
 				return;
 			}
 
-			if(e.end < start.getTime()) {
-				data.before_time.push(e);
+			if(event.end < start.getTime()) {
+				data.before_time.push(event);
 				return;
 			}
 
-			if(e.start > end.getTime()) {
-				data.after_time.push(e);
+			if(event.start > end.getTime()) {
+				data.after_time.push(event);
 				return;
 			}
 
-			var event_start = start.getTime() - e.start;
+			var event_start = start.getTime() - event.start;
 
 			if(event_start >= 0) {
-				e.top = 0;
+				event.top = 0;
 			} else {
-				e.top = Math.abs(event_start) / ms_per_line;
+				event.top = Math.abs(event_start) / ms_per_line;
 			}
 
-			var lines_left = lines - e.top;
-			var lines_in_event = (e.end - e.start) / ms_per_line;
+			var lines_left = lines - event.top;
+			var lines_in_event = (event.end - event.start) / ms_per_line;
 			if(event_start >= 0) {
-				lines_in_event = (e.end - start.getTime()) / ms_per_line;
+				lines_in_event = (event.end - start.getTime()) / ms_per_line;
 			}
 
-
-			e.lines = lines_in_event;
+			event.lines = lines_in_event;
 			if(lines_in_event > lines_left) {
-				e.lines = lines_left;
+				event.lines = lines_left;
 			}
 
-			data.by_hour.push(e);
+			data.by_hour.push(event);
 		});
-
-		//var d = new Date('2013-03-14 13:20:00');
-		//warn(d.getTime());
+	};
+	
+	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list) {
+		var event_start_date = new Date(parseInt(event.start));
+		var event_end_date = new Date(parseInt(event.end));
+		var width = null;
+		var events_found = 1;
+		var width_amount = 41.5;
+		var margin_left = 42.5;
+		
+		console.log(event.title);
+		$.each(events_list, function(key, loop_event) {
+			var loop_event_start_date = new Date(parseInt(loop_event.start));
+			var loop_event_end_date = new Date(parseInt(loop_event.end));
+			if (event.id == loop_event.id)
+				return true;
+			
+			if (events_found > 2)
+				margin_left = margin_left + width_amount + 0.5;
+			
+			if (event_start_date >= loop_event_start_date && event_end_date <= loop_event_end_date ) {
+				if (events_found > 2)
+					width_amount = width_amount / 2;
+				else
+					width_amount = width_amount / events_found;
+				if (event.id < loop_event.id) {
+					if (events_found == 1) {
+						width = "width: "+width_amount+"%;";
+						console.log("1 - title:"+loop_event.title +" e:"+events_found+ " return-"+width);
+						return false;
+					} else {
+						width = "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
+						console.log("2 - title:"+loop_event.title +" e:"+events_found+ " return-"+width);
+						return false;
+					}
+					
+				} else {
+					width =  "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
+					console.log("3 - title:"+loop_event.title +" e:"+events_found + "width-amount("+width_amount+") margin-left(" +margin_left+ ") return-"+width);
+				}
+				events_found += 1;
+			}
+			
+		});
+		console.log("---------------");
+//		console.log(width);
+		return width;
 	};
 
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
 
-		var hour = "" + (parseInt(time_start[0]) + hour);
+		var hour_ = "" + (parseInt(time_start[0]) + hour);
 		var minute = "" + (this.options.time_split * part);
 
-		return hour.formatNum(2) + ":" + minute.formatNum(2);
-	}
+		return hour_.formatNum(2) + ":" + minute.formatNum(2);
+	};
 
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');
@@ -597,26 +641,27 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 			var event_start = event_start_time - position_start_time;
+			var lines_in_event;
 			if (event_start < 0 ) {
 				// event is before start hour
 				event.top = 0;
-				var lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
+				lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
 				// TODO extra check if event end date is before start hour.
 			} else {
 				// Normal event
 				event.top = Math.abs(event_start) / ms_per_line;
-				var lines_in_event = (event_end_time - event_start_time) / ms_per_line;
+				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 			}
 			
 			// TODO check if event is overlapping and set the width to half and the margin left to +6.5%
-			//event.width = "width: 6.5%; margin: left;";
+			// event.width = "width: 6.5%; margin-left: 45%;";
 			// Loop over all existing day events. 
 			// If no event is found then do nothing
 			// If another event starts at the same time 
 			// Loop over all existing week events. If event is before the next event, push the first event to the left with width:6.5%;
 			// If event is after 
 
-                        var lines_left = lines - ( event.top + lines_in_event) ;
+			var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
 			
 			if(lines_in_event > lines_left) {
@@ -700,7 +745,7 @@ if(!String.prototype.formatNum) {
 		t.end = parseInt(t.start + 86400000);
 		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['month-day'](t);
-	}
+	};
 
 	Calendar.prototype._getHoliday = function(date) {
 		var result = false;
@@ -886,15 +931,15 @@ if(!String.prototype.formatNum) {
 		var now = new Date().getTime();
 
 		return ((now > this.options.position.start) && (now < this.options.position.end));
-	}
+	};
 
 	Calendar.prototype.getStartDate = function() {
 		return this.options.position.start;
-	}
+	};
 
 	Calendar.prototype.getEndDate = function() {
 		return this.options.position.end;
-	}
+	};
 
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
