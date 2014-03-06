@@ -1,3 +1,7 @@
+hr {
+  margin-bottom: 0px;
+}
+
 [class*="cal-cell"] {
   float: left;
   margin-left: 0;
@@ -141,39 +145,47 @@
   *width: 12.5%;
 }
 
+.cal-week-box .cal-week-row-fluid .cal-offset8,
 .cal-week-box .cal-offset8 {
   margin-left: 100%;
   *margin-left: 100%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset7,
 .cal-week-box .cal-offset7 {
   margin-left: 87.5%;
   *margin-left: 87.5%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset6,
 .cal-week-box .cal-offset6 {
   margin-left: 75%;
   *margin-left: 75%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset5,
 .cal-week-box .cal-offset5 {
   margin-left: 62.5%;
   *margin-left: 62.5%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset4,
 .cal-week-box .cal-offset4 {
   margin-left: 50%;
   *margin-left: 50%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset3,
 .cal-week-box .cal-offset3 {
   margin-left: 37.5%;
   *margin-left: 37.5%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset2,
 .cal-week-box .cal-offset2 {
   margin-left: 25%;
   *margin-left: 25%;
 }
+.cal-week-box .cal-week-row-fluid .cal-offset1,
 .cal-week-box .cal-offset1 {
   margin-left: 12.5%;
   *margin-left: 12.5%;
 }
-.cal-week-box .cal-row-fluid .cal-cell1 {
+.cal-week-box .cal-week-row-fluid .cal-cell1 {
   width: 12.5%;
   *width: 12.5%;
 }
@@ -272,10 +284,10 @@
   position: relative;
 }
 .cal-week-box [data-event-class] {
-  white-space: nowrap;
+  white-space: normal;
   height: 30px;
   margin: 1px 1px;
-  line-height: 30px;
+  line-height: 15px;
   text-overflow: ellipsis;
   overflow: hidden;
   padding-left: 10px;

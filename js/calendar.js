@@ -544,7 +544,7 @@ if(!String.prototype.formatNum) {
 		var time_end = this.options.time_end.split(":");
 
 		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
-		var lines = data.hours * data.in_hour;
+		var lines = data.hours * data.in_hour;	
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
 
 		$.each(this.getEventsBetween(week_start, week_end), function(k, event) {
@@ -569,11 +569,12 @@ if(!String.prototype.formatNum) {
 			}
 			event.start_day = event.start_day + 1;
 			
-			
-			// position
 //			var start = new Date(this.options.position.start.getTime());
 //			var position_start_time = new Date(this.options.position.start.getTime());
 			var start_hour = new Date(parseInt(event.start));
+			var day_end_hour = new Date(parseInt(event.start));
+			day_end_hour.setHours(23,59,59,999);
+			var day_end_time = day_end_hour.getTime();
 			var end_hour = new Date(parseInt(event.end));
 			
 			event.display_start_hour = start_hour.getHours().toString().formatNum(2) + ':' + start_hour.getMinutes().toString().formatNum(2);
@@ -588,41 +589,43 @@ if(!String.prototype.formatNum) {
 			position_end_time.setHours(time_end[0]);
 			position_end_time.setMinutes(time_end[1]);
 			
-			// TODO
-			// If all day push to top.
-			// If span multiple days push to top
-			// If before start time push to top
-			// if after end time push to end
-			// Display on appropriate time
+			// TODO if event spans multiple days, display a bar on top spanning those days.
+			// If event comes from the previous day, do not display
+			if (event_end_time > day_end_time ) {
+				// TODO Figure out how to push this on top instead of being displayed in calendar
+				console.log(day_end_time + " " + event_start_time + " " + event.days );
+				return;
+			}
 			var event_start = event_start_time - position_start_time;
-			event.top = Math.abs(event_start) / ms_per_line;
+			if (event_start < 0 ) {
+				// event is before start hour
+				event.top = 0;
+				var lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
+				// TODO extra check if event end date is before start hour.
+			} else {
+				// Normal event
+				event.top = Math.abs(event_start) / ms_per_line;
+				var lines_in_event = (event_end_time - event_start_time) / ms_per_line;
+			}
 			
-			var lines_in_event = (event_end_time - event_start_time) / ms_per_line;
+			// TODO check if event is overlapping and set the width to half and the margin left to +6.5%
+			//event.width = "width: 6.5%; margin: left;";
+			// Loop over all existing day events. 
+			// If no event is found then do nothing
+			// If another event starts at the same time 
+			// Loop over all existing week events. If event is before the next event, push the first event to the left with width:6.5%;
+			// If event is after 
+
+                        var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
 			
-			var lines_left = lines - ( event.top + lines_in_event) ;
-			
-			if (lines_left < 0 ) {
-				console.log(lines_left + "event after the time");
-				// TODO push this to be displayed as after the allocated time
+			if(lines_in_event > lines_left) {
+				event.lines = event.lines + lines_left;
+                        } else {
+                        	event.lines = lines_in_event;
 			}
+			// TODO if event after end time and before next day display a note on the end
 
-//			if(event_start >= 0) {
-//				e.top = 0;
-//			} else {
-//				e.top = Math.abs(event_start) / ms_per_line;
-//			}
-//
-//			var lines_left = lines - e.top;
-//			var lines_in_event = (e.end - e.start) / ms_per_line;
-//			if(event_start >= 0) {
-//				lines_in_event = (e.end - start.getTime()) / ms_per_line;
-//			}
-//			e.lines = lines_in_event;
-//			if(lines_in_event > lines_left) {
-//				e.lines = lines_left;
-//			}
-			
 			events.push(event);
 		});
 		t.events = events;
