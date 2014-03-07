@@ -509,53 +509,49 @@ if(!String.prototype.formatNum) {
 			data.by_hour.push(event);
 		});
 	};
-	
+
 	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list) {
 		var event_start_date = new Date(parseInt(event.start));
 		var event_end_date = new Date(parseInt(event.end));
-		var width = null;
-		var events_found = 1;
-		var width_amount = 41.5;
-		var margin_left = 42.5;
-		
-		console.log(event.title);
+		var margin_left = null;
+		var events_found = 0;
+		var total_events = this._events_to_loop(event, events_list);
+		var width_amount = 48.5;
+		// TODO Would be nicer if this was more flexible. According to the total event the initial width amount would be set
 		$.each(events_list, function(key, loop_event) {
 			var loop_event_start_date = new Date(parseInt(loop_event.start));
 			var loop_event_end_date = new Date(parseInt(loop_event.end));
 			if (event.id == loop_event.id)
 				return true;
-			
-			if (events_found > 2)
-				margin_left = margin_left + width_amount + 0.5;
-			
-			if (event_start_date >= loop_event_start_date && event_end_date <= loop_event_end_date ) {
-				if (events_found > 2)
-					width_amount = width_amount / 2;
-				else
-					width_amount = width_amount / events_found;
-				if (event.id < loop_event.id) {
-					if (events_found == 1) {
-						width = "width: "+width_amount+"%;";
-						console.log("1 - title:"+loop_event.title +" e:"+events_found+ " return-"+width);
-						return false;
-					} else {
-						width = "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
-						console.log("2 - title:"+loop_event.title +" e:"+events_found+ " return-"+width);
-						return false;
-					}
-					
-				} else {
-					width =  "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
-					console.log("3 - title:"+loop_event.title +" e:"+events_found + "width-amount("+width_amount+") margin-left(" +margin_left+ ") return-"+width);
-				}
+
+			if ((event_start_date >= loop_event_start_date && event_start_date <= loop_event_end_date) || (event_start_date < loop_event_start_date && event_end_date > loop_event_end_date) || (event_end_date < loop_event_end_date && event_end_date > loop_event_start_date)) {
 				events_found += 1;
+				width_amount = width_amount / events_found;
+				if (events_found > total_events)
+					return false;
+				
+				if (events_found == 1)
+                                        margin_left = width_amount + 0.5;
+                                else
+                                        margin_left = margin_left + width_amount +0.5;
 			}
-			
 		});
-		console.log("---------------");
-//		console.log(width);
-		return width;
+		if (events_found >= 1) 	{
+			if (margin_left == null)
+				return  "width: "+width_amount+"%;";	
+			else
+				return  "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
+		}
 	};
+
+        Calendar.prototype._events_to_loop = function(event, events_list) {
+		var events_loop_amount = 0;
+		$.each(events_list, function(key, loop_event) {
+			if (event.id > loop_event.id)
+				events_loop_amount +=1;			
+		});
+		return events_loop_amount;
+	}
 
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
