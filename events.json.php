@@ -25,7 +25,7 @@
                         "start": "1363325300000",
                         "end":   "1363332100000"
                 },
-                                {
+                {
                         "id": "279",
                         "title": "Event 4",
                         "url": "http://www.example.com/",

@@ -398,9 +398,9 @@ if(!String.prototype.formatNum) {
 
 		// Getting list of days in a week in correct order. Works for month and week views
 		if(getExtentedOption(this, 'first_day') == 1) {
-			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
+			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0];
 		} else {
-			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
+			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6];
 		}
 
 		// Get all events between start and end
@@ -413,10 +413,10 @@ if(!String.prototype.formatNum) {
 			case 'month':
 				break;
 			case 'week':
-				this._calculate_hour_minutes(data);
+				this._calculate_hour_minutes(data, 12.5);
 				break;
 			case 'day':
-				this._calculate_hour_minutes(data);
+				this._calculate_hour_minutes(data, 90);
 				break;
 		}
 
@@ -427,7 +427,7 @@ if(!String.prototype.formatNum) {
 		this._update();
 	};
 
-	Calendar.prototype._calculate_hour_minutes = function(data) {
+	Calendar.prototype._calculate_hour_minutes = function(data, width_percentage) {
 		var $self = this;
 		data.in_hour = 60 / parseInt(this.options.time_split);
 		data.hour_split = parseInt(this.options.time_split);
@@ -457,7 +457,9 @@ if(!String.prototype.formatNum) {
 		$.each(data.events, function(key, event) {
 			var event_start_date = new Date(parseInt(event.start));
 			var event_end_date = new Date(parseInt(event.end));
-			event.width = $self._day_hour_interchange_calculate_width(event, data.events);
+			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
+			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
+			
 			
 			event.start_hour = event_start_date.getHours().toString().formatNum(2) + ':' + event_start_date.getMinutes().toString().formatNum(2);
 			event.end_hour = event_end_date.getHours().toString().formatNum(2) + ':' + event_end_date.getMinutes().toString().formatNum(2);
@@ -510,14 +512,13 @@ if(!String.prototype.formatNum) {
 		});
 	};
 
-	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list) {
+	Calendar.prototype._day_hour_interchange_calculate_margin_left = function (event, events_list, width_percentage, width_amount) {
 		var $self = this;
+
 		var margin_left = null;
 		var events_found = 0;
-		var total_events = this._total_amount_of_events(event, events_list);
 		var events_to_loop = this._events_to_loop(event, events_list);
-		var width_amount = (90/total_events);
-
+		
 		$.each(events_list, function(key, loop_event) {
 			if (event.id == loop_event.id)
 				return true;
@@ -533,15 +534,16 @@ if(!String.prototype.formatNum) {
 					margin_left = margin_left + width_amount +0.5;
 			}
 		});
-		if (events_found >= 1) 	{
-			if (margin_left == null)
-				return  "width: "+width_amount+"%;";	
-			else
-				return  "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
-		}
+		return margin_left;
 	};
 	
-	Calendar.prototype._total_amount_of_events = function (event, events_list) { 
+	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list, width_percentage) {
+		var total_events = this._total_amount_of_events_intersect(event, events_list);
+		var width_amount = (width_percentage/total_events);
+		return width_amount;
+	};
+	
+	Calendar.prototype._total_amount_of_events_intersect = function (event, events_list) { 
 		var event_count = 0 ;
 		var $self = this;
 		$.each(events_list, function(key, loop_event) {
@@ -585,7 +587,7 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');
-
+		
 		var t = {};
 		var week_start = parseInt(this.options.position.start.getTime());
 		var week_end = parseInt(this.options.position.end.getTime());
@@ -608,7 +610,9 @@ if(!String.prototype.formatNum) {
 		var lines = data.hours * data.in_hour;	
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
 
-		$.each(this.getEventsBetween(week_start, week_end), function(k, event) {
+		var total_events_in_week = this.getEventsBetween(week_start, week_end);
+		$.each(total_events_in_week, function(k, event) {
+			console.log(event.title);
 			event.start_day = new Date(parseInt(event.start)).getDay();
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
@@ -657,6 +661,7 @@ if(!String.prototype.formatNum) {
 				console.log(day_end_time + " " + event_start_time + " " + event.days );
 				return;
 			}
+			
 			var event_start = event_start_time - position_start_time;
 			var lines_in_event;
 			if (event_start < 0 ) {
@@ -669,15 +674,11 @@ if(!String.prototype.formatNum) {
 				event.top = Math.abs(event_start) / ms_per_line;
 				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 			}
+			// XXX Hack for the weeks to work
+			console.log("event("+event.id+"-"+event.title+") width("+event.width +") margin-left("+event.margin_left+")");
+			if (event.margin_left != null)
+				event.margin_left = event.margin_left + ( event.start_day * 12.5 );
 			
-			// TODO check if event is overlapping and set the width to half and the margin left to +6.5%
-			// event.width = "width: 6.5%; margin-left: 45%;";
-			// Loop over all existing day events. 
-			// If no event is found then do nothing
-			// If another event starts at the same time 
-			// Loop over all existing week events. If event is before the next event, push the first event to the left with width:6.5%;
-			// If event is after 
-
 			var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
 			

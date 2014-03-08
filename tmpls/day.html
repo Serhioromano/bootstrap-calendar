@@ -35,7 +35,7 @@
 	<div id="cal-day-panel" class="clearfix">
 		<% _.each(by_hour, function(event){ %>
 			<a href="<%= event.url %>" class="cal-event-week">
-				<div class="pull-left day-event day-event-width day-highlight dh-<%= event.class %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px; <%= event.width %>">
+				<div class="pull-left day-event day-event-width day-highlight dh-<%= event.class %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px; width: <%= event.width %>%; margin-left: <%= event.margin_left %>%">
 					<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
 					<%= event.title %>
 				</div>
