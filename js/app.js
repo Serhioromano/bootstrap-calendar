@@ -4,10 +4,10 @@
 
 	var options = {
 		events_source: 'events.json.php',
-		view: 'week',
+		view: 'day',
 		tmpl_path: 'tmpls/',
 		tmpl_cache: false,
-		day: '2013-03-15',
+		day: '2013-03-14',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;

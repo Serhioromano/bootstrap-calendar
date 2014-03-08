@@ -460,9 +460,6 @@ if(!String.prototype.formatNum) {
 			event.start_hour = event_start_date.getHours().toString().formatNum(2) + ':' + event_start_date.getMinutes().toString().formatNum(2);
 			event.end_hour = event_end_date.getHours().toString().formatNum(2) + ':' + event_end_date.getMinutes().toString().formatNum(2);
 
-			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
-			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
-			
 			if(event.start < start.getTime()) {
 				warn(1);
 				event.start_hour = event_start_date.getDate() + ' ' + $self.locale['ms' + event_start_date.getMonth()] + ' ' + event.start_hour;
@@ -487,7 +484,10 @@ if(!String.prototype.formatNum) {
 				data.after_time.push(event);
 				return;
 			}
-
+			
+			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
+			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
+			
 			var event_start = start.getTime() - event.start;
 
 			if(event_start >= 0) {
@@ -557,9 +557,25 @@ if(!String.prototype.formatNum) {
 		var event2_start_date = new Date(parseInt(event2.start));
 		var event2_end_date = new Date(parseInt(event2.end));
 		
+		var time_start = this.options.time_start.split(":");
+		var time_end = this.options.time_end.split(":");
+		
+		var start = new Date(this.options.position.start.getTime());
+		start.setHours(time_start[0]);
+		start.setMinutes(time_start[1]);
+		var end = new Date(this.options.position.start.getTime());
+		end.setHours(time_end[0]);
+		end.setMinutes(time_end[1]);
+		
+		if((event1_start_date.getTime() < start.getTime() && event1_end_date.getTime() > end.getTime()) ||
+				(event2_start_date.getTime() < start.getTime() && event2_end_date.getTime() > end.getTime())) {
+			return false;
+		}
+		
 		if ((event1_start_date >= event2_start_date && event1_start_date <= event2_end_date) || 
 				(event1_start_date < event2_start_date && event1_end_date > event2_end_date) || 
 				(event1_end_date < event2_end_date && event1_end_date > event2_start_date)) {
+			console.log(event2.title);
 			return true;
 		}
 		return false;
@@ -606,7 +622,7 @@ if(!String.prototype.formatNum) {
 		
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
-
+		
 		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
 		var lines = data.hours * data.in_hour;	
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
