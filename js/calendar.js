@@ -457,13 +457,12 @@ if(!String.prototype.formatNum) {
 		$.each(data.events, function(key, event) {
 			var event_start_date = new Date(parseInt(event.start));
 			var event_end_date = new Date(parseInt(event.end));
-			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
-			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
-			
-			
 			event.start_hour = event_start_date.getHours().toString().formatNum(2) + ':' + event_start_date.getMinutes().toString().formatNum(2);
 			event.end_hour = event_end_date.getHours().toString().formatNum(2) + ':' + event_end_date.getMinutes().toString().formatNum(2);
 
+			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
+			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
+			
 			if(event.start < start.getTime()) {
 				warn(1);
 				event.start_hour = event_start_date.getDate() + ' ' + $self.locale['ms' + event_start_date.getMonth()] + ' ' + event.start_hour;
@@ -518,11 +517,10 @@ if(!String.prototype.formatNum) {
 		var margin_left = null;
 		var events_found = 0;
 		var events_to_loop = this._events_to_loop(event, events_list);
-		
 		$.each(events_list, function(key, loop_event) {
 			if (event.id == loop_event.id)
 				return true;
-
+			
 			if ($self._events_intersect(event, loop_event)) {
 				events_found += 1;
 				if (events_found > events_to_loop)
@@ -569,9 +567,12 @@ if(!String.prototype.formatNum) {
 	
 	Calendar.prototype._events_to_loop = function(event, events_list) {
 		var events_loop_amount = 0;
+		var $self = this;
 		$.each(events_list, function(key, loop_event) {
-			if (event.id > loop_event.id)
-				events_loop_amount +=1;			
+			if ($self._events_intersect(event, loop_event)){
+				if (event.id > loop_event.id)
+					events_loop_amount +=1;
+				}
 		});
 		return events_loop_amount;
 	};
@@ -584,7 +585,7 @@ if(!String.prototype.formatNum) {
 
 		return hour_.formatNum(2) + ":" + minute.formatNum(2);
 	};
-
+	
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');
 		
@@ -612,7 +613,6 @@ if(!String.prototype.formatNum) {
 
 		var total_events_in_week = this.getEventsBetween(week_start, week_end);
 		$.each(total_events_in_week, function(k, event) {
-			console.log(event.title);
 			event.start_day = new Date(parseInt(event.start)).getDay();
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
@@ -634,8 +634,6 @@ if(!String.prototype.formatNum) {
 			}
 			event.start_day = event.start_day + 1;
 			
-//			var start = new Date(this.options.position.start.getTime());
-//			var position_start_time = new Date(this.options.position.start.getTime());
 			var start_hour = new Date(parseInt(event.start));
 			var day_end_hour = new Date(parseInt(event.start));
 			day_end_hour.setHours(23,59,59,999);
@@ -658,7 +656,7 @@ if(!String.prototype.formatNum) {
 			// If event comes from the previous day, do not display
 			if (event_end_time > day_end_time ) {
 				// TODO Figure out how to push this on top instead of being displayed in calendar
-				console.log(day_end_time + " " + event_start_time + " " + event.days );
+				// console.log(day_end_time + " " + event_start_time + " " + event.days );
 				return;
 			}
 			
@@ -668,14 +666,11 @@ if(!String.prototype.formatNum) {
 				// event is before start hour
 				event.top = 0;
 				lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
-				// TODO extra check if event end date is before start hour.
 			} else {
-				// Normal event
 				event.top = Math.abs(event_start) / ms_per_line;
 				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 			}
 			// XXX Hack for the weeks to work
-			console.log("event("+event.id+"-"+event.title+") width("+event.width +") margin-left("+event.margin_left+")");
 			if (event.margin_left != null)
 				event.margin_left = event.margin_left + ( event.start_day * 12.5 );
 			
@@ -687,7 +682,7 @@ if(!String.prototype.formatNum) {
 			} else {
 				event.lines = lines_in_event;
 			}
-			// TODO if event after end time and before next day display a note on the end
+			// TODO if event after end time and before next day display a bar on the end
 
 			events.push(event);
 		});
@@ -824,7 +819,6 @@ if(!String.prototype.formatNum) {
 			this.options.view = view;
 		}
 
-
 		this._init_position();
 		this._loadEvents();
 		this._render();
@@ -948,7 +942,6 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype.isToday = function() {
 		var now = new Date().getTime();
-
 		return ((now > this.options.position.start) && (now < this.options.position.end));
 	};
 
@@ -1167,8 +1160,7 @@ if(!String.prototype.formatNum) {
 			})
 			.on('mouseleave', function() {
 				week.hide();
-			})
-		;
+			});
 
 		week.click(function() {
 			self.options.day = $(this).data('cal-week');
@@ -1228,7 +1220,6 @@ if(!String.prototype.formatNum) {
 	};
 
 	function showEventsList(event, that, slider, self) {
-
 		event.stopPropagation();
 
 		var that = $(that);

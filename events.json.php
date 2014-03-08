@@ -18,22 +18,6 @@
                         "end":   "1363332200000"
                 },
                 {
-                        "id": "278",
-                        "title": "Event 3",
-                        "url": "http://www.example.com/",
-                        "class": "event-info",
-                        "start": "1363325300000",
-                        "end":   "1363332100000"
-                },
-                {
-                        "id": "279",
-                        "title": "Event 4",
-                        "url": "http://www.example.com/",
-                        "class": "event-info",
-                        "start": "1363325900000",
-                        "end":   "1363332500000"
-                },
-                {
                         "id": "280",
                         "title": "Event 5",
                         "url": "http://www.example.com/",
