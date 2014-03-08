@@ -511,29 +511,26 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list) {
-		var event_start_date = new Date(parseInt(event.start));
-		var event_end_date = new Date(parseInt(event.end));
+		var $self = this;
 		var margin_left = null;
 		var events_found = 0;
-		var total_events = this._events_to_loop(event, events_list);
-		var width_amount = 48.5;
-		// TODO Would be nicer if this was more flexible. According to the total event the initial width amount would be set
+		var total_events = this._total_amount_of_events(event, events_list);
+		var events_to_loop = this._events_to_loop(event, events_list);
+		var width_amount = (90/total_events);
+
 		$.each(events_list, function(key, loop_event) {
-			var loop_event_start_date = new Date(parseInt(loop_event.start));
-			var loop_event_end_date = new Date(parseInt(loop_event.end));
 			if (event.id == loop_event.id)
 				return true;
 
-			if ((event_start_date >= loop_event_start_date && event_start_date <= loop_event_end_date) || (event_start_date < loop_event_start_date && event_end_date > loop_event_end_date) || (event_end_date < loop_event_end_date && event_end_date > loop_event_start_date)) {
+			if ($self._events_intersect(event, loop_event)) {
 				events_found += 1;
-				width_amount = width_amount / events_found;
-				if (events_found > total_events)
+				if (events_found > events_to_loop)
 					return false;
 				
 				if (events_found == 1)
-                                        margin_left = width_amount + 0.5;
-                                else
-                                        margin_left = margin_left + width_amount +0.5;
+					margin_left = width_amount + 0.5;
+				else
+					margin_left = margin_left + width_amount +0.5;
 			}
 		});
 		if (events_found >= 1) 	{
@@ -543,15 +540,39 @@ if(!String.prototype.formatNum) {
 				return  "width: "+width_amount+"%; margin-left: "+margin_left+"%;";
 		}
 	};
+	
+	Calendar.prototype._total_amount_of_events = function (event, events_list) { 
+		var event_count = 0 ;
+		var $self = this;
+		$.each(events_list, function(key, loop_event) {
+			if ($self._events_intersect(event, loop_event))
+				event_count += 1;
+		});
+		return event_count;			
+	};
 
-        Calendar.prototype._events_to_loop = function(event, events_list) {
+	Calendar.prototype._events_intersect = function(event1, event2) {
+		var event1_start_date = new Date(parseInt(event1.start));
+		var event1_end_date = new Date(parseInt(event1.end));
+		var event2_start_date = new Date(parseInt(event2.start));
+		var event2_end_date = new Date(parseInt(event2.end));
+		
+		if ((event1_start_date >= event2_start_date && event1_start_date <= event2_end_date) || 
+				(event1_start_date < event2_start_date && event1_end_date > event2_end_date) || 
+				(event1_end_date < event2_end_date && event1_end_date > event2_start_date)) {
+			return true;
+		}
+		return false;
+	};
+	
+	Calendar.prototype._events_to_loop = function(event, events_list) {
 		var events_loop_amount = 0;
 		$.each(events_list, function(key, loop_event) {
 			if (event.id > loop_event.id)
 				events_loop_amount +=1;			
 		});
 		return events_loop_amount;
-	}
+	};
 
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
@@ -662,8 +683,8 @@ if(!String.prototype.formatNum) {
 			
 			if(lines_in_event > lines_left) {
 				event.lines = event.lines + lines_left;
-                        } else {
-                        	event.lines = lines_in_event;
+			} else {
+				event.lines = lines_in_event;
 			}
 			// TODO if event after end time and before next day display a note on the end
 
@@ -846,7 +867,7 @@ if(!String.prototype.formatNum) {
 			to.start.setTime(new Date().getTime());
 		}
 		else {
-			$.error(this.locale.error_where.format(where))
+			$.error(this.locale.error_where.format(where));
 		}
 		this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
 		this.view();
@@ -871,6 +892,7 @@ if(!String.prototype.formatNum) {
 		}
 		else {
 			$.error(this.locale.error_dateformat.format(this.options.day));
+			return;
 		}
 
 		switch(this.options.view) {
@@ -899,7 +921,7 @@ if(!String.prototype.formatNum) {
 				this.options.position.end.setTime(new Date(year, month, first + 7).getTime());
 				break;
 			default:
-				$.error(this.locale.error_noview.format(this.options.view))
+				$.error(this.locale.error_noview.format(this.options.view));
 		}
 		return this;
 	};
@@ -1072,7 +1094,7 @@ if(!String.prototype.formatNum) {
 			var url = $(this).attr('href');
 			var id = $(this).data("event-id");
 			var event = _.find(self.options.events, function(event) {
-				return event.id == id
+				return event.id == id;
 			});
 
 			if(self.options.modal_type == "iframe") {
@@ -1099,7 +1121,7 @@ if(!String.prototype.formatNum) {
 							case "template":
 								self._loadTemplate("modal");
 								//	also serve calendar instance to underscore template to be able to access current language strings
-								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}))
+								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}));
 								break;
 						}
 
@@ -1165,7 +1187,6 @@ if(!String.prototype.formatNum) {
 			return;
 		}
 		var self = this;
-		var activecell = 0;
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-tick').html('<i class="icon-chevron-down glyphicon glyphicon-chevron-down"></i>');
 
 		$('.cal-month-day, .cal-year-box .span3')
@@ -1181,8 +1202,7 @@ if(!String.prototype.formatNum) {
 				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
 				showEventsList(event, downbox, slider, self);
-			})
-		;
+			});
 
 		var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
 		slider.hide().click(function(event) {
@@ -1242,7 +1262,7 @@ if(!String.prototype.formatNum) {
 		});
 
 		self._update_modal();
-	}
+	};
 
 	function getEasterDate(year, offsetDays) {
 		var a = year % 19;
@@ -1257,7 +1277,7 @@ if(!String.prototype.formatNum) {
 		var k = c % 4;
 		var l = (32 + 2 * e + 2 * i - h - k) % 7;
 		var m = Math.floor((a + 11 * h + 22 * l) / 451);
-		var n0 = (h + l + 7 * m + 114)
+		var n0 = (h + l + 7 * m + 114);
 		var n = Math.floor(n0 / 31) - 1;
 		var p = n0 % 31 + 1;
 		return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
@@ -1265,5 +1285,5 @@ if(!String.prototype.formatNum) {
 
 	$.fn.calendar = function(params) {
 		return new Calendar(params, this);
-	}
+	};
 }(jQuery));
