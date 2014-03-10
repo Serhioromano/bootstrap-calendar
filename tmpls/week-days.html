@@ -1,7 +1,7 @@
 <% _.each(events, function(event){ %>
 <div class="cal-week-row-fluid">
 	<div class="cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>" data-event-class="<%= event['class'] %>"
-	style="position: absolute; margin-top: <%= (event.top * 40) %>px; height: <%= (event.lines * 40) %>px; width: <%= event.width %>%; margin-left: <%= event.margin_left %>%">
+	style="position: absolute; margin-top: <%= (event.top * 40) %>px; height: <%= (event.lines * 40) %>px; <%= cal._get_week_day_width(event) %>  <%= cal._get_week_day_margin_left(event) %>">
 		<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" class="cal-event-week event<%= event.id %> cal-week-link">
 			<span class="cal-hours"><%= event.display_start_hour %> - <%= event.display_end_hour %></span>
 			<p><%= event.title %></p>

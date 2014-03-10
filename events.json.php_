@@ -1,0 +1,69 @@
+{ 
+	"success": 1, 
+	"result": [ 
+		{ 
+			"id": "276", 
+			"title": "Event 1", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363325600000", 
+			"end": "1363332200000" 
+		}, 
+		{ 
+			"id": "279", 
+			"title": "Overlapping event 1", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363325600000", 
+			"end": "1363332200000" 
+		}, 
+		{ 
+			"id": "278", 
+			"title": "Event 2", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363342200000", 
+			"end": "1363352200000" 
+		},
+		{
+			"id": "280", 
+			"title": "All day event", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363265800000", 
+			"end": "1363438600000" 
+		}, 
+		{ 	
+			"id": "282", 
+			"title": "Start before event 1, finish in event 1", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363324600000", 
+			"end": "1363329200000" 
+		}, 
+		{ 
+			"id": "284", 
+			"title": "Start before event1, finish after event 1", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363329200000", 
+			"end": "1363339200000" 
+		}, 
+		{ 
+			"id": "286", 
+			"title": "Start before event1, finish after event 2", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363322600000", 
+			"end": "1363349200000" 
+		}, 
+		{ 
+			"id": "288", 
+			"title": "Start before event1, finish after event 2", 
+			"url": "http://www.example.com/", 
+			"class": "event-success", 
+			"start": "1363322600000", 
+			"end": "1363349200000" 
+		} 
+	] 
+}

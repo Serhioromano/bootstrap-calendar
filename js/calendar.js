@@ -426,6 +426,19 @@ if(!String.prototype.formatNum) {
 		this.context.append(this.options.templates[this.options.view](data));
 		this._update();
 	};
+	
+	Calendar.prototype.get_start_end_day_time = function() { 
+		var time_start = this.options.time_start.split(":");
+		var time_end = this.options.time_end.split(":");
+		
+		var start = new Date(this.options.position.start.getTime());
+		start.setHours(time_start[0]);
+		start.setMinutes(time_start[1]);
+		var end = new Date(this.options.position.start.getTime());
+		end.setHours(time_end[0]);
+		end.setMinutes(time_end[1]);
+		return {start_time: time_start, end_time:time_end, date_start:start, date_end:end};
+	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data, width_percentage) {
 		var $self = this;
@@ -436,19 +449,11 @@ if(!String.prototype.formatNum) {
 			$.error(this.locale.error_timedevide);
 		}
 
-		var time_start = this.options.time_start.split(":");
-		var time_end = this.options.time_end.split(":");
+		var time = this.get_start_end_day_time();
 
-		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
+		data.hours = (parseInt(time.end_time[0]) - parseInt(time.start_time[0]));
 		var lines = data.hours * data.in_hour;
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
-
-		var start = new Date(this.options.position.start.getTime());
-		start.setHours(time_start[0]);
-		start.setMinutes(time_start[1]);
-		var end = new Date(this.options.position.start.getTime());
-		end.setHours(time_end[0]);
-		end.setMinutes(time_end[1]);
 
 		data.all_day = [];
 		data.by_hour = [];
@@ -460,35 +465,36 @@ if(!String.prototype.formatNum) {
 			event.start_hour = event_start_date.getHours().toString().formatNum(2) + ':' + event_start_date.getMinutes().toString().formatNum(2);
 			event.end_hour = event_end_date.getHours().toString().formatNum(2) + ':' + event_end_date.getMinutes().toString().formatNum(2);
 
-			if(event.start < start.getTime()) {
+			if(event.start < time.date_start.getTime()) {
 				warn(1);
 				event.start_hour = event_start_date.getDate() + ' ' + $self.locale['ms' + event_start_date.getMonth()] + ' ' + event.start_hour;
 			}
 
-			if(event.end > end.getTime()) {
+			if(event.end > time.date_end.getTime()) {
 				warn(1);
 				event.end_hour = event_end_date.getDate() + ' ' + $self.locale['ms' + event_end_date.getMonth()] + ' ' + event.end_hour;
 			}
 
-			if(event.start < start.getTime() && event.end > end.getTime()) {
+			if(event.start < time.date_start.getTime() && event.end > time.date_end.getTime()) {
 				data.all_day.push(event);
 				return;
 			}
 
-			if(event.end < start.getTime()) {
+			if(event.end < time.date_start.getTime()) {
 				data.before_time.push(event);
 				return;
 			}
 
-			if(event.start > end.getTime()) {
+			if(event.start > time.date_end.getTime()) {
 				data.after_time.push(event);
 				return;
 			}
 			
+			// TODO from the week this is always disabled
 			event.width = $self._day_hour_interchange_calculate_width(event, data.events, width_percentage);
-			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, width_percentage, event.width);
+			event.margin_left = $self._day_hour_interchange_calculate_margin_left(event, data.events, event.width);
 			
-			var event_start = start.getTime() - event.start;
+			var event_start = time.date_start.getTime() - event.start;
 
 			if(event_start >= 0) {
 				event.top = 0;
@@ -499,7 +505,7 @@ if(!String.prototype.formatNum) {
 			var lines_left = lines - event.top;
 			var lines_in_event = (event.end - event.start) / ms_per_line;
 			if(event_start >= 0) {
-				lines_in_event = (event.end - start.getTime()) / ms_per_line;
+				lines_in_event = (event.end - time.date_start.getTime()) / ms_per_line;
 			}
 
 			event.lines = lines_in_event;
@@ -510,13 +516,47 @@ if(!String.prototype.formatNum) {
 			data.by_hour.push(event);
 		});
 	};
+	
+	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list, width_percentage) {
+		var total_events = this._total_amount_of_events_intersect(event, events_list);
+		var width_amount = (width_percentage/total_events);
+		return width_amount;
+	};
+	
+	Calendar.prototype._total_amount_of_events_intersect = function (event, events_list) { 
+		var event_count = 0 ;
+		var $self = this;
+		$.each(events_list, function(key, loop_event) {
+			if ($self._events_intersect(event, loop_event))
+				event_count += 1;
+		});
+		console.log(event_count);
+		return event_count;			
+	};
+	
+	Calendar.prototype._events_intersect = function(original_event, loop_event) {
+		var original_start_date = new Date(parseInt(original_event.start));
+		var original_end_date = new Date(parseInt(original_event.end));
+		var loop_start_date = new Date(parseInt(loop_event.start));
+		var loop_end_date = new Date(parseInt(loop_event.end));
+		
+		var time = this.get_start_end_day_time();
+		if(loop_start_date < time.date_start && loop_end_date > time.date_end) 
+			return false;
+		
+		
+		if ((original_start_date <= loop_end_date) && (loop_start_date <= original_end_date))
+			return true;
+		
+		return false;
+	};
 
-	Calendar.prototype._day_hour_interchange_calculate_margin_left = function (event, events_list, width_percentage, width_amount) {
+	Calendar.prototype._day_hour_interchange_calculate_margin_left = function (event, events_list, width_amount) {
 		var $self = this;
 
 		var margin_left = null;
 		var events_found = 0;
-		var events_to_loop = this._events_to_loop(event, events_list);
+		var events_to_loop = $self._events_to_loop(event, events_list);
 		$.each(events_list, function(key, loop_event) {
 			if (event.id == loop_event.id)
 				return true;
@@ -533,52 +573,6 @@ if(!String.prototype.formatNum) {
 			}
 		});
 		return margin_left;
-	};
-	
-	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list, width_percentage) {
-		var total_events = this._total_amount_of_events_intersect(event, events_list);
-		var width_amount = (width_percentage/total_events);
-		return width_amount;
-	};
-	
-	Calendar.prototype._total_amount_of_events_intersect = function (event, events_list) { 
-		var event_count = 0 ;
-		var $self = this;
-		$.each(events_list, function(key, loop_event) {
-			if ($self._events_intersect(event, loop_event))
-				event_count += 1;
-		});
-		return event_count;			
-	};
-
-	Calendar.prototype._events_intersect = function(event1, event2) {
-		var event1_start_date = new Date(parseInt(event1.start));
-		var event1_end_date = new Date(parseInt(event1.end));
-		var event2_start_date = new Date(parseInt(event2.start));
-		var event2_end_date = new Date(parseInt(event2.end));
-		
-		var time_start = this.options.time_start.split(":");
-		var time_end = this.options.time_end.split(":");
-		
-		var start = new Date(this.options.position.start.getTime());
-		start.setHours(time_start[0]);
-		start.setMinutes(time_start[1]);
-		var end = new Date(this.options.position.start.getTime());
-		end.setHours(time_end[0]);
-		end.setMinutes(time_end[1]);
-		
-		if((event1_start_date.getTime() < start.getTime() && event1_end_date.getTime() > end.getTime()) ||
-				(event2_start_date.getTime() < start.getTime() && event2_end_date.getTime() > end.getTime())) {
-			return false;
-		}
-		
-		if ((event1_start_date >= event2_start_date && event1_start_date <= event2_end_date) || 
-				(event1_start_date < event2_start_date && event1_end_date > event2_end_date) || 
-				(event1_end_date < event2_end_date && event1_end_date > event2_start_date)) {
-			console.log(event2.title);
-			return true;
-		}
-		return false;
 	};
 	
 	Calendar.prototype._events_to_loop = function(event, events_list) {
@@ -668,13 +662,12 @@ if(!String.prototype.formatNum) {
 			position_end_time.setHours(time_end[0]);
 			position_end_time.setMinutes(time_end[1]);
 			
-			// TODO if event spans multiple days, display a bar on top spanning those days.
-			// If event comes from the previous day, do not display
-			if (event_end_time > day_end_time ) {
-				// TODO Figure out how to push this on top instead of being displayed in calendar
-				// console.log(day_end_time + " " + event_start_time + " " + event.days );
-				return;
-			}
+			
+			// TODO if before start time event
+			
+			// TODO if after end time event
+			
+			// TODO if all day event
 			
 			var event_start = event_start_time - position_start_time;
 			var lines_in_event;
@@ -686,9 +679,13 @@ if(!String.prototype.formatNum) {
 				event.top = Math.abs(event_start) / ms_per_line;
 				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 			}
-			// XXX Hack for the weeks to work
+
+			event.width = self._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
+			var width=(event.start_day * 12.5 );
+			event.margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, width);
+			// XXX Temporary Hack for the weeks to work
 			if (event.margin_left != null)
-				event.margin_left = event.margin_left + ( event.start_day * 12.5 );
+				event.margin_left = event.margin_left + event.width; 
 			
 			var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
@@ -698,13 +695,26 @@ if(!String.prototype.formatNum) {
 			} else {
 				event.lines = lines_in_event;
 			}
-			// TODO if event after end time and before next day display a bar on the end
-
+			
 			events.push(event);
 		});
 		t.events = events;
 		t.cal = this;
 		return self.options.templates['week-days'](t);
+	};
+	
+	Calendar.prototype._get_week_day_width = function(event) {
+		if (event.width == null)
+			return ;
+		var width = "width:"+event.width+"%;";
+		return width;
+	};
+	
+	Calendar.prototype._get_week_day_margin_left = function(event) {
+		if (event.margin_left == null)
+			return ;
+		var margin_left = "margin-left:"+event.margin_left+"%;";
+		return margin_left;
 	};
 
 	Calendar.prototype._month = function(month) {
