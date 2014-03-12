@@ -519,7 +519,9 @@ if(!String.prototype.formatNum) {
 	
 	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list, width_percentage) {
 		var total_events = this._total_amount_of_events_intersect(event, events_list);
-		var width_amount = (width_percentage/total_events);
+		if (total_events == 1)
+			return ;
+		var width_amount = (width_percentage/total_events) -0.25;
 		return width_amount;
 	};
 	
@@ -530,7 +532,6 @@ if(!String.prototype.formatNum) {
 			if ($self._events_intersect(event, loop_event))
 				event_count += 1;
 		});
-		console.log(event_count);
 		return event_count;			
 	};
 	
@@ -544,6 +545,8 @@ if(!String.prototype.formatNum) {
 		if(loop_start_date < time.date_start && loop_end_date > time.date_end) 
 			return false;
 		
+		if (((loop_event.end - loop_event.start) / 86400000) > 1)
+			return false;
 		
 		if ((original_start_date <= loop_end_date) && (loop_start_date <= original_end_date))
 			return true;
@@ -568,7 +571,7 @@ if(!String.prototype.formatNum) {
 				
 				if (events_found == 1)
 					margin_left = width_amount + 0.5;
-				else
+				else 
 					margin_left = margin_left + width_amount +0.5;
 			}
 		});
@@ -622,6 +625,10 @@ if(!String.prototype.formatNum) {
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
 
 		var total_events_in_week = this.getEventsBetween(week_start, week_end);
+		events.all_day = [];
+		events.by_hour = [];
+		events.after_time = [];
+		events.before_time = [];		
 		$.each(total_events_in_week, function(k, event) {
 			event.start_day = new Date(parseInt(event.start)).getDay();
 			if(first_day == 1) {
@@ -662,12 +669,15 @@ if(!String.prototype.formatNum) {
 			position_end_time.setHours(time_end[0]);
 			position_end_time.setMinutes(time_end[1]);
 			
-			
 			// TODO if before start time event
 			
 			// TODO if after end time event
 			
 			// TODO if all day event
+			if (event.days > 1) {
+				events.all_day.push(event);
+				return;
+			}
 			
 			var event_start = event_start_time - position_start_time;
 			var lines_in_event;
@@ -681,12 +691,7 @@ if(!String.prototype.formatNum) {
 			}
 
 			event.width = self._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
-			var width=(event.start_day * 12.5 );
-			event.margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, width);
-			// XXX Temporary Hack for the weeks to work
-			if (event.margin_left != null)
-				event.margin_left = event.margin_left + event.width; 
-			
+			event.margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.width) + (event.start_day * 12.5 );
 			var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
 			
@@ -696,7 +701,7 @@ if(!String.prototype.formatNum) {
 				event.lines = lines_in_event;
 			}
 			
-			events.push(event);
+			events.by_hour.push(event);
 		});
 		t.events = events;
 		t.cal = this;
@@ -1105,7 +1110,6 @@ if(!String.prototype.formatNum) {
 					frameborder: "0"
 				});
 		}
-
 
 		$('a[data-event-id]', this.context).on('click', function(event) {
 			event.preventDefault();
