@@ -1,10 +1,14 @@
+hr {
+  margin-bottom: 0px;
+}
+
 .cal-week-box {
   position: relative;
   [data-event-class] {
-    white-space: nowrap;
+    white-space: normal;
     height: 30px;
     margin: 1px 1px;
-    line-height: 30px;
+    line-height: 15px;
     text-overflow: ellipsis;
     overflow: hidden;
     padding-left: 10px;
@@ -39,5 +43,38 @@
     border-top: 15px solid transparent;
     border-left: 8px solid #FFFFFF;
     border-bottom: 15px solid transparent;
+  }
+  
+  #cal-week-panel-hour {
+    width: 100%;
+    z-index: -1;
+    position: inherit;
+  }
+	
+  .cal-week-hour .cal-week-hour-part {
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;	
+  }
+  .cal-week-hour-part {
+    box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+    border-bottom: thin dashed #e1e1e1;
+  }
+	
+  .cal-week-box #cal-week-panel {
+    position: relative;
+  }
+	
+  .cal-week-box .cal-hours {
+    font-weight: bolder;
+  }
+	
+  a.cal-week-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
   }
 }

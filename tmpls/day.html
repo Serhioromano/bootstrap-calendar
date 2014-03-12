@@ -8,9 +8,11 @@
 			<div class="span1 col-xs-1"><b><%= cal.locale.all_day %></b></div>
 			<div class="span11 col-xs-11">
 				<% _.each(all_day, function(event){ %>
-					<div class="day-highlight dh-<%= event.class %>">
-						<%= event.title %>
-					</div>
+					<a href="<%= event.url %>" class="cal-event-week">
+						<div class="day-highlight dh-<%= event.class %>">
+							<%= event.title %>
+						</div>
+					</a>
 				<% }); %>
 			</div>
 		</div>
@@ -20,20 +22,24 @@
 			<div class="span1 col-xs-3"><b><%= cal.locale.before_time %></b></div>
 			<div class="span5 col-xs-5">
 				<% _.each(before_time, function(event){ %>
-					<div class="day-highlight dh-<%= event.class %>">
-						<span class="cal-hours pull-right"><%= event.end_hour %></span>
-						<%= event.title %>
-					</div>
+					<a href="<%= event.url %>" class="cal-event-week">
+						<div class="day-highlight dh-<%= event.class %>">
+							<span class="cal-hours pull-right"><%= event.end_hour %></span>
+							<%= event.title %>
+						</div>
+					</a>
 				<% }); %>
 			</div>
 		</div>
 	<% }; %>
 	<div id="cal-day-panel" class="clearfix">
 		<% _.each(by_hour, function(event){ %>
-			<div class="pull-left day-event day-highlight dh-<%= event.class %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px">
-				<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
-				<%= event.title %>
-			</div>
+			<a href="<%= event.url %>" class="cal-event-week">
+				<div class="pull-left day-event day-event-width day-highlight dh-<%= event.class %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px; width: <%= event.width %>%; margin-left: <%= event.margin_left %>%">
+					<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
+					<%= event.title %>
+				</div>
+			</a>
 		<% }); %>
 
 		<div id="cal-day-panel-hour">
@@ -54,10 +60,12 @@
 		<div class="span1 col-xs-3"><b><%= cal.locale.after_time %></b></div>
 		<div class="span11 col-xs-9">
 			<% _.each(after_time, function(event){ %>
-			<div class="day-highlight dh-<%= event.class %>">
-				<span class="cal-hours"><%= event.start_hour %></span>
-				<%= event.title %>
-			</div>
+			<a href="<%= event.url %>" class="cal-event-week">
+				<div class="day-highlight dh-<%= event.class %>">
+					<span class="cal-hours"><%= event.start_hour %></span>
+					<%= event.title %>
+				</div>
+			</a>
 			<% }); %>
 		</div>
 	</div>

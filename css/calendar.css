@@ -1,21 +1,29 @@
+hr {
+  margin-bottom: 0px;
+}
+
 [class*="cal-cell"] {
   float: left;
   margin-left: 0;
   min-height: 1px;
 }
+
 .cal-row-fluid {
   width: 100%;
   *zoom: 1;
 }
+
 .cal-row-fluid:before,
 .cal-row-fluid:after {
   display: table;
   content: "";
   line-height: 0;
 }
+
 .cal-row-fluid:after {
   clear: both;
 }
+
 .cal-row-fluid [class*="cal-cell"] {
   display: block;
   width: 100%;
@@ -26,9 +34,11 @@
   margin-left: 0%;
   *margin-left: -0.05213764337851929%;
 }
+
 .cal-row-fluid [class*="cal-cell"]:first-child {
   margin-left: 0;
 }
+
 .cal-row-fluid .controls-row [class*="cal-cell"] + [class*="cal-cell"] {
   margin-left: 0%;
 }
@@ -60,56 +70,131 @@
   width: 14.285714285714285%;
   *width: 14.232409381663112%;
 }
-.cal-week-box .cal-offset7,
 .cal-row-fluid .cal-offset7,
 .cal-row-fluid .cal-offset7:first-child {
   margin-left: 100%;
   *margin-left: 99.89339019189765%;
 }
-.cal-week-box .cal-offset6,
+
 .cal-row-fluid .cal-offset6,
 .cal-row-fluid .cal-offset6:first-child {
   margin-left: 85.71428571428571%;
   *margin-left: 85.60767590618336%;
 }
-.cal-week-box .cal-offset5,
 .cal-row-fluid .cal-offset5,
 .cal-row-fluid .cal-offset5:first-child {
   margin-left: 71.42857142857142%;
   *margin-left: 71.32196162046907%;
 }
-.cal-week-box .cal-offset4,
 .cal-row-fluid .cal-offset4,
 .cal-row-fluid .cal-offset4:first-child {
   margin-left: 57.14285714285714%;
   *margin-left: 57.03624733475479%;
 }
-.cal-week-box .cal-offset3,
 .cal-row-fluid .cal-offset3,
 .cal-row-fluid .cal-offset3:first-child {
   margin-left: 42.857142857142854%;
   *margin-left: 42.750533049040506%;
 }
-.cal-week-box .cal-offset2,
 .cal-row-fluid .cal-offset2,
 .cal-row-fluid .cal-offset2:first-child {
   margin-left: 28.57142857142857%;
   *margin-left: 28.46481876332622%;
 }
-.cal-week-box .cal-offset1,
 .cal-row-fluid .cal-offset1,
 .cal-row-fluid .cal-offset1:first-child {
   margin-left: 14.285714285714285%;
   *margin-left: 14.17910447761194%;
 }
+
 .cal-row-fluid .cal-cell1 {
   width: 14.285714285714285%;
   *width: 14.233576642335766%;
 }
+
+.cal-week-box .cal-row-fluid .cal-cell8 {
+  width: 100%;
+  *width: 100%;
+}
+.cal-week-box .cal-row-fluid .cal-cell7 {
+  width: 87.5%;
+  *width: 87.5%;
+}
+.cal-week-box .cal-row-fluid .cal-cell6 {
+  width: 75%;
+  *width: 75%;
+}
+.cal-week-box .cal-row-fluid .cal-cell5 {
+  width: 62.5%;
+  *width: 62.5%;
+}
+.cal-week-box .cal-row-fluid .cal-cell4 {
+  width: 50%;
+  *width: 50%;
+}
+.cal-week-box .cal-row-fluid .cal-cell3 {
+  width: 37.5%;
+  *width: 37.5%;
+}
+.cal-week-box .cal-row-fluid .cal-cell2 {
+  width: 25%;
+  *width: 25%;
+}
+.cal-week-box .cal-row-fluid .cal-cell1 {
+  width: 12.5%;
+  *width: 12.5%;
+}
+
+.cal-week-box .cal-week-row-fluid .cal-offset8,
+.cal-week-box .cal-offset8 {
+  margin-left: 100%;
+  *margin-left: 100%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset7,
+.cal-week-box .cal-offset7 {
+  margin-left: 87.5%;
+  *margin-left: 87.5%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset6,
+.cal-week-box .cal-offset6 {
+  margin-left: 75%;
+  *margin-left: 75%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset5,
+.cal-week-box .cal-offset5 {
+  margin-left: 62.5%;
+  *margin-left: 62.5%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset4,
+.cal-week-box .cal-offset4 {
+  margin-left: 50%;
+  *margin-left: 50%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset3,
+.cal-week-box .cal-offset3 {
+  margin-left: 37.5%;
+  *margin-left: 37.5%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset2,
+.cal-week-box .cal-offset2 {
+  margin-left: 25%;
+  *margin-left: 25%;
+}
+.cal-week-box .cal-week-row-fluid .cal-offset1,
+.cal-week-box .cal-offset1 {
+  margin-left: 12.5%;
+  *margin-left: 12.5%;
+}
+.cal-week-box .cal-week-row-fluid .cal-cell1 {
+  width: 12.5%;
+  *width: 12.5%;
+}
+
 [class*="cal-cell"].hide,
 .cal-row-fluid [class*="cal-cell"].hide {
   display: none;
 }
+
 [class*="cal-cell"].pull-right,
 .cal-row-fluid [class*="cal-cell"].pull-right {
   float: right;
@@ -127,14 +212,6 @@
   position: relative;
   display: block;
   width: 100%;
-}
-#cal-week-box {
-  position: absolute;
-  width: 70px;
-  left: -71px;
-  top: -1px;
-  padding: 8px 5px;
-  cursor: pointer;
 }
 #cal-day-tick {
   position: absolute;
@@ -207,10 +284,10 @@
   position: relative;
 }
 .cal-week-box [data-event-class] {
-  white-space: nowrap;
+  white-space: normal;
   height: 30px;
   margin: 1px 1px;
-  line-height: 30px;
+  line-height: 15px;
   text-overflow: ellipsis;
   overflow: hidden;
   padding-left: 10px;
@@ -246,6 +323,40 @@
   border-left: 8px solid #FFFFFF;
   border-bottom: 15px solid transparent;
 }
+
+#cal-week-panel-hour {
+  width: 100%;
+  z-index: -1;
+  position: inherit;
+}
+
+.cal-week-hour .cal-week-hour-part {
+  height: 40px;
+  padding-top: 10px;
+     text-align: center;	
+}
+.cal-week-hour-part {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-bottom: thin dashed #e1e1e1;
+}
+
+.cal-week-box #cal-week-panel {
+  position: relative;
+}
+
+.cal-week-box .cal-hours {
+  font-weight: bolder;
+}
+
+a.cal-week-link {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+	
 #cal-day-box {
   text-wrap: none;
 }
@@ -276,8 +387,10 @@
   z-index: -1;
 }
 #cal-day-box .day-event {
-  max-width: 200px;
+  padding-left: 10px;
   overflow: hidden;
+  position: absolute;
+  width: 90%;
 }
 #cal-day-box .day-highlight {
   line-height: 30px;
