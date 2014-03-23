@@ -6,7 +6,7 @@ window.calendar_languages['it-IT'] = {
 	error_dateformat: 'Calendario: formato data {0} non valido. Dovrebbe essere "now" o "yyyy-mm-dd"',
 	error_loadurl:    'Calendario: URL di caricamento degli eventi non impostato',
 	error_where:      'Calendario: direzione di spostamento {0} non valida. I valori validi sono "next" o "prev" o "today"',
-	error_timedevide: 'Calendario: parametro per il separatore tempo deve dividere 60 da un numero intero. Per esempio 10, 15, 30',
+	error_timedevide: 'Calendario: Il divisore del tempo deve poter dividere 60 in un numero intero. Per esempio 10, 15, 30',
 
 	no_events_in_day: 'Nessun evento in questo giorno.',
 
@@ -17,10 +17,10 @@ window.calendar_languages['it-IT'] = {
 
 	week:        'Settimana {0}',
 	all_day:     'Tutto il giorno',
-	time:        'Tempo',
-	events:      'Sviluppi',
-	before_time: 'Tempo prima che il nastro finale',
-	after_time:  'Termina dopo un nastro temporaneo',
+	time:        'Ora',
+	events:      'Eventi',
+	before_time: 'Evento antecedente',
+	after_time:  'Evento che prosegue',
 
 	m0:  'Gennaio',
 	m1:  'Febbraio',
