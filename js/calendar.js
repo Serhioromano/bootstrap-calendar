@@ -899,7 +899,7 @@ if(!String.prototype.formatNum) {
 		}
 		var self = this;
 		$.ajax({
-			url:      this.options.tmpl_path + name + '.html',
+			url:      this.options.tmpl_path + name + '.tmpl',
 			dataType: 'html',
 			type:     'GET',
 			async:    false,
