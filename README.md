@@ -50,7 +50,11 @@ You will need to include the bootstrap css and calendar css. Here is the minimum
 		<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
 		<script type="text/javascript" src="js/calendar.js"></script>
 		<script type="text/javascript">
-			var calendar = $('#calendar').calendar();
+			var calendar = $("#calendar").calendar(
+				{
+					tmpl_path: "/tmpls/",
+					events_source: function () { return []; }
+				});			
 		</script>
 	</body>
 	</html>
