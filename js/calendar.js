@@ -118,6 +118,12 @@ if(!String.prototype.formatNum) {
 		onAfterViewLoad:    function(view) {
 			// Inside this function 'this' is the calendar instance
 		},
+		onAfterModalShown:  function(events) {
+            		// Inside this function 'this' is the calendar instance
+        	},
+        	onAfterModalHidden:  function(events) {
+            		// Inside this function 'this' is the calendar instance
+        	},
 		// -------------------------------------------------------------
 		// INTERNAL USE ONLY. DO NOT ASSIGN IT WILL BE OVERRIDDEN ANYWAY
 		// -------------------------------------------------------------
@@ -1000,6 +1006,12 @@ if(!String.prototype.formatNum) {
 							modal.find("h3").html(self.options.modal_title(event));
 						}
 					})
+					.on('shown.bs.modal', function() {
+			                        self.options.onAfterModalShown.call(self, self.options.events);
+			                 })
+		                    	.on('hidden.bs.modal', function() {
+		                        	self.options.onAfterModalHidden.call(self, self.options.events);
+		                    	})
 					.data('handled.bootstrap-calendar', true).data('handled.event-id', event.id);
 			}
 			modal.modal('show');
