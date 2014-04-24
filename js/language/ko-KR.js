@@ -13,10 +13,6 @@ window.calendar_languages['ko-KR'] = {
 	title_year: '{0}년',
 	title_month: '{1}년 {0}',
 	title_week: '{1}년 {0}째주',
-	// {0} will be replaced with the weekday name (example: Thursday)
-	// {1} will be replaced with the day of the month (example: 12)
-	// {2} will be replaced with the month name (example: September)
-	// {3} will be replaced with the year (example: 2013)
 	title_day: '{3}년 {2} {1}일 {0}',
 
 	week:'주',
