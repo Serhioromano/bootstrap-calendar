@@ -17,7 +17,7 @@
   "require": {
     "components/jquery": "~1",
     "components/underscore": "~1",
-    "twitter/bootstrap": ">2.0.0",
+    "twbs/bootstrap": ">2.0.0",
     "moment/moment": "~2"
   }
 }
