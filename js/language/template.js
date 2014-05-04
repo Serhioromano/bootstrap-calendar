@@ -29,7 +29,7 @@ window.calendar_languages['en-US'] = {
 	// {3} will be replaced with the year (example: 2013)
 	title_day: '{0} {1} {2}, {3}',
 
-	week:'Week',
+	week:'Week {0}',
 	all_day:     'All day',
 	time:        'Time',
 	events:      'Events',
