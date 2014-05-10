@@ -6,7 +6,7 @@ window.calendar_languages['de-DE'] = {
 	error_dateformat: 'Kalender: Falsches Datumsformat {0}. Sollte entweder "now" oder "yyyy-mm-dd" sein',
 	error_loadurl:    'Kalender: Event-URL nicht gesetzt.',
 	error_where:      'Kalender: Falsche Navigationsrichtung {0}. Nur "next", "prev" oder "today" sind erlaubt',
-	error_timedevide: 'Kalender: 60 Minuten müssen durch den Parameter für die Zeittrennung ganzzahlig teilbar sein. Beispielsweise 10, 15, 30',
+	error_timedevide: 'Kalender: Parameter für die Zeiteinteilung muss ein Teiler von 60 sein. Beispielsweise 10, 15, 30',
 
 	no_events_in_day: 'Keine Ereignisse an diesem Tag.',
 
@@ -19,8 +19,8 @@ window.calendar_languages['de-DE'] = {
 	all_day:     'Ganztägig',
 	time:        'Zeit',
 	events:      'Ereignisse',
-	before_time: 'Frühere Ereignisse',
-	after_time:  'Spätere Ereignisse',
+	before_time: 'Endet vor Zeitspanne',
+	after_time:  'Beginnt nach Zeitspanne',
 
 	m0:  'Januar',
 	m1:  'Februar',
