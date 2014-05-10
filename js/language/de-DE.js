@@ -2,11 +2,11 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 window.calendar_languages['de-DE'] = {
-	error_noview:     'Kalender: View {0} nicht gefunden',
+	error_noview:     'Kalender: Ansicht {0} nicht gefunden',
 	error_dateformat: 'Kalender: Falsches Datumsformat {0}. Sollte entweder "now" oder "yyyy-mm-dd" sein',
 	error_loadurl:    'Kalender: Event-URL nicht gesetzt.',
 	error_where:      'Kalender: Falsche Navigationsrichtung {0}. Nur "next", "prev" oder "today" sind erlaubt',
-	error_timedevide: 'Kalender: Parameter für die Zeittrenn darf 60 durch eine ganze Zahl zu teilen. Beispielsweise 10, 15, 30',
+	error_timedevide: 'Kalender: 60 Minuten müssen durch den Parameter für die Zeittrennung ganzzahlig teilbar sein. Beispielsweise 10, 15, 30',
 
 	no_events_in_day: 'Keine Ereignisse an diesem Tag.',
 
@@ -16,11 +16,11 @@ window.calendar_languages['de-DE'] = {
 	title_day:   '{0}, der {1}. {2} {3}',
 
 	week:        'Woche {0}',
-	all_day:     'Ganzen Tag',
+	all_day:     'Ganztägig',
 	time:        'Zeit',
-	events:      'Entwicklungen',
-	before_time: 'Zeit vor dem Ende Band',
-	after_time:  'Beenden Sie nach einer vorübergehenden Band',
+	events:      'Ereignisse',
+	before_time: 'Frühere Ereignisse',
+	after_time:  'Spätere Ereignisse',
 
 	m0:  'Januar',
 	m1:  'Februar',
