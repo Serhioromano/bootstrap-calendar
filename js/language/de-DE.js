@@ -15,7 +15,7 @@ window.calendar_languages['de-DE'] = {
 	title_week:  '{0}. Kalenderwoche {1}',
 	title_day:   '{0}, der {1}. {2} {3}',
 
-	week:        'Woche {0}',
+	week:        'KW {0}',
 	all_day:     'Ganztägig',
 	time:        'Zeit',
 	events:      'Ereignisse',
