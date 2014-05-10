@@ -12,7 +12,7 @@ window.calendar_languages['de-DE'] = {
 
 	title_year:  '{0}',
 	title_month: '{0} {1}',
-	title_week:  'Woche {0} im Jahr {1}',
+	title_week:  '{0}. Kalenderwoche {1}',
 	title_day:   '{0}, der {1}. {2} {3}',
 
 	week:        'Woche {0}',
