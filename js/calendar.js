@@ -1111,7 +1111,11 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype.getEventsBetween = function(start, end) {
 		var events = [];
 		$.each(this.options.events, function() {
-			if((parseInt(this.start) < end || this.start == null) && (parseInt(this.end) >= start || this.end == null)) {
+			if(this.start == null) {
+				return true;
+			}
+			var event_end = this.end || this.start;
+			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
 				events.push(this);
 			}
 		});
