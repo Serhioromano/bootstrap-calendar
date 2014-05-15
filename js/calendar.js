@@ -1145,7 +1145,10 @@ if(!String.prototype.formatNum) {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 
-		self._update_modal();
+		// Wait 400ms before updating the modal (400ms is the time for the slider to fade out and slide up)
+		setTimeout(function(){
+			self._update_modal();
+		}, 400);
 	}
 
 	function getEasterDate(year, offsetDays) {
