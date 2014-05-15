@@ -119,11 +119,11 @@ if(!String.prototype.formatNum) {
 			// Inside this function 'this' is the calendar instance
 		},
 		onAfterModalShown:  function(events) {
-            		// Inside this function 'this' is the calendar instance
-        	},
-        	onAfterModalHidden:  function(events) {
-            		// Inside this function 'this' is the calendar instance
-        	},
+			// Inside this function 'this' is the calendar instance
+		},
+		onAfterModalHidden: function(events) {
+			// Inside this function 'this' is the calendar instance
+		},
 		// -------------------------------------------------------------
 		// INTERNAL USE ONLY. DO NOT ASSIGN IT WILL BE OVERRIDDEN ANYWAY
 		// -------------------------------------------------------------
@@ -685,7 +685,7 @@ if(!String.prototype.formatNum) {
 				addClass("saturday", classes);
 				break;
 		}
-		
+
 		addClass(date.toDateString(), classes);
 
 		return classes.join(" ");
@@ -870,13 +870,13 @@ if(!String.prototype.formatNum) {
 							type:     'GET',
 							async:    false
 						}).done(function(json) {
-								if(!json.success) {
-									$.error(json.error);
-								}
-								if(json.result) {
-									events = json.result;
-								}
-							});
+							if(!json.success) {
+								$.error(json.error);
+							}
+							if(json.result) {
+								events = json.result;
+							}
+						});
 						return events;
 					};
 				}
@@ -899,14 +899,14 @@ if(!String.prototype.formatNum) {
 		});
 	};
 
-  Calendar.prototype._templatePath = function(name) {
-    if (typeof this.options.tmpl_path == 'function') {
-      return this.options.tmpl_path(name)
-    }
-    else {
-      return this.options.tmpl_path + name + '.html';
-    }
-  };
+	Calendar.prototype._templatePath = function(name) {
+		if(typeof this.options.tmpl_path == 'function') {
+			return this.options.tmpl_path(name)
+		}
+		else {
+			return this.options.tmpl_path + name + '.html';
+		}
+	};
 
 	Calendar.prototype._loadTemplate = function(name) {
 		if(this.options.templates[name]) {
@@ -920,8 +920,8 @@ if(!String.prototype.formatNum) {
 			async:    false,
 			cache:    this.options.tmpl_cache
 		}).done(function(html) {
-				self.options.templates[name] = _.template(html);
-			});
+			self.options.templates[name] = _.template(html);
+		});
 	};
 
 	Calendar.prototype._update = function() {
@@ -1015,11 +1015,11 @@ if(!String.prototype.formatNum) {
 						}
 					})
 					.on('shown.bs.modal', function() {
-			                        self.options.onAfterModalShown.call(self, self.options.events);
-			                 })
-		                    	.on('hidden.bs.modal', function() {
-		                        	self.options.onAfterModalHidden.call(self, self.options.events);
-		                    	})
+						self.options.onAfterModalShown.call(self, self.options.events);
+					})
+					.on('hidden.bs.modal', function() {
+						self.options.onAfterModalHidden.call(self, self.options.events);
+					})
 					.data('handled.bootstrap-calendar', true).data('handled.event-id', event.id);
 			}
 			modal.modal('show');
@@ -1154,7 +1154,7 @@ if(!String.prototype.formatNum) {
 		});
 
 		// Wait 400ms before updating the modal (400ms is the time for the slider to fade out and slide up)
-		setTimeout(function(){
+		setTimeout(function() {
 			self._update_modal();
 		}, 400);
 	}
