@@ -899,13 +899,22 @@ if(!String.prototype.formatNum) {
 		});
 	};
 
+  Calendar.prototype._templatePath = function(name) {
+    if (typeof this.options.tmpl_path == 'function') {
+      return this.options.tmpl_path(name)
+    }
+    else {
+      return this.options.tmpl_path + name + '.html';
+    }
+  };
+
 	Calendar.prototype._loadTemplate = function(name) {
 		if(this.options.templates[name]) {
 			return;
 		}
 		var self = this;
 		$.ajax({
-			url:      this.options.tmpl_path + name + '.html',
+			url:      self._templatePath(name),
 			dataType: 'html',
 			type:     'GET',
 			async:    false,
@@ -914,7 +923,6 @@ if(!String.prototype.formatNum) {
 				self.options.templates[name] = _.template(html);
 			});
 	};
-
 
 	Calendar.prototype._update = function() {
 		var self = this;
