@@ -435,8 +435,9 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._calculate_hour_minutes = function(data) {
 		var $self = this;
-		data.in_hour = 60 / parseInt(this.options.time_split);
-		data.hour_split = parseInt(this.options.time_split);
+		var time_split = parseInt(this.options.time_split);
+		data.in_hour = 60 / time_split;
+		data.hour_split = time_split;
 
 		if(((data.in_hour >= 1) && (data.in_hour % 1 != 0)) || ((data.in_hour < 1) && (1440 / data.hour_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
@@ -447,7 +448,7 @@ if(!String.prototype.formatNum) {
 
 		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * Math.min(data.in_hour, 1);
 		var lines = data.hours * data.in_hour;
-		var ms_per_line = (60000 * parseInt(this.options.time_split));
+		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
