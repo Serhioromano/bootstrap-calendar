@@ -436,18 +436,18 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._calculate_hour_minutes = function(data) {
 		var $self = this;
 		var time_split = parseInt(this.options.time_split);
-		data.in_hour = 60 / time_split;
-		data.hour_split = time_split;
+		var time_split_count = 60 / time_split;
+		var time_split_hour = Math.min(time_split_count, 1);
 
-		if(((data.in_hour >= 1) && (data.in_hour % 1 != 0)) || ((data.in_hour < 1) && (1440 / data.hour_split % 1 != 0))) {
+		if(((time_split_count >= 1) && (time_split_count % 1 != 0)) || ((time_split_count < 1) && (1440 / time_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
 		}
 
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
 
-		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * Math.min(data.in_hour, 1);
-		var lines = data.hours * data.in_hour;
+		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * time_split_hour;
+		var lines = data.hours * time_split_count - parseInt(time_start[1]) / time_split;
 		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
@@ -520,15 +520,26 @@ if(!String.prototype.formatNum) {
 		//warn(d.getTime());
 	};
 
+	Calendar.prototype._hour_min = function(hour) {
+		var time_start = this.options.time_start.split(":");
+		var time_split = parseInt(this.options.time_split);
+		var in_hour = 60 / time_split;
+		return (hour == 0) ? (in_hour - (parseInt(time_start[1]) / time_split)) : in_hour;
+	};
+
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
 		var time_split = parseInt(this.options.time_split);
+		var time_start_h = parseInt(time_start[0]);
+		var time_start_m = parseInt(time_start[1]);
 
-		var hour = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
-		var minute = "" + (time_split * part);
+		var r_h = time_start_h + hour * Math.max(time_split / 60, 1);
+		var r_m = time_split * part;
+		if((hour == 0))
+			r_m += time_start_m;
 
-		return hour.formatNum(2) + ":" + minute.formatNum(2);
-	}
+		return r_h.toString().formatNum(2) + ":" + r_m.toString().formatNum(2);
+	};
 
 	Calendar.prototype._week = function(event) {
 		this._loadTemplate('week-days');
