@@ -522,9 +522,10 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
+		var time_split = parseInt(this.options.time_split);
 
-		var hour = "" + (parseInt(time_start[0]) + hour * Math.max(parseInt(this.options.time_split) / 60, 1));
-		var minute = "" + (this.options.time_split * part);
+		var hour = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+		var minute = "" + (time_split * part);
 
 		return hour.formatNum(2) + ":" + minute.formatNum(2);
 	}
