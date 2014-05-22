@@ -45,7 +45,7 @@
 		<div id="cal-day-panel-hour">
 			<% for(i = 0; i < hours; i++){ %>
 				<div class="cal-day-hour">
-					<% for(l = 0; l < in_hour; l++){ %>
+					<% for(l = 0; l < cal._hour_min(i); l++){ %>
 						<div class="row-fluid cal-day-hour-part">
 							<div class="span1 col-xs-1"><b><%= cal._hour(i, l) %></b></div>
 							<div class="span11 col-xs-11"></div>
