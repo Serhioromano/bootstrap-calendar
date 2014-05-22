@@ -501,7 +501,7 @@ if(!String.prototype.formatNum) {
 				e.top = Math.abs(event_start) / ms_per_line;
 			}
 
-			var lines_left = lines - e.top;
+			var lines_left = Math.abs(lines - e.top);
 			var lines_in_event = (e.end - e.start) / ms_per_line;
 			if(event_start >= 0) {
 				lines_in_event = (e.end - start.getTime()) / ms_per_line;
