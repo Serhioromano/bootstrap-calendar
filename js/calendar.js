@@ -530,15 +530,10 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
 		var time_split = parseInt(this.options.time_split);
-		var time_start_h = parseInt(time_start[0]);
-		var time_start_m = parseInt(time_start[1]);
+		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+		var m = "" + (time_split * part + (hour == 0) ? parseInt(time_start[1]) : 0);
 
-		var r_h = time_start_h + hour * Math.max(time_split / 60, 1);
-		var r_m = time_split * part;
-		if((hour == 0))
-			r_m += time_start_m;
-
-		return r_h.toString().formatNum(2) + ":" + r_m.toString().formatNum(2);
+		return h.formatNum(2) + ":" + m.formatNum(2);
 	};
 
 	Calendar.prototype._week = function(event) {
