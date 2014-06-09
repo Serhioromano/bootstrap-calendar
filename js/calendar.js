@@ -435,19 +435,20 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._calculate_hour_minutes = function(data) {
 		var $self = this;
-		data.in_hour = 60 / parseInt(this.options.time_split);
-		data.hour_split = parseInt(this.options.time_split);
+		var time_split = parseInt(this.options.time_split);
+		data.in_hour = 60 / time_split;
+		data.hour_split = time_split;
 
-		if(!/^\d+$/.exec(data.in_hour) || this.options.time_split > 30) {
+		if(((data.in_hour >= 1) && (data.in_hour % 1 != 0)) || ((data.in_hour < 1) && (1440 / data.hour_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
 		}
 
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
 
-		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
+		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * Math.min(data.in_hour, 1);
 		var lines = data.hours * data.in_hour;
-		var ms_per_line = (60000 * parseInt(this.options.time_split));
+		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
@@ -500,7 +501,7 @@ if(!String.prototype.formatNum) {
 				e.top = Math.abs(event_start) / ms_per_line;
 			}
 
-			var lines_left = lines - e.top;
+			var lines_left = Math.abs(lines - e.top);
 			var lines_in_event = (e.end - e.start) / ms_per_line;
 			if(event_start >= 0) {
 				lines_in_event = (e.end - start.getTime()) / ms_per_line;
@@ -521,9 +522,10 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
+		var time_split = parseInt(this.options.time_split);
 
-		var hour = "" + (parseInt(time_start[0]) + hour);
-		var minute = "" + (this.options.time_split * part);
+		var hour = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+		var minute = "" + (time_split * part);
 
 		return hour.formatNum(2) + ":" + minute.formatNum(2);
 	}
