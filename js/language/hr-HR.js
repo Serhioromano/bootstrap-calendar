@@ -4,7 +4,7 @@ if(!window.calendar_languages) {
 
 window.calendar_languages['hr-HR'] = {
         error_noview:     'Kalendar: Prikaz {0} nije pronađen.',
-        error_dateformat: 'Kalendar: Neispravn format datuma {0}. Unesite "now" ili "yyyy-mm-dd"',
+        error_dateformat: 'Kalendar: Neispravan format datuma {0}. Unesite "now" ili "yyyy-mm-dd"',
         error_loadurl:    'Kalendar: Poveznica događaja nije postavljena.',
         error_where:      'Kalendar: Pogrešan smjer navigacije {0}. Moguće je birati "sljedeće", "prethodno" ili "danas"',
         error_timedevide: 'Kalendar: Rezultat dijeljenja vremena ne smije sadržavati decimalna mjesta. Djelitelj može biti, primjerice, 10, 15, 30.',
