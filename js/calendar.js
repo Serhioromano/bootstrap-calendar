@@ -58,6 +58,8 @@ if(!String.prototype.formatNum) {
 		//   returns an array of events (as described in events property description)
 		// - An array containing the events
 		events_source:      '',
+		// if events source is a URL you can change the data type to JSONP
+		source_data_type:   'json',
 		// Path to templates should end with slash /. It can be as relative
 		// /component/bootstrap-calendar/tmpls/
 		// or absolute
@@ -868,7 +870,7 @@ if(!String.prototype.formatNum) {
 						}
 						$.ajax({
 							url:      buildEventsUrl(source, params),
-							dataType: 'json',
+							dataType: self.options.source_data_type,
 							type:     'GET',
 							async:    false
 						}).done(function(json) {
