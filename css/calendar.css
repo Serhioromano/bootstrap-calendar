@@ -268,7 +268,6 @@
 #cal-day-box #cal-day-panel {
   position: relative;
   padding-left: 60px;
-  z-index: 0;
 }
 #cal-day-box #cal-day-panel-hour {
   position: absolute;
