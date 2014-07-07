@@ -18,9 +18,9 @@ window.calendar_languages['es-ES'] = {
 	week:        'Semana {0}',
 	all_day:     'Todo el día',
 	time:        'Tiempo',
-	events:      'Desarrollos',
-	before_time: 'Tiempo antes de la cinta final',
-	after_time:  'Fin después de una cinta temporal',
+	events:      'Eventos',
+	before_time: 'Horas previas',
+	after_time:  'Horas posteriores',
 
 	m0:  'Enero',
 	m1:  'Febrero',
@@ -56,8 +56,8 @@ window.calendar_languages['es-ES'] = {
 	d5: 'Viernes',
 	d6: 'Sábado',
 
-	easter:       'Pascuas',
-	easterMonday: 'Lunes de Pascuas',
+	easter:       'Pascua',
+	easterMonday: 'Lunes de Pascua',
 
 	first_day: 1,
 
