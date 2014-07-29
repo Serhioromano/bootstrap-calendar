@@ -169,7 +169,8 @@ foreach($db->query($sql) as $row) {
         'id' => $row->id,
         'title' => $row->name,
         'url' => Helper::url($row->id),
-        'start' => strtotime($row->datetime) . '000'
+        'start' => strtotime($row->datetime) . '000',
+        'end' => strtotime($row->datetime_end) .'000'
     );
 }
 
