@@ -178,6 +178,28 @@ echo json_encode(array('success' => 1, 'result' => $out));
 exit;
 ```
 
+Another example of PHP script (without connecting with the Database).
+
+```php
+<?php
+$out = array();
+ 
+ for($i=1; $i<=15; $i++){ 	//from day 01 to day 15
+	$data = date('Y-m-d', strtotime("+".$i." days"));
+	$out[] = array(
+     	'id' => $i,
+		'title' => 'Event name '.$i,
+		'url' => Helper::url($id),
+		'class' => 'event-important',
+		'start' => strtotime($data).'000'
+	);
+}
+ 
+echo json_encode(array('success' => 1, 'result' => $out));
+exit;
+?>
+```
+
 ## Usage warning.
 
 You cannot use the calendar from a local file. 
