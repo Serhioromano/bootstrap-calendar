@@ -8,8 +8,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components",
-    "less"
+    "components"
   ],
   "dependencies": {
     "jquery": "~1.10.2",
