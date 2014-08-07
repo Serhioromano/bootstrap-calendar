@@ -37,7 +37,8 @@ if(!String.prototype.formatNum) {
 }
 
 (function($) {
-
+//	var d = new Date('2013-03-13 12:30:00');
+//	warn(d.getTime());
 	var defaults = {
 		// Width of the calendar
 		width:              '100%',
@@ -419,10 +420,10 @@ if(!String.prototype.formatNum) {
 			case 'month':
 				break;
 			case 'week':
-				this._calculate_hour_minutes(data);
+				this._calculate_hour_minutes(data, 12.5); // XXX Parameters are not ideal. Need to figure how to automagically figure them
 				break;
 			case 'day':
-				this._calculate_hour_minutes(data);
+				this._calculate_hour_minutes(data, 90);
 				break;
 		}
 
@@ -550,11 +551,14 @@ if(!String.prototype.formatNum) {
 	};
 	
 	Calendar.prototype._day_hour_interchange_calculate_width = function(event, events_list, width_percentage) {
+		// This is not ideal
+		// What we would like to do is hold the record of the ones that are intersecting.
+		// That way when we are checking the total amount we will know correctly
+		// if an event was already calculated.
 		var total_events = this._total_amount_of_events_intersect(event, events_list);
-		
 		if (total_events == 0 || total_events == 1)
 			return ;
-		var width_amount = (width_percentage/total_events) -0.25;
+		var width_amount = (width_percentage/total_events) -0.5;
 		return width_amount;
 	};
 	
@@ -656,6 +660,7 @@ if(!String.prototype.formatNum) {
 		events.before_time = [];	
 		
 		$.each(total_events_in_week, function(k, event) {
+			console.log('here');
 			event.start_day = new Date(parseInt(event.start)).getDay();
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
@@ -717,8 +722,8 @@ if(!String.prototype.formatNum) {
 				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 			}
 
-			event.width = self._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
-			event.margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.width) + (event.start_day * 12.5 );
+			event.week_width = self._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
+			event.week_margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.week_width) + (event.start_day * 12.5 );
 			var lines_left = lines - ( event.top + lines_in_event) ;
 			event.lines = lines_in_event;
 			
@@ -727,7 +732,6 @@ if(!String.prototype.formatNum) {
 			} else {
 				event.lines = lines_in_event;
 			}
-			
 			events.by_hour.push(event);
 		});
 		t.events = events;
@@ -736,16 +740,16 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._get_week_day_width = function(event) {
-		if (event.width == null)
+		if (event.week_width == null)
 			return ;
-		var width = "width:"+event.width+"%;";
+		var width = "width:"+event.week_width+"%;";
 		return width;
 	};
 	
 	Calendar.prototype._get_week_day_margin_left = function(event) {
-		if (event.margin_left == null)
+		if (event.week_margin_left == null)
 			return ;
-		var margin_left = "margin-left:"+event.margin_left+"%;";
+		var margin_left = "margin-left:"+event.week_margin_left+"%;";
 		return margin_left;
 	};
 	

@@ -7,7 +7,7 @@
 		view: 'week', 
 		tmpl_path: 'tmpls/',
 		tmpl_cache: false,
-		day: '2013-03-12',
+		day: '2013-03-13',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
