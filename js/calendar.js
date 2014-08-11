@@ -404,9 +404,9 @@ if(!String.prototype.formatNum) {
 
 		// Getting list of days in a week in correct order. Works for month and week views
 		if(getExtentedOption(this, 'first_day') == 1) {
-			data.months = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
+			data.days_name = [this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6, this.locale.d0]
 		} else {
-			data.months = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
+			data.days_name = [this.locale.d0, this.locale.d1, this.locale.d2, this.locale.d3, this.locale.d4, this.locale.d5, this.locale.d6]
 		}
 
 		// Get all events between start and end
