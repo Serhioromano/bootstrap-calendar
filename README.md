@@ -22,7 +22,7 @@ Why did I start this project? Well, I believe there are no good full view calend
 
 ### Install
 
-You can install it with [bower](http://twitter.github.com/bower/) package manager.
+You can install it with [bower](http://bower.io/) package manager.
 
 	$ bower install bootstrap-calendar
 
