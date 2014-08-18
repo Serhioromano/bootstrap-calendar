@@ -22,9 +22,6 @@
 	<%= cal._week() %>
 	<div id="cal-week-panel-hour">
 		<!-- <div class="cal-week-multiple-days"><div class="cal-row-fluid cal-week-multiple-part"><div class="cal-cell1 cal-offset0">Multiple Days</div></div></div> -->
-		<% if(events.before_time) {%>
-				<div class="cal-week-before-days"><div class="cal-row-fluid cal-week-before-part"><div class="cal-cell1 cal-offset0">Ends before timeline</div></div></div>
-		<% } %>
 		<% for(i = 0; i < hours; i++){ %>
 			<div class="cal-week-hour">
 				<% for(l = 0; l < time_split_count; l++){ %>
