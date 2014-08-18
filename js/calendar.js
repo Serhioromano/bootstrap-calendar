@@ -37,8 +37,10 @@ if(!String.prototype.formatNum) {
 }
 
 (function($) {
-//	var d = new Date('2013-03-13 12:30:00');
-//	warn(d.getTime());
+	var d = new Date('2013-03-13 16:30:00');
+	warn(d.getTime());
+	d = new Date('2013-03-13 17:30:00');
+	warn(d.getTime());
 	var defaults = {
 		// Width of the calendar
 		width:              '100%',
@@ -359,7 +361,7 @@ if(!String.prototype.formatNum) {
 
 	function warn(message) {
 		if($.type(window.console) == 'object' && $.type(window.console.warn) == 'function') {
-			window.console.warn('[Bootstrap-Calendar] ' + message);
+			//window.console.warn('[Bootstrap-Calendar] ' + message);
 		}
 	}
 
@@ -441,10 +443,13 @@ if(!String.prototype.formatNum) {
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
-		var end = new Date(this.options.position.start.getTime());
-		end.setHours(time_end[0]);
-		end.setMinutes(time_end[1]);
-		return {start_time: time_start, end_time:time_end, date_start:start, date_end:end};
+		
+		var date_end = new Date(this.options.position.end.getTime())
+		date_end.setDate(this.options.position.end.getDate() - 1);
+		date_end.setHours(time_end[0]);
+		date_end.setMinutes(time_end[1]);
+		
+		return {start_time: time_start, end_time:time_end, date_start:start, date_end:date_end};
 	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data, width_percentage) {
@@ -452,24 +457,15 @@ if(!String.prototype.formatNum) {
 		data.time_split_count = 60 / parseInt(this.options.time_split);
 		// data.time_split_hour = Math.min(data.time_split_count, 1);
 		data.time_split_hour = parseInt(this.options.time_split);
-
 		if(((data.time_split_count >= 1) && (data.time_split_count % 1 != 0)) || ((data.time_split_count < 1) && (1440 / time_split % 1 != 0))) {
 			$.error(this.locale.error_timedevide);
 		}
 
 		var time = this.get_start_end_day_time();
-
 		data.hours = (parseInt(time.end_time[0]) - parseInt(time.start_time[0]));
 		// var lines = data.hours * data.time_split_count - parseInt(time.start_time[1]);
-		var lines = data.hours * data.in_hour;
+		var lines = data.hours * data.time_split_count;
 		var ms_per_line = (60000 * this.options.time_split);
-
-		var start = new Date(this.options.position.start.getTime());
-		start.setHours(time.start_time[0]);
-		start.setMinutes(time.start_time[1]);
-		var end = new Date(this.options.position.end.getTime());
-		end.setHours(time.end_time[0]);
-		end.setMinutes(time.end_time[1]);
 
 		data.all_day = [];
 		data.by_hour = [];
@@ -502,11 +498,10 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 
-			if(e.start > time.date_end.getTime()) {
+			if(e.start >= time.date_end.getTime()) {
 				data.after_time.push(e);
 				return;
 			}
-
 			// TODO from the week this is always disabled
 			e.width = $self._day_hour_interchange_calculate_width(e, data.events, width_percentage);
 			e.margin_left = $self._day_hour_interchange_calculate_margin_left(e, data.events, e.width);
@@ -542,11 +537,11 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._hour = function(hour, part) {
+		// Calculated the hours on the calendar
 		var time_start = this.options.time_start.split(":");
 		var time_split = parseInt(this.options.time_split);
 		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
 		var m = "" + (time_split * part + ((hour == 0) ? parseInt(time_start[1]) : 0));
-
 		return h.formatNum(2) + ":" + m.formatNum(2);
 	};
 	
@@ -558,8 +553,7 @@ if(!String.prototype.formatNum) {
 		var total_events = this._total_amount_of_events_intersect(event, events_list);
 		if (total_events == 0 || total_events == 1)
 			return ;
-		var width_amount = (width_percentage/total_events) -0.5;
-		return width_amount;
+		return (width_percentage/total_events) -0.5;
 	};
 	
 	Calendar.prototype._total_amount_of_events_intersect = function (event, events_list) { 
@@ -581,8 +575,12 @@ if(!String.prototype.formatNum) {
 		var loop_end_date = new Date(parseInt(loop_event.end));
 		
 		var time = this.get_start_end_day_time();
-		if(loop_start_date < time.date_start && loop_end_date > time.date_end) 
+//		console.log(original_start_date +">"+ original_end_date);
+//		console.log(time.date_start +">"+ time.date_start);
+		if(loop_start_date < time.date_start && loop_end_date > time.date_end) {
 			return false;
+		}
+			
 		
 		if (((loop_event.end - loop_event.start) / 86400000) > 1)
 			return false;
@@ -629,6 +627,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._week = function(event) {
+		console.log('week');
 		this._loadTemplate('week-days');
 
 		var t = {};
@@ -649,10 +648,10 @@ if(!String.prototype.formatNum) {
 		
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
+		var time = this.get_start_end_day_time();
 		
 		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0]));
-		var lines = data.hours * data.in_hour;	
-		var ms_per_line = (60000 * parseInt(this.options.time_split));
+		
 		var total_events_in_week = this.getEventsBetween(start, end);
 		events.all_day = [];
 		events.by_hour = [];
@@ -660,7 +659,6 @@ if(!String.prototype.formatNum) {
 		events.before_time = [];	
 		
 		$.each(total_events_in_week, function(k, event) {
-			console.log('here');
 			event.start_day = new Date(parseInt(event.start)).getDay();
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
@@ -683,60 +681,73 @@ if(!String.prototype.formatNum) {
 			
 			event.start_day = event.start_day + 1;
 
-			var start_hour = new Date(parseInt(event.start));
-			var day_end_hour = new Date(parseInt(event.start));
-			day_end_hour.setHours(23,59,59,999);
-			// var day_end_time = day_end_hour.getTime(); // ToDO Need to figure where the day ends
-			var end_hour = new Date(parseInt(event.end));
-			
-			event.display_start_hour = start_hour.getHours().toString().formatNum(2) + ':' + start_hour.getMinutes().toString().formatNum(2);
-			event.display_end_hour = end_hour.getHours().toString().formatNum(2) + ':' + end_hour.getMinutes().toString().formatNum(2);
-			
-			var event_start_time = start_hour.getTime();
-			var event_end_time = end_hour.getTime();
-			var position_start_time = new Date(event_start_time);
-			position_start_time.setHours(time_start[0]);
-			position_start_time.setMinutes(time_start[1]);
-			var position_end_time = new Date(event_end_time);
-			position_end_time.setHours(time_end[0]);
-			position_end_time.setMinutes(time_end[1]);
-			
-			// TODO if before start time event
-			
+			var check_before_after_day = time.date_start;
+			check_before_after_day.setDate(new Date(parseInt(event.start)).getDate());
+			if (event.end < check_before_after_day) {
+				console.log("Event is set before ");
+				// events.before_time.push(event);
+				return;
+			}
 			// TODO if after end time event
-			
+			if (event.start >= check_before_after_day) {
+				console.log("Event is set after ");
+				// events.after_time.push(event);
+				return;
+			}
 			// TODO if all day event
 			if (event.days > 1) {
 				events.all_day.push(event);
 				return;
 			}
 			
-			var event_start = event_start_time - position_start_time;
-			var lines_in_event;
-			if (event_start < 0 ) {
-				// event is before start hour
-				event.top = 0;
-				lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
-			} else {
-				event.top = Math.abs(event_start) / ms_per_line;
-				lines_in_event = (event_end_time - event_start_time) / ms_per_line;
-			}
-
-			event.week_width = self._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
-			event.week_margin_left = self._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.week_width) + (event.start_day * 12.5 );
-			var lines_left = lines - ( event.top + lines_in_event) ;
-			event.lines = lines_in_event;
-			
-			if(lines_in_event > lines_left) {
-				event.lines = event.lines + lines_left;
-			} else {
-				event.lines = lines_in_event;
-			}
+			self.calculate_event_width_and_lines(event, time_start, time_end, data, total_events_in_week);
 			events.by_hour.push(event);
 		});
 		t.events = events;
 		t.cal = this;
 		return self.options.templates['week-days'](t);
+	};
+	
+	Calendar.prototype.calculate_event_width_and_lines = function(event, time_start, time_end, data, total_events_in_week) {
+		var lines = data.hours * data.in_hour;	
+		var ms_per_line = (60000 * parseInt(this.options.time_split));
+		
+		var start_hour = new Date(parseInt(event.start));
+		var end_hour = new Date(parseInt(event.end));
+		
+		event.display_start_hour = start_hour.getHours().toString().formatNum(2) + ':' + start_hour.getMinutes().toString().formatNum(2);
+		event.display_end_hour = end_hour.getHours().toString().formatNum(2) + ':' + end_hour.getMinutes().toString().formatNum(2);
+		
+		var event_start_time = start_hour.getTime();
+		var event_end_time = end_hour.getTime();
+		var position_start_time = new Date(event_start_time);
+		position_start_time.setHours(time_start[0]);
+		position_start_time.setMinutes(time_start[1]);
+		var position_end_time = new Date(event_end_time);
+		position_end_time.setHours(time_end[0]);
+		position_end_time.setMinutes(time_end[1]);
+		
+		var event_start = event_start_time - position_start_time;
+		var lines_in_event;
+		if (event_start < 0 ) {
+			// event is before start hour
+			event.top = 0;
+			lines_in_event = (event_end_time - (event_start_time - event_start)) / ms_per_line;
+		} else {
+			event.top = Math.abs(event_start) / ms_per_line;
+			lines_in_event = (event_end_time - event_start_time) / ms_per_line;
+		}
+
+		event.week_width = this._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
+		event.week_margin_left = this._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.week_width);
+		var lines_left = lines - ( event.top + lines_in_event) ;
+		event.lines = lines_in_event;
+		
+		if(lines_in_event > lines_left) {
+			event.lines = event.lines + lines_left;
+		} else {
+			event.lines = lines_in_event;
+		}
 	};
 
 	Calendar.prototype._get_week_day_width = function(event) {
@@ -1361,7 +1372,7 @@ if(!String.prototype.formatNum) {
 		var k = c % 4;
 		var l = (32 + 2 * e + 2 * i - h - k) % 7;
 		var m = Math.floor((a + 11 * h + 22 * l) / 451);
-		var n0 = (h + l + 7 * m + 114)
+		var n0 = (h + l + 7 * m + 114);
 		var n = Math.floor(n0 / 31) - 1;
 		var p = n0 % 31 + 1;
 		return new Date(year, n, p + (offsetDays ? offsetDays : 0), 0, 0, 0);
