@@ -444,7 +444,7 @@ if(!String.prototype.formatNum) {
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
 		
-		var date_end = new Date(this.options.position.end.getTime())
+		var date_end = new Date(this.options.position.end.getTime());
 		date_end.setDate(this.options.position.end.getDate() - 1);
 		date_end.setHours(time_end[0]);
 		date_end.setMinutes(time_end[1]);
@@ -575,12 +575,9 @@ if(!String.prototype.formatNum) {
 		var loop_end_date = new Date(parseInt(loop_event.end));
 		
 		var time = this.get_start_end_day_time();
-//		console.log(original_start_date +">"+ original_end_date);
-//		console.log(time.date_start +">"+ time.date_start);
 		if(loop_start_date < time.date_start && loop_end_date > time.date_end) {
 			return false;
 		}
-			
 		
 		if (((loop_event.end - loop_event.start) / 86400000) > 1)
 			return false;
@@ -596,19 +593,21 @@ if(!String.prototype.formatNum) {
 
 		var margin_left = null;
 		var events_found = 0;
-		var events_to_loop = $self._events_to_loop(event, events_list);
+		var events_to_loop = $self._events_to_loop(event, events_list) + 1;
 		$.each(events_list, function(key, loop_event) {
-			if (event.id == loop_event.id)
-				return true;
+			//if (event.id == loop_event.id) 
+			//	return true;
 			if ($self._events_intersect(event, loop_event)) {
 				events_found += 1;
 				if (events_found > events_to_loop)
 					return false;
-				
 				if (events_found == 1)
-					margin_left = width_amount + 0.5;
+					margin_left = 0 ; //width_amount + 0.5;
 				else 
 					margin_left = margin_left + width_amount +0.5;
+				if (margin_left < loop_event.margin_left || loop_event.margin_left == null)
+					return false;
+				
 			}
 		});
 		return margin_left;
@@ -619,7 +618,7 @@ if(!String.prototype.formatNum) {
 		var $self = this;
 		$.each(events_list, function(key, loop_event) {
 			if ($self._events_intersect(event, loop_event)){
-				if (event.id > loop_event.id)
+				if (event.id != loop_event.id)
 					events_loop_amount +=1;
 				}
 		});
@@ -680,7 +679,8 @@ if(!String.prototype.formatNum) {
 			}
 			
 			event.start_day = event.start_day + 1;
-
+			self.calculate_event_width_and_lines(event, time_start, time_end, data, total_events_in_week);
+			
 			var check_before_after_day = time.date_start;
 			check_before_after_day.setDate(new Date(parseInt(event.start)).getDate());
 			if (event.end < check_before_after_day) {
@@ -689,7 +689,9 @@ if(!String.prototype.formatNum) {
 				return;
 			}
 			// TODO if after end time event
-			if (event.start >= check_before_after_day) {
+			check_before_after_day = time.date_end;
+			check_before_after_day.setDate(new Date(parseInt(event.start)).getDate());
+			if (event.start >= check_before_after_day.getTime()) {
 				console.log("Event is set after ");
 				// events.after_time.push(event);
 				return;
@@ -699,8 +701,6 @@ if(!String.prototype.formatNum) {
 				events.all_day.push(event);
 				return;
 			}
-			
-			self.calculate_event_width_and_lines(event, time_start, time_end, data, total_events_in_week);
 			events.by_hour.push(event);
 		});
 		t.events = events;
