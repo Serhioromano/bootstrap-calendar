@@ -6,8 +6,8 @@ window.calendar_languages['zh-CN'] = {
 	error_noview:     'Calendar: 没有发现视图 {0} ',
 	error_dateformat: 'Calendar: 日期格式不正确： {0}. 应当为 "now" 或者 "yyyy-mm-dd"',
 	error_loadurl:    'Calendar: 没有设置事件的 URL',
-	error_where:      'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
-	error_timedevide: 'Calendar: Time split parameter should divide 60 without decimals. Something like 10, 15, 30',
+	error_where:      'Calendar: 导航指示错误 {0}. 只能是 "next" 或 "prev" 或 "today"',
+	error_timedevide: 'Calendar: 时间分隔参数只能是被60整除的整数. 例如 10、15、30',
 
 	no_events_in_day: '今天没有事件。',
 
@@ -17,11 +17,11 @@ window.calendar_languages['zh-CN'] = {
 	title_day:        '{3} 年 {2} {1} 日， {0} ',
 
 	week:        '第{0}周',
-	all_day:     '整天',
+	all_day:     '全天',
 	time:        '时间',
-	events:      '发展',
-	before_time: '时间前结束带',
-	after_time:  '临时磁带结束后，',
+	events:      '事件',
+	before_time: '结束早于时间轴',
+	after_time:  '开始晚于时间轴',
 
 	m0:  '1 月',
 	m1:  '2 月',

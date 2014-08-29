@@ -1182,7 +1182,9 @@ if(!String.prototype.formatNum) {
 			}
 
 			if(!modal.data('handled.bootstrap-calendar') || (modal.data('handled.bootstrap-calendar') && modal.data('handled.event-id') != event.id)) {
-				modal
+				modal	.off('show.bs.modal')
+					.off('shown.bs.modal')
+					.off('hidden.bs.modal')
 					.on('show.bs.modal', function() {
 						var modal_body = $(this).find('.modal-body');
 						switch(self.options.modal_type) {
