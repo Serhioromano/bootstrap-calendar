@@ -984,6 +984,7 @@ if(!String.prototype.formatNum) {
 			event.stopPropagation();
 
 			var url = $(this).attr('href');
+			var ajax_url = $(this).attr('data-event-ajax-url') == undefined ? url : $(this).attr('data-event-ajax-url');
 			var id = $(this).data("event-id");
 			var event = _.find(self.options.events, function(event) {
 				return event.id == id
@@ -1007,7 +1008,7 @@ if(!String.prototype.formatNum) {
 								break;
 
 							case "ajax":
-								$.ajax({url: url, dataType: "html", async: false, success: function(data) {
+								$.ajax({url: ajax_url, dataType: "html", async: false, success: function(data) {
 									modal_body.html(data);
 								}});
 								break;
