@@ -614,10 +614,11 @@ if(!String.prototype.formatNum) {
 		var loop_end_date = new Date(parseInt(loop_event.end));
 		
 		var time = this.get_start_end_day_time();
-		if(loop_start_date < time.date_start && loop_end_date > time.date_end) {
+		//console.log(time);
+
+		if(loop_start_date < time.date_start && loop_end_date > time.date_end)
 			return false;
-		}
-		
+				
 		if (((loop_event.end - loop_event.start) / 86400000) > 1)
 			return false;
 		
@@ -741,16 +742,64 @@ if(!String.prototype.formatNum) {
 			lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 		}
 
-//		event.week_width = this._day_hour_interchange_calculate_width(event, total_events_in_week, 12.5);
-//		event.week_margin_left = this._day_hour_interchange_calculate_margin_left(event, total_events_in_week, event.week_width);
+		event.week_width = this._calculate_week_width(event, total_events_in_week, 11.5);
+		event.week_margin_left = this._calculate_week_margin_left(event, total_events_in_week);
+		console.log(event);
 		var lines_left = lines - ( event.top + lines_in_event) ;
 		event.lines = lines_in_event;
-		
+			
 		if(lines_in_event > lines_left) {
 			event.lines = event.lines + lines_left;
 		} else {
 			event.lines = lines_in_event;
 		}
+	};
+
+	Calendar.prototype._calculate_week_width = function(event, total_events_in_week, maximum_width) {
+		 var total_events = this._total_amount_of_events_intersect(event, total_events_in_week);
+		if (total_events == 0 || total_events == 1)
+                        return ;
+                return (maximum_width/total_events) -1;
+	};
+
+	Calendar.prototype._calculate_week_margin_left = function(event, total_events_in_week) {
+		var $self = this;
+		var margin_left = null;
+		if (event.start_day == 0)
+			margin_left = 0;
+		else if (event.start_day == 1)
+			margin_left = 12.5;
+		else if (event.start_day == 2)
+			margin_left = 25;
+		else if (event.start_day == 3)
+			margin_left = 37.5;
+		else if (event.start_day == 4)
+			margin_left = 50;
+		else if (event.start_day == 5)
+			margin_left = 62.5;
+		else if (event.start_day == 6)
+                        margin_left = 75;
+
+                var events_found = 0;
+                var events_to_loop = $self._events_to_loop(event, total_events_in_week) + 1;
+                $.each(total_events_in_week, function(key, loop_event) {
+                        //if (event.id == loop_event.id) 
+                        //      return true;
+                        if ($self._events_intersect(event, loop_event)) {
+				if (event.id == loop_event.id)
+					return false;
+                                events_found += 1;
+                                if (events_found > events_to_loop)
+                                        return false;
+				margin_left = margin_left + event.week_width + 2;
+                                if (margin_left < loop_event.margin_left || loop_event.margin_left == null)
+                                        return false;
+
+                        }
+                });
+		console.log(margin_left);
+                return margin_left;
+
 	};
 
 	Calendar.prototype._get_week_day_width = function(event) {
