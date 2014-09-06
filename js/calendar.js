@@ -114,8 +114,7 @@ if(!String.prototype.formatNum) {
 		onAfterEventsLoad:  function(events) {
 			// Inside this function 'this' is the calendar instance
 		},
-		onBeforeEventsLoad: function(next) {
-			// Inside this function 'this' is the calendar instance
+		onBeforeEventsLoad: function(next) {// Inside this function 'this' is the calendar instance
 			next();
 		},
 		onAfterViewLoad:    function(view) {
@@ -141,7 +140,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	var defaults_extended = {
-		first_day: 2,
+		first_day: 1,
 		holidays:  {
 			// January 1
 			'01-01':  "New Year's Day",
@@ -422,7 +421,7 @@ if(!String.prototype.formatNum) {
 			case 'month':
 				break;
 			case 'week':
-				this._calculate_hour_minutes(data, 12.5); // XXX Parameters are not ideal. Need to figure how to automagically figure them
+				this._calculate_hour_minutes(data, 11); // XXX Parameters are not ideal. Need to figure how to automagically figure them
 				break;
 			case 'day':
 				this._calculate_hour_minutes(data, 90);
@@ -453,7 +452,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data, width_percentage) {
-		console.log("_calculate_hour_minutes");
+		//console.log("_calculate_hour_minutes");
 		var $self = this;
 		data.time_split_count = 60 / parseInt(this.options.time_split);
 		// data.time_split_hour = Math.min(data.time_split_count, 1);
@@ -614,22 +613,21 @@ if(!String.prototype.formatNum) {
 		var loop_end_date = new Date(parseInt(loop_event.end));
 		
 		var time = this.get_start_end_day_time();
-		//console.log(time);
-
+		
 		if(loop_start_date < time.date_start && loop_end_date > time.date_end)
 			return false;
 				
 		if (((loop_event.end - loop_event.start) / 86400000) > 1)
 			return false;
 		
-		if ((original_start_date <= loop_end_date) && (loop_start_date <= original_end_date))
+		if ((original_start_date < loop_end_date) && (loop_start_date < original_end_date))
 			return true;
 		
 		return false;
 	};
 
 	Calendar.prototype._week = function(event) {
-		console.log('week');
+		//console.log('week');
 		this._loadTemplate('week-days');
 
 		var t = {};
@@ -687,6 +685,7 @@ if(!String.prototype.formatNum) {
 			var check_before_after_day = time.date_start;
 			check_before_after_day.setDate(new Date(parseInt(event.start)).getDate());
 			if (event.end < check_before_after_day) {
+				// Dont know how to implement this yet. Ill need to figure out the css for the times to display on top and push everything down.
 				console.log("Event is set before ");
 				// events.before_time.push(event);
 				return;
@@ -712,7 +711,6 @@ if(!String.prototype.formatNum) {
 	};
 	
 	Calendar.prototype.calculate_week_event_width_and_lines = function(event, time_start, time_end, data, total_events_in_week) {
-		console.log("calculate_week_event_width_and_lines");
 		var lines = data.hours * data.in_hour;	
 		var ms_per_line = (60000 * parseInt(this.options.time_split));
 		
@@ -742,29 +740,29 @@ if(!String.prototype.formatNum) {
 			lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 		}
 
-		event.week_width = this._calculate_week_width(event, total_events_in_week, 11.5);
+		event.week_width = this._calculate_week_width(event, total_events_in_week, 11);
 		event.week_margin_left = this._calculate_week_margin_left(event, total_events_in_week);
-		console.log(event);
-		var lines_left = lines - ( event.top + lines_in_event) ;
+		//console.log(event);
+		var lines_left = lines - (event.top + lines_in_event) ;
 		event.lines = lines_in_event;
 			
-		if(lines_in_event > lines_left) {
+		if(lines_in_event > lines_left)
 			event.lines = event.lines + lines_left;
-		} else {
+		else
 			event.lines = lines_in_event;
-		}
 	};
 
 	Calendar.prototype._calculate_week_width = function(event, total_events_in_week, maximum_width) {
-		 var total_events = this._total_amount_of_events_intersect(event, total_events_in_week);
+		var total_events = this._total_amount_of_events_intersect(event, total_events_in_week);
 		if (total_events == 0 || total_events == 1)
-                        return ;
-                return (maximum_width/total_events) -1;
+            return ;
+        return (maximum_width/total_events) -1;
 	};
 
 	Calendar.prototype._calculate_week_margin_left = function(event, total_events_in_week) {
 		var $self = this;
 		var margin_left = null;
+		// XXX: Any better ideas on how to implement this ? 
 		if (event.start_day == 0)
 			margin_left = 0;
 		else if (event.start_day == 1)
@@ -778,28 +776,28 @@ if(!String.prototype.formatNum) {
 		else if (event.start_day == 5)
 			margin_left = 62.5;
 		else if (event.start_day == 6)
-                        margin_left = 75;
+            margin_left = 75;
 
-                var events_found = 0;
-                var events_to_loop = $self._events_to_loop(event, total_events_in_week) + 1;
-                $.each(total_events_in_week, function(key, loop_event) {
-                        //if (event.id == loop_event.id) 
-                        //      return true;
-                        if ($self._events_intersect(event, loop_event)) {
+        var events_found = 0;
+        var events_to_loop = $self._events_to_loop(event, total_events_in_week) + 1;
+        $.each(total_events_in_week, function(key, loop_event) {
+            if ($self._events_intersect(event, loop_event)) {
 				if (event.id == loop_event.id)
 					return false;
-                                events_found += 1;
-                                if (events_found > events_to_loop)
-                                        return false;
-				margin_left = margin_left + event.week_width + 2;
-                                if (margin_left < loop_event.margin_left || loop_event.margin_left == null)
-                                        return false;
-
-                        }
-                });
-		console.log(margin_left);
-                return margin_left;
-
+		        events_found += 1;
+		        if (events_found > events_to_loop)
+		            return false;
+		        if (event.start_hour == loop_event.start_hour)
+		        	margin_left = margin_left + event.week_width + 2;
+		        else {
+					margin_left = margin_left + event.week_width + 0.5;
+					event.week_width = event.week_width + 1.5;
+		        }
+		        if (margin_left < loop_event.margin_left || loop_event.margin_left == null)
+		            return false;
+		    }
+        });
+		return margin_left;
 	};
 
 	Calendar.prototype._get_week_day_width = function(event) {

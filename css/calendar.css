@@ -180,8 +180,8 @@
   *margin-left: 12.5%;
 }
 .cal-week-box .cal-week-row-fluid .cal-cell1 {
-  width: 11.5%;
-  *width: 11.5%;
+  width: 11%;
+  *width: 11%;
 }
 
 [class*="cal-cell"].hide,
@@ -406,22 +406,43 @@ a.cal-week-link {
 #cal-day-box .day-highlight.dh-event-important {
   border: 1px solid #ad2121;
 }
+.cal-week-box .day-highlight.dh-event-important {
+  border: 1px solid #ad2121;
+}
 #cal-day-box .day-highlight.dh-event-warning {
+  border: 1px solid #e3bc08;
+}
+.cal-week-box .day-highlight.dh-event-warning {
   border: 1px solid #e3bc08;
 }
 #cal-day-box .day-highlight.dh-event-info {
   border: 1px solid #1e90ff;
 }
+.cal-week-box .day-highlight.dh-event-info {
+  border: 1px solid #1e90ff;
+}
 #cal-day-box .day-highlight.dh-event-inverse {
   border: 1px solid #1b1b1b;
 }
+.cal-week-box .day-highlight.dh-event-inverse {
+  border: 1px solid #1b1b1b;
+}
 #cal-day-box .day-highlight.dh-event-success {
+  border: 1px solid #006400;
+}
+.cal-week-box .day-highlight.dh-event-success {
   border: 1px solid #006400;
 }
 #cal-day-box .day-highlight.dh-event-special {
   background-color: #ffe6ff;
   border: 1px solid #800080;
 }
+.cal-week-box .day-highlight.dh-event-special {
+  background-color: #ffe6ff;
+  border: 1px solid #800080;
+}
+
+
 .event {
   display: block;
   background-color: #c3c3c3;
@@ -583,6 +604,7 @@ span[data-cal-date]:hover {
   background-color: #fafafa;
   text-align: right;
 }
+
 #cal-day-tick {
   border: 1px solid #e1e1e1;
   border-top: 0px solid;
