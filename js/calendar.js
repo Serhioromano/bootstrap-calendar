@@ -421,7 +421,7 @@ if(!String.prototype.formatNum) {
 			case 'month':
 				break;
 			case 'week':
-				this._calculate_hour_minutes(data, 11); // XXX Parameters are not ideal. Need to figure how to automagically figure them
+				this._calculate_hour_minutes(data); // XXX Parameters are not ideal. Need to figure how to automagically figure them
 				break;
 			case 'day':
 				this._calculate_hour_minutes(data, 90);
@@ -740,7 +740,7 @@ if(!String.prototype.formatNum) {
 			lines_in_event = (event_end_time - event_start_time) / ms_per_line;
 		}
 
-		event.week_width = this._calculate_week_width(event, total_events_in_week, 11);
+		event.week_width = this._calculate_week_width(event, total_events_in_week, 12.5);
 		event.week_margin_left = this._calculate_week_margin_left(event, total_events_in_week);
 		//console.log(event);
 		var lines_left = lines - (event.top + lines_in_event) ;
@@ -756,7 +756,7 @@ if(!String.prototype.formatNum) {
 		var total_events = this._total_amount_of_events_intersect(event, total_events_in_week);
 		if (total_events == 0 || total_events == 1)
             return ;
-        return (maximum_width/total_events) -1;
+        return (maximum_width/total_events) -0.2;
 	};
 
 	Calendar.prototype._calculate_week_margin_left = function(event, total_events_in_week) {
@@ -787,12 +787,7 @@ if(!String.prototype.formatNum) {
 		        events_found += 1;
 		        if (events_found > events_to_loop)
 		            return false;
-		        if (event.start_hour == loop_event.start_hour)
-		        	margin_left = margin_left + event.week_width + 2;
-		        else {
-					margin_left = margin_left + event.week_width + 0.5;
-					event.week_width = event.week_width + 1.5;
-		        }
+		        margin_left = margin_left + event.week_width + 0.5;
 		        if (margin_left < loop_event.margin_left || loop_event.margin_left == null)
 		            return false;
 		    }
