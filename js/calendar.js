@@ -1103,6 +1103,8 @@ if (!String.prototype.formatNum) {
                         return;
                     if ($(this).children('[data-cal-date]').text() == self.activecell)
                         return;
+                    /*Whether to show or not the small event list inside a cell, default show*/
+                    if(self.options.showEvents !==false)
                     showEventsList(event, downbox, slider, self);
                 })
                 ;
