@@ -7,13 +7,13 @@ if(!window.calendar_languages) {
 // First letters: the language code (lower case). See http://www.loc.gov/standards/iso639-2/php/code_list.php
 // Last letters: the Country code (upper case). See http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm
 window.calendar_languages['bg-BG'] = {
-	error_noview: 'Calendar: View {0} not found',
-	error_dateformat: 'Calendar: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
-	error_loadurl: 'Calendar: Event URL is not set',
-	error_where: 'Calendar: Wrong navigation direction {0}. Can be only "next" or "prev" or "today"',
-	error_timedevide: 'Calendar: Time split parameter should divide 60 without decimals. Something like 10, 15, 30',
+	error_noview: 'Календар: Изглед {0} не беше открит',
+	error_dateformat: 'Календар: Грешен формат за дата {0}. Трябва да бъде или "now", или "yyyy-mm-dd"',
+	error_loadurl: 'Календар: URL адресът на събитието не е зададен',
+	error_where: 'Календар: Грешна посока {0}. Може да бъде  зададено само "next", "prev", или "today"',
+	error_timedevide: 'Календар: Параметърът за разделяне на времето трябва да може да се дели на 60, без остатък. Например 10, 15, 30',
 
-	no_events_in_day: 'No events in this day.',
+	no_events_in_day: 'Няма събития за този ден.',
 
 	// {0} will be replaced with the year (example: 2013)
 	title_year: '{0}',
@@ -29,7 +29,7 @@ window.calendar_languages['bg-BG'] = {
 	// {3} will be replaced with the year (example: 2013)
 	title_day: '{0} {1} {2}, {3}',
 
-	week:'Week {0}',
+	week:        'Седмица {0}',
 	all_day:     'Цял ден',
 	time:        'Време',
 	events:      'Събития',
