@@ -1,12 +1,16 @@
 <div class="cal-week-box">
-	<div class="cal-offset1 cal-column"></div>
-	<div class="cal-offset2 cal-column"></div>
-	<div class="cal-offset3 cal-column"></div>
-	<div class="cal-offset4 cal-column"></div>
-	<div class="cal-offset5 cal-column"></div>
-	<div class="cal-offset6 cal-column"></div>
+	<div class="row-fluid clearfix cal-day-hour">
+		<div class="cal-offset1 cal-column"></div>
+		<div class="cal-offset2 cal-column"></div>
+		<div class="cal-offset3 cal-column"></div>
+		<div class="cal-offset4 cal-column"></div>
+		<div class="cal-offset5 cal-column"></div>
+		<div class="cal-offset6 cal-column"></div>
+		<div class="cal-offset7 cal-column"></div>
+	</div>
 	<div class="cal-row-fluid cal-row-head">
-		<% _.each(days_name, function(name) { %>
+		<div class="cal-cell1"><%= cal.locale.time %></div>
+		<% _.each(months, function(name) { %>
 			<div class="cal-cell1 <%= cal._getDayClass('week', start) %>" data-toggle="tooltip" title="<%= cal._getHolidayName(start) %>"><%= name %><br>
 				<small><span data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>" data-cal-view="day"><%= start.getDate() %> <%= cal.locale['ms' + start.getMonth()] %></span></small>
 			</div>
@@ -14,5 +18,19 @@
 		<% }) %>
 	</div>
 	<hr>
+	<div id="cal-week-panel" class="clearfix">
 	<%= cal._week() %>
+	<div id="cal-week-panel-hour">
+		<!-- <div class="cal-week-multiple-days"><div class="cal-row-fluid cal-week-multiple-part"><div class="cal-cell1 cal-offset0">Multiple Days</div></div></div> -->
+		<% for(i = 0; i < hours; i++){ %>
+			<div class="cal-week-hour">
+				<% for(l = 0; l < time_split_count; l++){ %>
+					<div class="cal-row-fluid cal-week-hour-part">
+						<div class="cal-cell1 cal-offset0"><b><%= cal._hour(i, l) %></b></div>
+					</div>
+				<% }; %>
+			</div>
+		<% }; %>
+	</div>
+	</div>
 </div>
