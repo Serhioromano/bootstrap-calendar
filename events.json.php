@@ -2,76 +2,93 @@
 	"success": 1,
 	"result": [
 		{
-			"id": "293",
-			"title": "This is warning class event with very long title to check how it fits to evet in day view",
+			"id": "100",
+			"title": "13/Wed 05:30 First Event",
 			"url": "http://www.example.com/",
 			"class": "event-warning",
-			"start": "1362938400000",
-			"end":   "1363197686300"
+			"start": "1363145400000",
+			"end":   "1363152600000"
 		},
 		{
-			"id": "256",
-			"title": "Event that ends on timeline",
+			"id": "101",
+			"title": "13/Wed 05:30 Second Event",
 			"url": "http://www.example.com/",
 			"class": "event-warning",
-			"start": "1363155300000",
-			"end":   "1363227600000"
+			"start": "1363145400000",
+			"end":   "1363153600000"
 		},
 		{
-			"id": "276",
-			"title": "Short day event",
+			"id": "102",
+			"title": "13/Wed 16:30 Event",
 			"url": "http://www.example.com/",
-			"class": "event-success",
-			"start": "1363245600000",
-			"end":   "1363252200000"
+			"class": "event-warning",
+			"start": "1363185000000",
+			"end":   "1363188600000"
 		},
 		{
-			"id": "294",
-			"title": "This is information class ",
-			"url": "http://www.example.com/",
-			"class": "event-info",
-			"start": "1363111200000",
-			"end":   "1363284086400"
+			"id": "103",
+			"title":"11/Mon 09:00 Event",
+			"url":"",
+			"class":"event-warning",
+			"start":"1362985200000",
+			"end":"1362988800000"
 		},
 		{
-			"id": "297",
-			"title": "This is success event",
-			"url": "http://www.example.com/",
-			"class": "event-success",
-			"start": "1363234500000",
-			"end":   "1363284062400"
-		},
+            "id": "104",
+            "title":"12/Tue 09:00 Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1363071600000",
+            "end":"1363075200000"
+        },
 		{
-			"id": "54",
-			"title": "This is simple event",
-			"url": "http://www.example.com/",
-			"class": "",
-			"start": "1363712400000",
-			"end":   "1363716086400"
-		},
+            "id": "105",
+            "title":"14/Thu 09:00 Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1363244400000",
+            "end":"1363248000000"
+    	},
 		{
-			"id": "532",
-			"title": "This is inverse event",
-			"url": "http://www.example.com/",
-			"class": "event-inverse",
-			"start": "1364407200000",
-			"end":   "1364493686400"
-		},
+            "id": "106",
+            "title":"11/Wed 09:30 Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1362987000000",
+            "end":"1363001400000"
+    	},
 		{
-			"id": "548",
-			"title": "This is special event",
-			"url": "http://www.example.com/",
-			"class": "event-special",
-			"start": "1363197600000",
-			"end":   "1363629686400"
-		},
+            "id": "107",
+            "title":"12/Tue 10:30 Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1363077000000",
+            "end":"1363080600000"
+    	},
 		{
-			"id": "295",
-			"title": "Event 3",
-			"url": "http://www.example.com/",
-			"class": "event-important",
-			"start": "1364320800000",
-			"end":   "1364407286400"
-		}
+            "id": "108",
+            "title":"12/Tue 11:30 First Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1363080600000",
+            "end":"1363084200000"
+    	},
+		{
+            "id": "109",
+            "title":"12/Tue 11:30 Second Event",
+            "url":"",
+            "class":"event-warning",
+            "start":"1363080600000",
+            "end":"1363084200000"
+    	},
+		{
+            "id": "110",
+            "title":"11/Mon 11:00 Loop Event",
+            "url":"",
+            "class":"event-success",
+            "start":"1362992400000",
+            "end":"1362997800000"
+    	}
+
 	]
 }
