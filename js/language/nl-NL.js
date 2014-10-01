@@ -3,10 +3,10 @@ if(!window.calendar_languages) {
 }
 window.calendar_languages['nl-NL'] = {
 	error_noview:     'Kalender: View {0} niet gevonden',
-	error_dateformat: 'Kalender: Wrong date format {0}. Should be either "now" or "yyyy-mm-dd"',
+	error_dateformat: 'Kalender: Verkeerde datum formaat {0}. Dit formaat moet "now" zijn of "yyyy-mm-dd"',
 	error_loadurl:    'Kalender: Agenda laad URL is niet gezet (loadUrl)',
 	error_where:      'Kalender: Verkeerde navigatie richting {0}. Kan alleen "next", "prev" of "today" zijn',
-	error_timedevide: 'Kalender: parameter om de tijd afscheider moet verdelen 60 door een geheel getal. Bijvoorbeeld 10, 15, 30',
+	error_timedevide: 'Kalender: De tijd split parameter moet 60 kunnen verdelen naar een geheel getal (zonder decimalen). Bijvoorbeeld 10, 15, 30',
 
 	no_events_in_day: 'Geen evenementen gevonden op deze dag.',
 
@@ -18,9 +18,9 @@ window.calendar_languages['nl-NL'] = {
 	week:        'Week',
 	all_day:     'De hele dag door',
 	time:        'Tijd',
-	events:      'Ontwikkelingen',
-	before_time: 'Tijd voor het einde tape',
-	after_time:  'Eindigen na een tijdelijke band',
+	events:      'Agenda-item',
+	before_time: 'Eindigd voor tijdlijn',
+	after_time:  'Start na tijdlijn',
 
 	m0:  'Januari',
 	m1:  'Februari',

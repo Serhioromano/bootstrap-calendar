@@ -37,10 +37,6 @@ if(!String.prototype.formatNum) {
 }
 
 (function($) {
-	var d = new Date('2013-03-13 16:30:00');
-	warn(d.getTime());
-	d = new Date('2013-03-13 17:30:00');
-	warn(d.getTime());
 	var defaults = {
 		// Width of the calendar
 		width:              '100%',
@@ -360,7 +356,7 @@ if(!String.prototype.formatNum) {
 
 	function warn(message) {
 		if($.type(window.console) == 'object' && $.type(window.console.warn) == 'function') {
-			//window.console.warn('[Bootstrap-Calendar] ' + message);
+			window.console.warn('[Bootstrap-Calendar] ' + message);
 		}
 	}
 
@@ -452,7 +448,6 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._calculate_hour_minutes = function(data, width_percentage) {
-		//console.log("_calculate_hour_minutes");
 		var $self = this;
 		data.time_split_count = 60 / parseInt(this.options.time_split);
 		// data.time_split_hour = Math.min(data.time_split_count, 1);
@@ -479,12 +474,10 @@ if(!String.prototype.formatNum) {
 			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
 
 			if(e.start < time.date_start.getTime()) {
-				warn(1);
 				e.start_hour = s.getDate() + ' ' + $self.locale['ms' + s.getMonth()] + ' ' + e.start_hour;
 			}
 
 			if(e.end > time.date_end.getTime()) {
-				warn(1);
 				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
 			}
 
@@ -627,7 +620,6 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._week = function(event) {
-		//console.log('week');
 		this._loadTemplate('week-days');
 
 		var t = {};
@@ -742,7 +734,6 @@ if(!String.prototype.formatNum) {
 
 		event.week_width = this._calculate_week_width(event, total_events_in_week, 12.5);
 		event.week_margin_left = this._calculate_week_margin_left(event, total_events_in_week);
-		//console.log(event);
 		var lines_left = lines - (event.top + lines_in_event) ;
 		event.lines = lines_in_event;
 			
