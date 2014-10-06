@@ -31,10 +31,10 @@ window.calendar_languages['bg-BG'] = {
 
 	week:        'Седмица {0}',
 	all_day:     'Цял ден',
-	time:        'Време',
+	time:        'Часове',
 	events:      'Събития',
-	before_time: 'Ends before timeline',
-	after_time:  'Starts after timeline',
+	before_time: 'Приключва преди времевата линия',
+	after_time:  'Започва след началото на времевата линия',
 
 	m0: 'януари',
 	m1: 'февруари',
