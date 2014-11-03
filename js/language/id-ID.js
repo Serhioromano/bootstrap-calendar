@@ -59,5 +59,24 @@ window.calendar_languages['id-ID'] = {
 
 	first_day: 1,
 	holidays: {
+		/* for 2015 */
+		'03-01-2015':     	'Maulid Nabi Muhammad SAW',
+		'19-01-2015':     	'Tahun Baru Imlek 2566 Kongzili',
+		'21-03-2015':     	'Hari Raya Nyepi Tahun Baru Saka 1937',
+		'16-05-2015':     	'Isra Mikraj Nabi Muhammad SAW',
+		'02-06-2015':     	'Hari Raya Waisak 2559',
+		'17-07-2015':     	'Hari Raya Idul Fitri 1436 Hijriah',
+		'18-07-2015':     	'Hari Raya Idul Fitri 1436 Hijriah',
+		'24-09-2015':     	'Hari Raya Idul Adha 1436 Hijriah',
+		'14-10-2015':     	'Tahun Baru Islam 1437 Hijriah',
+
+		'01-01':     				'Tahun Baru',
+		'01-05':     				'Hari Buruh Internasional',
+		'17-08':     				'Hari Kemerdekaan RI (Independence Day)',
+		'25-12':     				'Hari Raya Natal',
+
+		'easter-2': 				'Jumat Agung',
+		'easter': 					'Paskah',
+		'easter+39': 				'Kenaikan Yesus Kristus'
 	}
 };
