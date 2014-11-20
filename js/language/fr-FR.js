@@ -4,9 +4,9 @@ if(!window.calendar_languages) {
 window.calendar_languages['fr-FR'] = {
 	error_noview:     'Calendrier: Vue {0} introuvable',
 	error_dateformat: 'Calendrier: Format de date incorrect {0}. Formats acceptés : "now" ou "yyyy-mm-dd"',
-	error_loadurl:    'Calendrier: Events load URL is not set',
+	error_loadurl:    'Calendrier: L\'adresse de chargement des évènements n\'est pas définie',
 	error_where:      'Calendrier: Mauvaise commande de navigation {0}. Commandes acceptées : "suivant", "précédent" or "aujourd\'hui"',
-	error_timedevide: 'Calendrier: paramètre pour le séparateur de temps doit diviser 60 par un nombre entier. Par exemple 10, 15, 30',
+	error_timedevide: 'Calendrier: La valeur des espaces-temps doit diviser 60 avec une valeur exacte. Par exemple 10, 15, 30',
 
 	title_year:  'Année {0}',
 	title_month: '{0} {1}',
@@ -15,10 +15,10 @@ window.calendar_languages['fr-FR'] = {
 
 	week:        'Semaine {0}',
 	all_day:     'Toute la journée',
-	time:        'Temps',
-	events:      'Développements',
-	before_time: 'Temps avant que la bande de fin',
-	after_time:  'Fin après une bande temporaire',
+	time:        'Heure',
+	events:      'Evènements',
+	before_time: 'Se terminant avant le début de plage horaire',
+	after_time:  'Se terminant après la fin de la plage horaire',
 
 	m0:  'Janvier',
 	m1:  'Février',
@@ -58,10 +58,10 @@ window.calendar_languages['fr-FR'] = {
 
 	holidays: {
 		'01-01':     "Premier de l'an",
-		'easter-2':  "Vendredi Saint",
 		'easter':    "Pâques",
 		'easter+1':  "Lundi de Pâques",
 		'01-05':     "Fête du Travail",
+		'08-05':     "Fête de la Victoire 1945",
 		'easter+39': "Ascension",
 		'easter+49': "Pentecôte",
 		'easter+50': "Lundi de Pentecôte",
@@ -69,7 +69,6 @@ window.calendar_languages['fr-FR'] = {
 		'15-08':     "Assomption",
 		'01-11':     "Toussaint",
 		'11-11':     "Armistice 1918",
-		'25-12':     "Noël",
-		'26-12':     "Saint Etienne"
+		'25-12':     "Noël"
 	}
 };
