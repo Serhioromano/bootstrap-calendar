@@ -15,7 +15,7 @@ window.calendar_languages['nl-NL'] = {
 	title_week:  'week {0} van {1}',
 	title_day:   '{0} {1} {2}, {3}',
 
-	week:        'Week',
+	week:        'Week {0}',
 	all_day:     'De hele dag door',
 	time:        'Tijd',
 	events:      'Agenda-item',
