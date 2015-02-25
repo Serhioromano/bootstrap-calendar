@@ -1125,7 +1125,7 @@ if(!String.prototype.formatNum) {
 				return true;
 			}
 			var event_end = this.end || this.start;
-			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
+			if((parseInt(this.start) < end) && (parseInt(event_end) > start)) {
 				events.push(this);
 			}
 		});
