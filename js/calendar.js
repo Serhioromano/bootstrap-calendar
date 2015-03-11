@@ -531,7 +531,7 @@ if(!String.prototype.formatNum) {
 		var time_start = this.options.time_start.split(":");
 		var time_split = parseInt(this.options.time_split);
 		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
-		var m = "" + (time_split * part + ((hour == 0) ? parseInt(time_start[1]) : 0));
+		var m = "" + time_split * part;
 
 		return h.formatNum(2) + ":" + m.formatNum(2);
 	};
