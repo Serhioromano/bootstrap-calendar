@@ -49,6 +49,7 @@ if(!String.prototype.formatNum) {
 		time_start:         '06:00',
 		time_end:           '22:00',
 		time_split:         '30',
+		weekbox: true,
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -1054,7 +1055,9 @@ if(!String.prototype.formatNum) {
 
 		var week = $(document.createElement('div')).attr('id', 'cal-week-box');
 		var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
-		$('.cal-month-box .cal-row-fluid')
+		
+		if(this.options.weekbox) {
+			$('.cal-month-box .cal-row-fluid')
 			.on('mouseenter', function() {
 				var p = new Date(self.options.position.start);
 				var child = $('.cal-cell1:first-child .cal-month-day', this);
@@ -1067,7 +1070,8 @@ if(!String.prototype.formatNum) {
 			.on('mouseleave', function() {
 				week.hide();
 			})
-		;
+			;
+		}
 
 		week.click(function() {
 			self.options.day = $(this).data('cal-week');
