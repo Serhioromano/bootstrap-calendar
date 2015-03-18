@@ -49,7 +49,8 @@ if(!String.prototype.formatNum) {
 		time_start:         '06:00',
 		time_end:           '22:00',
 		time_split:         '30',
-		weekbox: true,
+		// Enable or disable the weekbox on the monthly view.
+    weekbox: true,
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -1055,7 +1056,7 @@ if(!String.prototype.formatNum) {
 
 		var week = $(document.createElement('div')).attr('id', 'cal-week-box');
 		var start = this.options.position.start.getFullYear() + '-' + this.options.position.start.getMonthFormatted() + '-';
-		
+
 		if(this.options.weekbox) {
 			$('.cal-month-box .cal-row-fluid')
 			.on('mouseenter', function() {
@@ -1164,7 +1165,7 @@ if(!String.prototype.formatNum) {
 			});
 		});
 
-	
+
 
 		// Wait 400ms before updating the modal & attach the mouseenter&mouseleave(400ms is the time for the slider to fade out and slide up)
 		setTimeout(function() {
