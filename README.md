@@ -253,7 +253,7 @@ For Bootstrap v3, use
 
 There are three options for populating the contents of the modal, controlled by the `modal_type` option:
 - **iframe** (default) - populates modal with iframe, iframe.src set to event.url
-- **ajax** - gets html from event.url, this is useful when you just have a snippet of html and want to take advantage of styles in the calendar page
+- **ajax** - gets html from event.ajax_url (or events.url, if ajax_url is not set); this is useful when you just have a snippet of html and want to take advantage of styles in the calendar page.
 - **template** - will render a template (example in tmpls/modal.html) that gets the `event` and a reference to the `calendar` object.
 
 ### Modal title
