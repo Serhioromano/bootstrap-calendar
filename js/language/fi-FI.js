@@ -29,7 +29,7 @@ window.calendar_languages['fi-FI'] = {
     // {3} will be replaced with the year (example: 2013)
     title_day: '{0} {1} {2}, {3}',
 
-    week:'Week',
+    week:        'Viikko',
     all_day:     'Kaikki päivät',
     time:        'Aika',
     events:      'Tapahtumat',
@@ -62,7 +62,7 @@ window.calendar_languages['fi-FI'] = {
     ms10: 'marras',
     ms11: 'joulu',
 
-    d0: 'sunnunta',
+    d0: 'sunnuntai',
     d1: 'maanantai',
     d2: 'tiistai',
     d3: 'keskiviikko',
