@@ -454,8 +454,8 @@ if(!String.prototype.formatNum) {
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
 		var end = new Date(this.options.position.end.getTime());
-		end.setHours(time_end[0]);
-		end.setMinutes(time_end[1]);
+		//end.setHours(time_end[0]);
+		//end.setMinutes(time_end[1]);
 
 		data.all_day = [];
 		data.by_hour = [];
@@ -934,15 +934,16 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._update = function() {
 		var self = this;
-
+		var calendarSelector = self.context.selector;
+		
 		$('*[data-toggle="tooltip"]').tooltip({container: 'body'});
 
-		$('*[data-cal-date]').click(function() {
+		$(calendarSelector + ' [data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
 			self.options.day = $(this).data('cal-date');
 			self.view(view);
 		});
-		$('.cal-cell').dblclick(function() {
+		$(calendarSelector + ' .cal-cell').dblclick(function() {
 			var view = $('[data-cal-date]', this).data('cal-view');
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);
@@ -1089,8 +1090,8 @@ if(!String.prototype.formatNum) {
 		var self = this;
 		var activecell = 0;
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-tick').html('<i class="icon-chevron-down glyphicon glyphicon-chevron-down"></i>');
-
-		$('.cal-month-day, .cal-year-box .span3')
+		var calendarSelector = self.context.selector;
+		$(calendarSelector + ' .cal-month-day, .cal-year-box .span3')
 			.on('mouseenter', function() {
 				if($('.events-list', this).length == 0) return;
 				if($(this).children('[data-cal-date]').text() == self.activecell) return;
