@@ -19,6 +19,7 @@ Date.prototype.getDateFormatted = function() {
 	var date = this.getDate();
 	return date < 10 ? '0' + date : date;
 };
+
 if(!String.prototype.format) {
 	String.prototype.format = function() {
 		var args = arguments;
