@@ -58,6 +58,10 @@ if(!String.prototype.formatNum) {
 		//   returns an array of events (as described in events property description)
 		// - An array containing the events
 		events_source:      '',
+		// Set format12 to true if you want to use 12 Hour format instead of 24 Hour
+		format12:			false,
+		am_suffix:			"AM",
+		pm_suffix:			"PM",
 		// Path to templates should end with slash /. It can be as relative
 		// /component/bootstrap-calendar/tmpls/
 		// or absolute
@@ -433,6 +437,34 @@ if(!String.prototype.formatNum) {
 		this._update();
 	};
 
+	Calendar.prototype._format_hour = function(str_hour) {
+		var hour_split = str_hour.split(":");
+		var hour = parseInt(hour_split[0]);
+		var minutes = parseInt(hour_split[1]);
+
+		var suffix = '';
+
+		if (this.options.format12){
+			if (hour < 12){
+				suffix = this.options.am_suffix;
+			}
+			else {
+				suffix = this.options.pm_suffix;
+			}
+
+			hour = hour % 12;
+			if (hour == 0){
+				hour = 12;
+			}
+		}
+
+		return hour.toString().formatNum(2) + ':' + minutes.toString().formatNum(2) + suffix;
+	};
+
+	Calendar.prototype._format_time = function(datetime) {
+		return this._format_hour(datetime.getHours() + ':' + datetime.getMinutes());
+	};
+
 	Calendar.prototype._calculate_hour_minutes = function(data) {
 		var $self = this;
 		var time_split = parseInt(this.options.time_split);
@@ -465,8 +497,8 @@ if(!String.prototype.formatNum) {
 			var s = new Date(parseInt(e.start));
 			var f = new Date(parseInt(e.end));
 
-			e.start_hour = s.getHours().toString().formatNum(2) + ':' + s.getMinutes().toString().formatNum(2);
-			e.end_hour = f.getHours().toString().formatNum(2) + ':' + f.getMinutes().toString().formatNum(2);
+			e.start_hour = $self._format_time(s);
+			e.end_hour = $self._format_time(f);
 
 			if(e.start < start.getTime()) {
 				warn(1);
@@ -533,7 +565,7 @@ if(!String.prototype.formatNum) {
 		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
 		var m = "" + time_split * part;
 
-		return h.formatNum(2) + ":" + m.formatNum(2);
+		return this._format_hour(h.formatNum(2) + ":" + m.formatNum(2));
 	};
 
 	Calendar.prototype._week = function(event) {
