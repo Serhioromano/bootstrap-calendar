@@ -70,6 +70,16 @@
 		calendar.setOptions({format12: val});
 		calendar.view();
 	});
+	$('#show_wbn').change(function(){
+		var val = $(this).is(':checked') ? true : false;
+		calendar.setOptions({display_week_numbers: val});
+		calendar.view();
+	});
+	$('#show_wb').change(function(){
+		var val = $(this).is(':checked') ? true : false;
+		calendar.setOptions({weekbox: val});
+		calendar.view();
+	});
 	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
 		//e.preventDefault();
 		//e.stopPropagation();
