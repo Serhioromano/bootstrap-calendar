@@ -901,7 +901,10 @@ if(!String.prototype.formatNum) {
 				if(source.length) {
 					loader = function() {
 						var events = [];
-						var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime()};
+                                                var d = new Date();
+                                                var utc_offset = d.getTimezoneOffset();
+                                                var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime(), utc_offset: utc_offset};
+
 						if(browser_timezone.length) {
 							params.browser_timezone = browser_timezone;
 						}
