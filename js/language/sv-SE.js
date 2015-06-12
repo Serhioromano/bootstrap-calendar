@@ -3,22 +3,22 @@ if(!window.calendar_languages) {
 }
 window.calendar_languages['sv-SE'] = {
 	error_noview:     'Kalender: Vy {0} ej funnen',
-	error_dateformat: 'Kalender: Felaktigt datumformat {0}. Måste antingen vara "now" eller "åååå-mm-dd"',
-	error_loadurl:    'Kalender: Laddnings-URL för events är ej satt',
+	error_dateformat: 'Kalender: Felaktigt datumformat {0}. Skall vara antingen "now" eller "yyyy-mm-dd"',
+	error_loadurl:    'Kalender: Laddnings-URL för händelser är ej satt',
 	error_where:      'Kalender: Felaktig navigeringsriktning {0}. Kan endast vara "next", "prev" eller "today"',
-	error_timedevide: 'Kalender: parameter till tidsavgränsare måste dela 60 med ett heltal. Till exempel 10, 15, 30',
+	error_timedevide: 'Kalender: Parameter till tidsavgränsare måste dela 60 med ett heltal. Till exempel 10, 15, 30',
 
-	title_year:  'År {0}',
-	title_month: '{0} år {1}',
-	title_week:  '{0} vecka år {1}',
-	title_day:   '{0} {1} {2} år {3}',
+	title_year:  '{0}',
+	title_month: '{0} {1}',
+	title_week:  'Vecka {0} {1}',
+	title_day:   '{0} {1} {2} {3}',
 
 	week:        'Vecka {0}',
 	all_day:     'Hela dagen',
 	time:        'Tid',
-	events:      'Utvecklingen',
-	before_time: 'Tid före utgången bandet',
-	after_time:  'Avsluta efter ett tillfälligt band',
+	events:      'Händelser',
+	before_time: 'Slutar före tidsperiod',
+	after_time:  'Börjar efter tidsperiod',
 
 	m0:  'Januari',
 	m1:  'Februari',
@@ -55,7 +55,7 @@ window.calendar_languages['sv-SE'] = {
 	d6: 'Lördag',
 
 	easter:       'Påsk',
-	easterMonday: 'Påskmåndagen',
+	easterMonday: 'Måndagen efter påsk',
 
 	first_day: 1,
 
