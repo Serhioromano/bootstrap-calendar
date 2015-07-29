@@ -30,7 +30,7 @@ window.calendar_languages['fi-FI'] = {
     title_day: '{0} {1} {2}, {3}',
 
     week:        'Viikko',
-    all_day:     'Kaikki päivät',
+    all_day:     'Koko päivä',
     time:        'Aika',
     events:      'Tapahtumat',
     before_time: 'Loppu ennen aikajanaa',
@@ -105,5 +105,14 @@ window.calendar_languages['fi-FI'] = {
     //   - Easter and the day after Easter: 'easter>easter+1'
     //   Limitations: currently the multi-day holydays can't cross an year. So, for example, you can't specify a range as '30-12>01-01'; as a workaround you can specify two distinct holidays (for instance '30-12>31-12' and '01-01'). 
     holidays: {
+      // January 1
+      '01-01': "Uudenvuodenpäivä",
+      'easter': "Pääsiäinen",
+      // May 1
+      '01-05': "Vappu",
+      // December 6
+      '06-12': "Itsenäisyyspäivä",
+      // December 25
+      '25-12':  "Joulupäivä"
     }
 };
