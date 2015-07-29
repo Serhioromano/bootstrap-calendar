@@ -1112,10 +1112,10 @@ if(!String.prototype.formatNum) {
 		}
 
 
-		$('a.event').mouseenter(function() {
+		self.context.find('a.event').mouseenter(function() {
 			$('a[data-event-id="' + $(this).data('event-id') + '"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 		});
-		$('a.event').mouseleave(function() {
+		self.context.find('a.event').mouseleave(function() {
 			$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 		});
 	};
@@ -1128,7 +1128,7 @@ if(!String.prototype.formatNum) {
 		var activecell = 0;
 		var downbox = $(document.createElement('div')).attr('id', 'cal-day-tick').html('<i class="icon-chevron-down glyphicon glyphicon-chevron-down"></i>');
 
-		$('.cal-month-day, .cal-year-box .span3')
+		self.context.find('.cal-month-day, .cal-year-box .span3')
 			.on('mouseenter', function() {
 				if($('.events-list', this).length == 0) {
 					return;
