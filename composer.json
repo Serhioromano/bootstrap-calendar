@@ -19,5 +19,19 @@
     "components/underscore": "~1",
     "twbs/bootstrap": ">2.0.0",
     "moment/moment": "~2"
+  },
+  "extra" : {
+    "component" : {
+      "scripts" : [
+        "js/calendar.min.js"
+      ],
+      "styles" : [
+        "css/calendar.min.css"
+      ],
+      "files" : [
+        "js/language/*.js",
+        "tmpls/*.*"
+      ]
+    }
   }
 }
