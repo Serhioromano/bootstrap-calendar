@@ -60,13 +60,18 @@ window.calendar_languages['de-DE'] = {
 
 	holidays: {
 		'01-01':     'Neujahr',
+		'06-01':     'Heilige Drei Könige',
+		'easter-3':  'Gründonnerstag',
 		'easter-2':  'Karfreitag',
+		'easter':    'Ostersonntag',
 		'easter+1':  'Ostermontag',
-		'01-05':     'Erster Mai',
+		'01-05':     'Tag der Arbeit',
 		'easter+39': 'Himmelfahrt',
 		'easter+49': 'Pfingstsonntag',
 		'easter+50': 'Pfingstmontag',
+		'15-08':     'Mariä Himmelfahrt',
 		'03-10':     'Tag der Deutschen Einheit',
+		'01-11':     'Allerheiligen',
 		'25-12':     'Erster Weihnachtsfeiertag',
 		'26-12':     'Zweiter Weihnachtsfeiertag',
 	}
