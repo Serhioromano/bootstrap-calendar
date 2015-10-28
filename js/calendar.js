@@ -918,7 +918,7 @@ if(!String.prototype.formatNum) {
 							type: 'GET',
 							async: false,
 							beforeSend: function(request){
-								if(auth_header.lenght)
+								if(auth_header.length)
 									request.setRequestHeader('Authorization', 'Bearer ' + auth_header);
 				            },
 						}).done(function(json) {
