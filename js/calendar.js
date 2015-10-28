@@ -879,11 +879,11 @@ if(!String.prototype.formatNum) {
 		var self = this;
 		var source = null;
 		var auth_header = null;
-		if('events_source' in this.options && this.options.events_source !== '') {
-			source = this.options.events_source;
-		}
 		if('auth_header' in this.options && this.options.auth_header !== '') {
 			auth_header = this.options.auth_header;
+		}
+		if('events_source' in this.options && this.options.events_source !== '') {
+			source = this.options.events_source;
 		}
 		else if('events_url' in this.options) {
 			source = this.options.events_url;
@@ -918,7 +918,8 @@ if(!String.prototype.formatNum) {
 							type: 'GET',
 							async: false,
 							beforeSend: function(request){
-				                request.setRequestHeader('Authorization', 'Bearer ' + auth_header);
+								if(auth_header.lenght)
+									request.setRequestHeader('Authorization', 'Bearer ' + auth_header);
 				            },
 						}).done(function(json) {
 							if(!json.success) {
