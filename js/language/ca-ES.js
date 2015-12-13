@@ -48,7 +48,7 @@ window.calendar_languages['ca-ES'] = {
 	ms10: 'Nov',
 	ms11: 'Des',
 
-	d0: 'Fiumenge',
+	d0: 'Diumenge',
 	d1: 'Dilluns',
 	d2: 'Dimarts',
 	d3: 'Dimecres',
