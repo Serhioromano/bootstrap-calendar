@@ -59,6 +59,7 @@ if(!String.prototype.formatNum) {
 		//   returns an array of events (as described in events property description)
 		// - An array containing the events
 		events_source: '',
+		auth_header: '',
 		// Set format12 to true if you want to use 12 Hour format instead of 24 Hour
 		format12: false,
 		am_suffix: "AM",
@@ -877,6 +878,10 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
 		var source = null;
+		var auth_header = null;
+		if('auth_header' in this.options && this.options.auth_header !== '') {
+			auth_header = this.options.auth_header;
+		}
 		if('events_source' in this.options && this.options.events_source !== '') {
 			source = this.options.events_source;
 		}
@@ -911,7 +916,11 @@ if(!String.prototype.formatNum) {
 							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
-							async: false
+							async: false,
+							beforeSend: function(request){
+								if(auth_header.length)
+									request.setRequestHeader('Authorization', 'Bearer ' + auth_header);
+				            },
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
