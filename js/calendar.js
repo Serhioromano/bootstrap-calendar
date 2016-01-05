@@ -59,6 +59,9 @@ if(!String.prototype.formatNum) {
 		//   returns an array of events (as described in events property description)
 		// - An array containing the events
 		events_source: '',
+		// Static cache of events. If set to true, events will only be loaded once.
+		// Useful if response is not constrained by date.
+		events_cache: false,
 		// Set format12 to true if you want to use 12 Hour format instead of 24 Hour
 		format12: false,
 		am_suffix: "AM",
@@ -929,15 +932,17 @@ if(!String.prototype.formatNum) {
 			$.error(this.locale.error_loadurl);
 		}
 		this.options.onBeforeEventsLoad.call(this, function() {
-			self.options.events = loader();
-			self.options.events.sort(function(a, b) {
-				var delta;
-				delta = a.start - b.start;
-				if(delta == 0) {
-					delta = a.end - b.end;
-				}
-				return delta;
-			});
+			if (!self.options.events.length || !self.options.events_cache) {
+				self.options.events = loader();
+				self.options.events.sort(function (a, b) {
+					var delta;
+					delta = a.start - b.start;
+					if (delta == 0) {
+						delta = a.end - b.end;
+					}
+					return delta;
+				});
+			}
 			self.options.onAfterEventsLoad.call(self, self.options.events);
 		});
 	};
