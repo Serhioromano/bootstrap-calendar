@@ -59,6 +59,7 @@ window.calendar_languages['tr-TR'] = {
 	d6: 'Cumartesi',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01' : 'Yılbaşı',

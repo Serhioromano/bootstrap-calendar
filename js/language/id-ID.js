@@ -58,6 +58,7 @@ window.calendar_languages['id-ID'] = {
 	d6: 'Sabtu',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 	holidays: {
 		/* for 2015 */
 		'03-01-2015':     	'Maulid Nabi Muhammad SAW',

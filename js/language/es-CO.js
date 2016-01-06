@@ -59,6 +59,7 @@ window.calendar_languages['es-CO'] = {
   easterMonday: 'Lunes de Pascua',
 
   first_day: 1,
+  week_numbers_iso_8601: true,
 
   holidays: {
     // for 2014

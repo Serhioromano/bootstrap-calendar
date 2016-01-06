@@ -7,9 +7,21 @@
  */
 "use strict";
 
-Date.prototype.getWeek = function() {
-	var onejan = new Date(this.getFullYear(), 0, 1);
-	return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+Date.prototype.getWeek = function(iso8601) {
+	if (iso8601) {
+		var target = new Date(this.valueOf());
+		var dayNr  = (this.getDay() + 6) % 7;
+		target.setDate(target.getDate() - dayNr + 3);
+		var firstThursday = target.valueOf();
+		target.setMonth(0, 1);
+		if (target.getDay() != 4) {
+			target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+		}
+		return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
+	} else {
+		var onejan = new Date(this.getFullYear(), 0, 1);
+		return Math.ceil((((this.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+	}
 };
 Date.prototype.getMonthFormatted = function() {
 	var month = this.getMonth() + 1;
@@ -149,6 +161,7 @@ if(!String.prototype.formatNum) {
 
 	var defaults_extended = {
 		first_day: 2,
+		week_numbers_iso_8601: false,
 		holidays: {
 			// January 1
 			'01-01': "New Year's Day",
@@ -854,7 +867,7 @@ if(!String.prototype.formatNum) {
 				return this.locale.title_month.format(this.locale['m' + p.getMonth()], p.getFullYear());
 				break;
 			case 'week':
-				return this.locale.title_week.format(p.getWeek(), p.getFullYear());
+				return this.locale.title_week.format(p.getWeek(getExtentedOption(this, 'week_numbers_iso_8601')), p.getFullYear());
 				break;
 			case 'day':
 				return this.locale.title_day.format(this.locale['d' + p.getDay()], p.getDate(), this.locale['m' + p.getMonth()], p.getFullYear());
@@ -1103,7 +1116,7 @@ if(!String.prototype.formatNum) {
 					var day = (child.hasClass('cal-month-first-row') ? 1 : $('[data-cal-date]', child).text());
 					p.setDate(parseInt(day));
 					day = (day < 10 ? '0' + day : day);
-					week.html(self.locale.week.format(self.options.display_week_numbers == true ? p.getWeek() : ''));
+					week.html(self.locale.week.format(self.options.display_week_numbers == true ? p.getWeek(getExtentedOption(self, 'week_numbers_iso_8601')) : ''));
 					week.attr('data-cal-week', start + day).show().appendTo(child);
 				})
 				.on('mouseleave', function() {

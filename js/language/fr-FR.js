@@ -55,6 +55,7 @@ window.calendar_languages['fr-FR'] = {
 	d6: 'Samedi',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':     "Premier de l'an",

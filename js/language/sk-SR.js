@@ -72,6 +72,7 @@ window.calendar_languages['sk-SR'] = {
 
 	// Which is the first day of the week (2 for sunday, 1 for monday)
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	// The list of the holidays.
 	// Each holiday has a date definition and a name (in your language)

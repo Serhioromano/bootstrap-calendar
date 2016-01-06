@@ -58,6 +58,7 @@ window.calendar_languages['pl-PL'] = {
 	easterMonday: 'Poniedziałek wielkanocny',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':     "Nowy Rok",
