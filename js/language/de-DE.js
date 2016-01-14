@@ -57,6 +57,7 @@ window.calendar_languages['de-DE'] = {
 	d6: 'Samstag',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':     'Neujahr',

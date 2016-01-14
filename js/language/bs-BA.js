@@ -58,6 +58,7 @@ window.calendar_languages['bs-BA'] = {
 	d6: 'Subota',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		"01-01>02-01": "Nova godina",

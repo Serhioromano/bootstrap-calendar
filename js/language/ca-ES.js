@@ -60,6 +60,7 @@ window.calendar_languages['ca-ES'] = {
 	easterMonday: 'Dilluns de Pasqües',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':    "Any nou",

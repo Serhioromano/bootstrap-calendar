@@ -72,6 +72,8 @@ window.calendar_languages['en-US'] = {
 
 	// Which is the first day of the week (2 for sunday, 1 for monday)
 	first_day: 2,
+	// Week numbering according to ISO 8601 (if false, week 1 starts with January 1st)
+	week_numbers_iso_8601: false,
 
 	// The list of the holidays.
 	// Each holiday has a date definition and a name (in your language)

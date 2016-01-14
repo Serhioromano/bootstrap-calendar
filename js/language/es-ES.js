@@ -60,6 +60,7 @@ window.calendar_languages['es-ES'] = {
 	easterMonday: 'Lunes de Pascua',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':    "Año Nuevo",

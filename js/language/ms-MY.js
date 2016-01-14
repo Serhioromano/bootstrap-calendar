@@ -60,7 +60,8 @@ window.calendar_languages['ms-MY'] = {
 	d5: 'Jumaat',
 	d6: 'Sabatu',
 
-	first_day: 2,
+	first_day: 1,
+	week_numbers_iso_8601: true,
  
 	holidays: {
 		'18-07-2015':     	'Hari Raya Aidil Fitri 1436 Hijriah',

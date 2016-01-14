@@ -57,6 +57,7 @@ window.calendar_languages['da-DK'] = {
 	d6: 'Lørdag',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 	  '01-01':'Nytårsdag',

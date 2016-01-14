@@ -58,7 +58,7 @@ window.calendar_languages['es-MX'] = {
 	easter:       'Pascuas',
 	easterMonday: 'Lunes de Pascuas',
 
-	first_day: 1,
+	first_day: 2,
 
 	holidays: {
 		'01-01': "Año Nuevo",

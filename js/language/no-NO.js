@@ -58,6 +58,7 @@ window.calendar_languages['no-NO'] = {
 	easterMonday: 'Første påskedag',
 
 	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 	}

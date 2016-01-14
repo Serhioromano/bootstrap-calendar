@@ -62,6 +62,7 @@ window.calendar_languages['hu-HU'] = {
 
 	// Which is the first day of the week (2 for sunday, 1 for monday)
 	first_day: 1,
+	week_numbers_iso_8601: true,
     holidays: {
 		'01-01':     'Újév',
 		'easter+1':  'Húsvéthétfő',

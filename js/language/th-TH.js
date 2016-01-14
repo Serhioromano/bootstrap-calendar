@@ -67,7 +67,8 @@ window.calendar_languages['th-TH'] = {
 	d5: 'ศุกร์',
 	d6: 'เสาร์',
 
-	first_day: 2,
+	first_day: 1,
+	week_numbers_iso_8601: true,
 	holidays: {
 	}
 };

@@ -59,7 +59,8 @@ window.calendar_languages['el-GR'] = {
 	easter:       'Πάσχα',
 	easterMonday: 'Δευτέρα του Πάσχα',
 
-	first_day: 2,
+	first_day: 1,
+	week_numbers_iso_8601: true,
 
 	holidays: {
 		'01-01':     "Πρωτοχρονιά",
