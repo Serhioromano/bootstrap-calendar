@@ -126,6 +126,7 @@ if(!String.prototype.formatNum) {
 		merge_holidays: false,
 		display_week_numbers: true,
 		weekbox: true,
+		hide_event_listing_body_click: true,
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
@@ -1217,10 +1218,12 @@ if(!String.prototype.formatNum) {
 			self.activecell = $('[data-cal-date]', cell).text();
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
 			slider.slideDown('fast', function() {
-				$('body').one('click', function() {
-					slider.slideUp('fast');
-					self.activecell = 0;
-				});
+				if(self.options.hide_event_listing_body_click){
+					$('body').one('click', function() {
+						slider.slideUp('fast');
+						self.activecell = 0;
+					});
+				}
 			});
 		});
 
