@@ -875,6 +875,21 @@ if(!String.prototype.formatNum) {
 		}
 		return;
 	};
+	
+	Calendar.prototype.getYear = function() {
+		var p = this.options.position.start;
+		return p.getFullYear();
+	};
+
+	Calendar.prototype.getMonth = function() {
+		var p = this.options.position.start;
+		return this.locale['m' + p.getMonth()];
+	};
+
+	Calendar.prototype.getDay = function() {
+		var p = this.options.position.start;
+		return this.locale['d' + p.getDay()];
+	};
 
 	Calendar.prototype.isToday = function() {
 		var now = new Date().getTime();
