@@ -68,6 +68,6 @@ window.calendar_languages['ms-MY'] = {
 
 		'01-01':     				'Sambutan Tahun Baru',
 		'01-05':     				'Hari Pekerja',
-		'31-08':     				'Hari Kemerdekaan Malaysia (Independence Day)',
+		'31-08':     				'Hari Kemerdekaan Malaysia (Independence Day)'
 	}
 };

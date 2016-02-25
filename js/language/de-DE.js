@@ -74,6 +74,6 @@ window.calendar_languages['de-DE'] = {
 		'03-10':     'Tag der Deutschen Einheit',
 		'01-11':     'Allerheiligen',
 		'25-12':     'Erster Weihnachtsfeiertag',
-		'26-12':     'Zweiter Weihnachtsfeiertag',
+		'26-12':     'Zweiter Weihnachtsfeiertag'
 	}
 };

@@ -61,6 +61,6 @@ window.calendar_languages['zh-TW'] = {
 
 	holidays:  {
 		'01-01': '元旦',
-        '10-10': '國慶日',
+        '10-10': '國慶日'
 	}
 };
