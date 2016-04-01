@@ -274,7 +274,7 @@
   margin-left: -60px;
 }
 .cal-day-box .day-event {
-  position: relative;
+  position: absolute;
   overflow: hidden;
 }
 .cal-day-box .day-event.max-width {
