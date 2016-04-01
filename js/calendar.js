@@ -939,6 +939,10 @@ if(!String.prototype.formatNum) {
 			source = this.options.events_url;
 			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
 		}
+		var headers = null;
+		if('headers' in this.options && this.options.headers !== '') {
+			headers = this.options.headers;
+		}
 		var loader;
 		switch($.type(source)) {
 			case 'function':
@@ -966,7 +970,8 @@ if(!String.prototype.formatNum) {
 							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
-							async: false
+							async: false,
+							headers: headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
