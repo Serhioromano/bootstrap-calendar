@@ -71,7 +71,7 @@ if(!String.prototype.formatNum) {
 		// define event width by css or auto width
 		event_css_max_width: true,
 		// cut events
-		cut_event: false,
+		cut_event: true,
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
