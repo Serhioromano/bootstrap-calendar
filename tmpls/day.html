@@ -1,4 +1,4 @@
-<div id="cal-day-box">
+<div class="cal-day-box">
 	<div class="row-fluid clearfix cal-row-head">
 		<div class="span1 col-xs-1 cal-cell"><%= cal.locale.time %></div>
 		<div class="span11 col-xs-11 cal-cell"><%= cal.locale.events %></div>
@@ -24,20 +24,18 @@
 				<% _.each(before_time, function(event){ %>
 					<div class="day-highlight dh-<%= event['class'] %>">
 						<span class="cal-hours pull-right"><%= event.end_hour %></span>
-						<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
-						   data-event-class="<%= event['class'] %>" class="event-item">
-							<%= event.title %></a>
+						<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>" class="event-item"><%= event.title %></a>
 					</div>
 				<% }); %>
 			</div>
 		</div>
 	<% }; %>
-	<div id="cal-day-panel" class="clearfix">
-		<div id="cal-day-panel-hour">
+	<div class="cal-day-panel clearfix">
+		<div class="cal-day-panel-hour">
 			<% for(i = 0; i < hours; i++){ %>
 				<div class="cal-day-hour">
 					<% for(l = 0; l < cal._hour_min(i); l++){ %>
-						<div class="row-fluid cal-day-hour-part">
+						<div class="row-fluid cal-day-hour-part" style="height:<%= hour_height %>px">
 							<div class="span1 col-xs-1"><b><%= cal._hour(i, l) %></b></div>
 							<div class="span11 col-xs-11"></div>
 						</div>
@@ -47,7 +45,7 @@
 		</div>
 		
 		<% _.each(by_hour, function(event){ %>
-			<div class="pull-left day-event day-highlight dh-<%= event['class'] %>" style="margin-top: <%= (event.top * 30) %>px; height: <%= (event.lines * 30) %>px">
+			<div class="pull-left day-event day-highlight dh-<%= event['class'] %>" style="background-color:<%= event.color ? event.color : '' %>; margin-top: <%= (event.top * hour_height) %>px; height: <%= (event.lines * hour_height) %>px">
 				<span class="cal-hours"><%= event.start_hour %> - <%= event.end_hour %></span>
 				<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>"
 				   data-event-class="<%= event['class'] %>" class="event-item">
