@@ -588,7 +588,7 @@ if(!String.prototype.formatNum) {
 			}
 
 			e.lines = lines_in_event;
-			if(lines_in_event > lines_left && this.options.cut_event) {
+			if(lines_in_event > lines_left && $self.options.cut_event) {
 				e.lines = lines_left;
 			}
 
