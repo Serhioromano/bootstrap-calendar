@@ -52,6 +52,8 @@ if(!String.prototype.formatNum) {
 (function($) {
 
 	var defaults = {
+        // Container to append the tooltip
+        tooltip_container : 'body',
 		// Width of the calendar
 		width: '100%',
 		// Initial view (can be 'month', 'week', 'day')
@@ -988,7 +990,7 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update = function() {
 		var self = this;
 
-		$('*[data-toggle="tooltip"]').tooltip({container: 'body'});
+		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
 
 		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
