@@ -59,4 +59,4 @@ window.calendar_languages['hr-HR'] = {
 
         first_day: 1,
         week_numbers_iso_8601: true
-}
+};

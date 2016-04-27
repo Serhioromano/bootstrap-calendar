@@ -75,6 +75,6 @@ window.calendar_languages['de-AT'] = {
 		'24-12':     'Heiliger Abend',
 		'25-12':     'Weihnachten',
 		'26-12':     'Stefanitag',
-		'31-12':     'Silvester',
+		'31-12':     'Silvester'
 	}
 };

@@ -87,6 +87,6 @@ window.calendar_languages['ro-RO'] = {
 		'01-12':  	 "Ziua Naţională a României",
 		'25-12':  	 "Naşterea Domnului Nostru Iisus Hristos – Crăciunul",
 		'26-12':  	 "A doua zi de Crăciun; Soborul Maicii",
-		'27-12':  	 "Sfântul Întâiul Mucenic şi Arhidiacon Ştefan",
+		'27-12':  	 "Sfântul Întâiul Mucenic şi Arhidiacon Ştefan"
 	}
 };

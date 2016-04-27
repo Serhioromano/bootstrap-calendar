@@ -70,6 +70,6 @@ window.calendar_languages['da-DK'] = {
 	  'easter+49':'Pinsedag',
 	  'easter+50':'2. Pinsedag',
 	  '25-12':'Juledag',
-	  '26-12':'2. Juledag',
+	  '26-12':'2. Juledag'
 	}
 };
