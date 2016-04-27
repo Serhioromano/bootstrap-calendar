@@ -30,7 +30,8 @@
       ],
       "files" : [
         "js/language/*.js",
-        "tmpls/*.*"
+        "tmpls/*.*",
+        "img/*.*"
       ]
     }
   }
