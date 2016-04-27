@@ -916,9 +916,9 @@ if(!String.prototype.formatNum) {
 				if(source.length) {
 					loader = function() {
 						var events = [];
-                                                var d = new Date();
-                                                var utc_offset = d.getTimezoneOffset();
-                                                var params = {from: self.options.position.start.getTime(), to: self.options.position.end.getTime(), utc_offset: utc_offset};
+                                                var d_from = self.options.position.start;
+                                                var d_to = self.options.position.end;
+                                                var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
 
 						if(browser_timezone.length) {
 							params.browser_timezone = browser_timezone;
