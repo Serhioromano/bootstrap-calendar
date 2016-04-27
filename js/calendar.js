@@ -64,6 +64,16 @@ if(!String.prototype.formatNum) {
 		time_start: '06:00',
 		time_end: '22:00',
 		time_split: '30',
+		// height for an hour
+		hour_height: 30,
+		// start on hour
+		always_start_on_hour: false,
+		// allow event over midnight
+		allow_over_midnight: false,
+		// define event width by css or auto width
+		event_css_max_width: true,
+		// cut events
+		cut_event: true,
 		// Source of events data. It can be one of the following:
 		// - URL to return JSON list of events in special format.
 		//   {success:1, result: [....]} or for error {success:0, error:'Something terrible happened'}
@@ -439,6 +449,9 @@ if(!String.prototype.formatNum) {
 
 		data.events = this.getEventsBetween(start, end);
 
+		// height for an hour
+		data.hour_height = this.options.hour_height;
+
 		switch(this.options.view) {
 			case 'month':
 				break;
@@ -498,13 +511,30 @@ if(!String.prototype.formatNum) {
 		var time_start = this.options.time_start.split(":");
 		var time_end = this.options.time_end.split(":");
 
-		data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * time_split_hour;
+		var hour_end = parseInt(time_end[0])
+		// calculate end hour if minutes > 0
+		if (parseInt(time_end[1]) > 0) {
+			hour_end++;
+		}
+		// event over midnight not allowed
+		if (!this.options.allow_over_midnight) {
+			data.hours = (parseInt(time_end[0]) - parseInt(time_start[0])) * time_split_hour;
+		}
+		// over midnight allowed but time_start is before time_end
+		else if (this.options.allow_over_midnight && parseInt(time_end[0]) > parseInt(time_start[0])) {
+			data.hours = (hour_end - parseInt(time_start[0])) * time_split_hour;
+		}
+		// over midnight allowed so extend hours to display it correctly
+		else if (this.options.allow_over_midnight) {
+			data.hours = (hour_end - parseInt(time_start[0]) + 24) * time_split_hour;
+		}
+
 		var lines = data.hours * time_split_count - parseInt(time_start[1]) / time_split;
 		var ms_per_line = (60000 * time_split);
 
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
-		start.setMinutes(time_start[1]);
+		start.setMinutes(this.options.always_start_on_hour ? 0 : time_start[1]);
 		var end = new Date(this.options.position.end.getTime());
 		end.setHours(time_end[0]);
 		end.setMinutes(time_end[1]);
@@ -560,7 +590,7 @@ if(!String.prototype.formatNum) {
 			}
 
 			e.lines = lines_in_event;
-			if(lines_in_event > lines_left) {
+			if(lines_in_event > lines_left && $self.options.cut_event) {
 				e.lines = lines_left;
 			}
 
@@ -581,7 +611,8 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._hour = function(hour, part) {
 		var time_start = this.options.time_start.split(":");
 		var time_split = parseInt(this.options.time_split);
-		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1));
+		// modulo 24 to display correct time after midnight
+		var h = "" + (parseInt(time_start[0]) + hour * Math.max(time_split / 60, 1)) % 24;
 		var m = "" + time_split * part;
 
 		return this._format_hour(h.formatNum(2) + ":" + m.formatNum(2));
@@ -917,6 +948,10 @@ if(!String.prototype.formatNum) {
 			source = this.options.events_url;
 			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
 		}
+		var headers = null;
+		if('headers' in this.options && this.options.headers !== '') {
+			headers = this.options.headers;
+		}
 		var loader;
 		switch($.type(source)) {
 			case 'function':
@@ -944,7 +979,8 @@ if(!String.prototype.formatNum) {
 							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
-							async: false
+							async: false,
+							headers: headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
@@ -1108,7 +1144,17 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_day = function() {
-		$('#cal-day-panel').height($('#cal-day-panel-hour').height());
+		// set calendar height
+		var panelHour = $('.cal-day-panel-hour', this.context);
+		$('.cal-day-panel', this.context).height(panelHour.height());
+		// option to set event full width
+		if (this.options.event_css_max_width) {
+			// define max width by css
+			$('.day-event', this.context).addClass('max-width');
+		} else {
+			// auto width
+			$('.day-event', this.context).width(panelHour.find('.span11.col-xs-11').width() * .95);
+		}
 	};
 
 	Calendar.prototype._update_week = function() {
@@ -1232,7 +1278,7 @@ if(!String.prototype.formatNum) {
 			}));
 			row.after(slider);
 			self.activecell = $('[data-cal-date]', cell).text();
-			$('#cal-slide-tick').addClass('tick' + tick_position).show();
+			$('.cal-slide-tick').addClass('tick' + tick_position).show();
 			slider.slideDown('fast', function() {
 				$('body').one('click', function() {
 					slider.slideUp('fast');
