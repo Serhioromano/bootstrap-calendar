@@ -2,9 +2,7 @@
   "name": "bootstrap-calendar",
   "version": "0.2.4",
   "description": "Bootstrap full view calendar",
-  "main": [
-    "./js/calendar.js"
-  ],
+  "main": "./js/calendar.js",
   "scripts": {
     "test": ""
   },
