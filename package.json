@@ -1,26 +1,31 @@
 {
   "name": "bootstrap-calendar",
-  "version": "0.2.4",
-  "description": "Bootstrap full view calendar",
+  "version": "0.2.5",
+  "description": "Calendar module based on Bootsrap and jQuery",
   "main": "./js/calendar.js",
+  "dependencies": {
+    "bower": "^0.8.5",
+    "grunt": "^0.4.1",
+    "grunt-contrib-cssmin": "^0.5.0",
+    "grunt-contrib-less": "^0.7.0",
+    "grunt-contrib-uglify": "^0.2.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": ""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Serhioromano/bootstrap-calendar.git"
+    "url": "git+https://github.com/Serhioromano/bootstrap-calendar.git"
   },
   "keywords": [
     "calendar"
   ],
-  "author": "Sergey Romanov",
-  "license": "BSD",
   "readmeFilename": "README.md",
-  "gitHead": "fc46075a07e08b1796f959c6562d851acce00751",
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-less": "~0.7.0",
-    "grunt-contrib-uglify": "~0.2.0",
-    "bower": "~0.8.5"
-  }
+  "author": "Sergey Romanov",
+  "license": "AML",
+  "bugs": {
+    "url": "https://github.com/Serhioromano/bootstrap-calendar/issues"
+  },
+  "homepage": "https://github.com/Serhioromano/bootstrap-calendar#readme"
 }
