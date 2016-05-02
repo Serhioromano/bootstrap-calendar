@@ -12,4 +12,4 @@ If you want to contribute please follow this instruction.
 
    Please do not make magnified version of `calendar.js`
 
-8. Pull to github and send Pull Request.
+8. Push to github and send Pull Request.
