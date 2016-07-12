@@ -505,7 +505,7 @@ if(!String.prototype.formatNum) {
 		var start = new Date(this.options.position.start.getTime());
 		start.setHours(time_start[0]);
 		start.setMinutes(time_start[1]);
-		var end = new Date(this.options.position.end.getTime());
+		var end = new Date(this.options.position.end.getTime()-(86400000));
 		end.setHours(time_end[0]);
 		end.setMinutes(time_end[1]);
 
