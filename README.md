@@ -53,7 +53,8 @@ You will need to include the bootstrap css and calendar css. Here is the minimum
 			var calendar = $("#calendar").calendar(
 				{
 					tmpl_path: "/tmpls/",
-					events_source: function () { return []; }
+					events_source: function () { return []; },
+					hide_event_listing_body_click: false // prevents hiding event listing when clicking outside selection
 				});			
 		</script>
 	</body>
