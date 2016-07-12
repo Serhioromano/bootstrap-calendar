@@ -598,19 +598,24 @@ if(!String.prototype.formatNum) {
 		var first_day = getExtentedOption(this, 'first_day');
 
 		$.each(this.getEventsBetween(start, end), function(k, event) {
-			event.start_day = new Date(parseInt(event.start)).getDay();
+			var eventStart  = new Date(parseInt(event.start));
+			eventStart.setHours(0,0,0,0);
+			var eventEnd    = new Date(parseInt(event.end));
+			eventEnd.setHours(23,59,59,999);
+
+			event.start_day = new Date(parseInt(eventStart.getTime())).getDay();
 			if(first_day == 1) {
 				event.start_day = (event.start_day + 6) % 7;
 			}
-			if((event.end - event.start) <= 86400000) {
+			if((eventEnd.getTime() - eventStart.getTime()) <= 86400000) {
 				event.days = 1;
 			} else {
-				event.days = ((event.end - event.start) / 86400000);
+				event.days = ((eventEnd.getTime() - eventStart.getTime()) / 86400000);
 			}
 
-			if(event.start < start) {
+			if(eventStart.getTime() < start) {
 
-				event.days = event.days - ((start - event.start) / 86400000);
+				event.days = event.days - ((start - eventStart.getTime()) / 86400000);
 				event.start_day = 0;
 			}
 
