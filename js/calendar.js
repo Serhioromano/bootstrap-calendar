@@ -530,13 +530,13 @@ if(!String.prototype.formatNum) {
 				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
 			}
 
-			if(e.start < start.getTime() && e.end > end.getTime()) {
-				data.all_day.push(e);
+			if(e.start < start.getTime()) {
+				data.before_time.push(e);
 				return;
 			}
 
-			if(e.end < start.getTime()) {
-				data.before_time.push(e);
+			if(e.start < start.getTime() && e.end > end.getTime()) {
+				data.all_day.push(e);
 				return;
 			}
 
