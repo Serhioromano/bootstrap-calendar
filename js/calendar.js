@@ -53,7 +53,9 @@ if(!String.prototype.formatNum) {
 
 	var defaults = {
         // Container to append the tooltip
-        tooltip_container : 'body',
+	    tooltip_container : 'body',
+	    // Container to append the popover
+	    popover_container : 'body',
 		// Width of the calendar
 		width: '100%',
 		// Initial view (can be 'month', 'week', 'day')
@@ -439,16 +441,7 @@ if(!String.prototype.formatNum) {
 
 		data.events = this.getEventsBetween(start, end);
 
-		switch(this.options.view) {
-			case 'month':
-				break;
-			case 'week':
-				this._calculate_hour_minutes(data);
-				break;
-			case 'day':
-				this._calculate_hour_minutes(data);
-				break;
-		}
+		this._calculate_hour_minutes(data);
 
 		data.start = new Date(this.options.position.start.getTime());
 		data.lang = this.locale;
@@ -815,6 +808,15 @@ if(!String.prototype.formatNum) {
 		}
 	};
 
+	Calendar.prototype.jumpTo = function (month, year) {
+	    var to = $.extend({}, this.options.position);
+	    to.start.setMonth(month);
+	    to.start.setFullYear(year);
+
+	    this.options.day = to.start.getFullYear() + '-' + to.start.getMonthFormatted() + '-' + to.start.getDateFormatted();
+	    this.view();
+	};
+
 	Calendar.prototype._init_position = function() {
 		var year, month, day;
 
@@ -1010,7 +1012,12 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update = function() {
 		var self = this;
 
-		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
+		$('*[data-toggle="tooltip"]').tooltip({ container: this.options.tooltip_container });
+		$('*[data-toggle="popover"]').popover({
+		    container: this.options.popover_container,
+		    html: true,
+            placement: 'top'
+		});
 
 		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
@@ -1200,7 +1207,7 @@ if(!String.prototype.formatNum) {
 		this._loadTemplate('events-list');
 
 		downbox.click(function(event) {
-			showEventsList(event, $(this), slider, self);
+		    showEventsList(event, $(this), slider, self);
 		});
 	};
 
@@ -1243,6 +1250,12 @@ if(!String.prototype.formatNum) {
 					slider.slideUp('fast');
 					self.activecell = 0;
 				});
+			});
+
+			$('*[data-toggle="popover"]').popover({
+			    container: self.options.popover_container,
+			    html: true,
+			    placement: 'top'
 			});
 		});
 
