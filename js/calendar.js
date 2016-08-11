@@ -441,7 +441,16 @@ if(!String.prototype.formatNum) {
 
 		data.events = this.getEventsBetween(start, end);
 
-		this._calculate_hour_minutes(data);
+		switch(this.options.view) {
+			case 'month':
+				break;
+			case 'week':
+				this._calculate_hour_minutes(data);
+				break;
+			case 'day':
+				this._calculate_hour_minutes(data);
+				break;
+		}
 
 		data.start = new Date(this.options.position.start.getTime());
 		data.lang = this.locale;
