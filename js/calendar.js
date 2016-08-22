@@ -52,8 +52,8 @@ if(!String.prototype.formatNum) {
 (function($) {
 
 	var defaults = {
-        // Container to append the tooltip
-        tooltip_container : 'body',
+		// Container to append the tooltip
+		tooltip_container : 'body',
 		// Width of the calendar
 		width: '100%',
 		// Initial view (can be 'month', 'week', 'day')
@@ -128,6 +128,9 @@ if(!String.prototype.formatNum) {
 		merge_holidays: false,
 		display_week_numbers: true,
 		weekbox: true,
+		//shows events which fits between time_start and time_end
+		show_events_which_fits_time: false,
+
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
@@ -530,19 +533,36 @@ if(!String.prototype.formatNum) {
 				e.end_hour = f.getDate() + ' ' + $self.locale['ms' + f.getMonth()] + ' ' + e.end_hour;
 			}
 
-			if(e.start < start.getTime() && e.end > end.getTime()) {
-				data.all_day.push(e);
-				return;
-			}
+			if(!$self.options.show_events_which_fits_time) {
+				if(e.start < start.getTime() && e.end > end.getTime()) {
+					data.all_day.push(e);
+					return;
+				}
 
-			if(e.end < start.getTime()) {
-				data.before_time.push(e);
-				return;
-			}
+				if(e.end < start.getTime()) {
+					data.before_time.push(e);
+					return;
+				}
 
-			if(e.start > end.getTime()) {
-				data.after_time.push(e);
-				return;
+				if(e.start > end.getTime()) {
+					data.after_time.push(e);
+					return;
+				}
+			} else {
+				if(e.start < start.getTime()) {
+					data.before_time.push(e);
+					return;
+				}
+
+				if(e.end > end.getTime()) {
+					data.after_time.push(e);
+					return;
+				}
+
+				if(e.start < start.getTime() && e.end < end.getTime()) {
+					data.all_day.push(e);
+					return;
+				}
 			}
 
 			var event_start = start.getTime() - e.start;
@@ -566,9 +586,6 @@ if(!String.prototype.formatNum) {
 
 			data.by_hour.push(e);
 		});
-
-		//var d = new Date('2013-03-14 13:20:00');
-		//warn(d.getTime());
 	};
 
 	Calendar.prototype._hour_min = function(hour) {
@@ -882,7 +899,7 @@ if(!String.prototype.formatNum) {
 		}
 		return;
 	};
-	
+
 	Calendar.prototype.getYear = function() {
 		var p = this.options.position.start;
 		return p.getFullYear();
@@ -938,9 +955,9 @@ if(!String.prototype.formatNum) {
 				if(source.length) {
 					loader = function() {
 						var events = [];
-                                                var d_from = self.options.position.start;
-                                                var d_to = self.options.position.end;
-                                                var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
+						var d_from = self.options.position.start;
+						var d_to = self.options.position.end;
+						var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
 
 						if(browser_timezone.length) {
 							params.browser_timezone = browser_timezone;
