@@ -1228,6 +1228,19 @@ if(!String.prototype.formatNum) {
 				return true;
 			}
 			var event_end = this.end || this.start;
+			
+			/* Allow repeating events based on class name */
+			var cal = this;
+			if (this.class == "birthday" || this.class == "anniversary" || this.class == "annual") {
+				var repeat_start = new Date(this.start);
+				var repeat_end = new Date(this.end);
+				var this_year = cal.options.position.start.getFullYear();
+				repeat_start.setFullYear(this_year);
+				repeat_end.setFullYear(this_year);
+				this.start = repeat_start.getTime();
+				this.end = repeat_end.getTime();
+			}
+			
 			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
 				events.push(this);
 			}
