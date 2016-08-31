@@ -1223,6 +1223,7 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype.getEventsBetween = function(start, end) {
 		var events = [];
+		var cal = this;
 		$.each(this.options.events, function() {
 			if(this.start == null) {
 				return true;
@@ -1230,7 +1231,6 @@ if(!String.prototype.formatNum) {
 			var event_end = this.end || this.start;
 			
 			/* Allow repeating events based on class name */
-			var cal = this;
 			if (this.class == "birthday" || this.class == "anniversary" || this.class == "annual") {
 				var repeat_start = new Date(this.start);
 				var repeat_end = new Date(this.end);
