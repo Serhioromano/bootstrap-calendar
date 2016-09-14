@@ -128,11 +128,16 @@ if(!String.prototype.formatNum) {
 		merge_holidays: false,
 		display_week_numbers: true,
 		weekbox: true,
+<<<<<<< HEAD
 		//shows events which fits between time_start and time_end
 		show_events_which_fits_time: false,
 		// Headers defined for ajax call
 		headers: {},
 
+=======
+		// Headers defined for ajax call
+		headers: {},
+>>>>>>> branch 'feature-header' of https://github.com/aguillem/bootstrap-calendar.git
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
