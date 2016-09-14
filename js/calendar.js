@@ -126,6 +126,8 @@ if(!String.prototype.formatNum) {
 		merge_holidays: false,
 		display_week_numbers: true,
 		weekbox: true,
+		// Headers defined for ajax call
+		headers: {},
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
 		// those to affect you UI
@@ -900,10 +902,6 @@ if(!String.prototype.formatNum) {
 			source = this.options.events_url;
 			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
 		}
-		var headers = null;
-		if('headers' in this.options && this.options.headers !== '') {
-			headers = this.options.headers;
-		}
 		var loader;
 		switch($.type(source)) {
 			case 'function':
@@ -932,7 +930,7 @@ if(!String.prototype.formatNum) {
 							dataType: 'json',
 							type: 'GET',
 							async: false,
-							headers: headers,
+							headers: this.options.headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
