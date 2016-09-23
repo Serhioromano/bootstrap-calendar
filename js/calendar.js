@@ -130,6 +130,8 @@ if(!String.prototype.formatNum) {
 		weekbox: true,
 		//shows events which fits between time_start and time_end
 		show_events_which_fits_time: false,
+		// Headers defined for ajax call
+		headers: {},
 
 		// ------------------------------------------------------------
 		// CALLBACKS. Events triggered by calendar class. You can use
@@ -966,7 +968,8 @@ if(!String.prototype.formatNum) {
 							url: buildEventsUrl(source, params),
 							dataType: 'json',
 							type: 'GET',
-							async: false
+							async: false,
+							headers: this.options.headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
