@@ -62,21 +62,31 @@ window.calendar_languages['es-CL'] = {
 	first_day: 1,
 	week_numbers_iso_8601: true,
 
-	//Feriados Año 2016 de http://www.feriados.cl/
+	//Holidays from http://www.timeanddate.com/holidays/chile
 	holidays: {
 		'01-01':    "Año Nuevo",
-		'25-03':    "Viernes Santo",
-		'26-03': 	"Sábado Santo",
+		'easter-2': "Viernes Santo",
+		'easter-1': "Sábado Santo",
+		'easter':   "Pascua",
 		'01-05':    "Día del Trabajador",
 		'21-05':    "Día de las Glorias Navales",
-		'19-06':    "Elecciones Primarias Municipales",
-		'27-06':    "San Pedro y San Pablo",
+		'19-06-2016':    "Elecciones Primarias Municipales",
+		//Saint Peter and Saint Paul varies according to the year
+		'27-06-2016':    "San Pedro y San Pablo",
+		'26-06-2017':    "San Pedro y San Pablo",
+		'02-07-2018':    "San Pedro y San Pablo",
 		'16-07':    "Día de la Virgen del Carmen",
-		'15-08':    "Asunción de la Virgen",
+		'easter+39':    "Asunción de la Virgen",
 		'18-09':    "Independencia Nacional",
 		'19-09':    "Día de las Glorias del Ejército",
-		'10-10':    "Encuentro de Dos Mundos",
+		//Columbus day varies depending on the year 
+		'10-10-2016':    "Encuentro de Dos Mundos",
+		'09-10-2017':    "Encuentro de Dos Mundos",
+		'15-10-2018':    "Encuentro de Dos Mundos",
+		//Reformation day varies depending on the year 
 		'31-10':    "Día de las Iglesias Evangélicas y Protestantes",
+		'27-10-2017':    "Día de las Iglesias Evangélicas y Protestantes",	
+		'02-10-2018':    "Día de las Iglesias Evangélicas y Protestantes",
 		'01-11':    "Día de todos los Santos",
 		'08-12':    "Inmaculada Concepción",
 		'25-12':    "Navidad"
