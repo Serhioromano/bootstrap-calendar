@@ -968,7 +968,7 @@ if(!String.prototype.formatNum) {
 							dataType: 'json',
 							type: 'GET',
 							async: false,
-							headers: this.options.headers,
+							headers: self.options.headers,
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
