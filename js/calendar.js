@@ -536,7 +536,7 @@ if(!String.prototype.formatNum) {
 			}
 
 			if(!$self.options.show_events_which_fits_time) {
-				if(e.start < start.getTime() && e.end > end.getTime()) {
+				if(e.start <= start.getTime() && e.end >= end.getTime()) {
 					data.all_day.push(e);
 					return;
 				}
@@ -620,7 +620,6 @@ if(!String.prototype.formatNum) {
 			var eventStart  = new Date(parseInt(event.start));
 			eventStart.setHours(0,0,0,0);
 			var eventEnd    = new Date(parseInt(event.end));
-			eventEnd.setHours(23,59,59,999);
 
 			event.start_day = new Date(parseInt(eventStart.getTime())).getDay();
 			if(first_day == 1) {
@@ -1231,7 +1230,7 @@ if(!String.prototype.formatNum) {
 				return true;
 			}
 			var event_end = this.end || this.start;
-			if((parseInt(this.start) < end) && (parseInt(event_end) >= start)) {
+			if((parseInt(this.start) < end) && (parseInt(event_end) > start)) {
 				events.push(this);
 			}
 		});
