@@ -2,7 +2,7 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 window.calendar_languages['pt-BR'] = {
-	error_noview:     'Calendar: View {0} not found',
+	error_noview:     'Calendar: View {0} não encontrada',
 	error_dateformat: 'Calendar: Formato de data inválido {0}. Deve ser "now" ou "yyyy-mm-dd"',
 	error_loadurl:    'Calendar: URL de carregamento de eventos não está atribuida',
 	error_where:      'Calendar: Direção de navegação errada {0}. Só pode ser "next", "prev" ou "today"',
@@ -13,7 +13,7 @@ window.calendar_languages['pt-BR'] = {
 	title_week:  '{1} - Semana {0}',
 	title_day:   '{0}, {1} de {2} de {3}',
 
-	week:        'Week {0}',
+	week:        'Semana {0}',
 	all_day:     'Durante todo o dia',
 	time:        'Tempo',
 	events:      'Desenvolvimentos',
