@@ -1,7 +1,7 @@
 Bootstrap Calendar
 ===
 
-A Full view calendar based on Twitter Bootstrap. Please try the [demo](http://bootstrap-calendar.azurewebsites.net).
+A Full view calendar based on Twitter Bootstrap. Please try the [demo](http://bootstrap-calendar.eivissapp.com/).
 
 ![Bootstrap full calendar](http://serhioromano.s3.amazonaws.com/github/bs-calendar.png)
 
