@@ -22,7 +22,7 @@ window.calendar_languages['cs-CZ'] = {
 	title_month: '{0} {1}',
 	// {0} will be replaced with the week number (example: 37)
 	// {1} will be replaced with the year (example: 2013)
-	title_week: 'týden {0} of {1}',
+	title_week: 'týden {0} z {1}',
 	// {0} will be replaced with the weekday name (example: Thursday)
 	// {1} will be replaced with the day of the month (example: 12)
 	// {2} will be replaced with the month name (example: September)
