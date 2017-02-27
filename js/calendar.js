@@ -462,10 +462,12 @@ if(!String.prototype.formatNum) {
 		this._update();
 	};
 
-	Calendar.prototype._format_hour = function(str_hour) {
+	Calendar.prototype._format_hour = function(str_hour, leadingZero) {
 		var hour_split = str_hour.split(":");
 		var hour = parseInt(hour_split[0]);
 		var minutes = parseInt(hour_split[1]);
+		var leadingZero = leadingZero == 'undefined' ? true : false;
+		var hourLength = leadingZero ? 2 : 1;
 
 		var suffix = '';
 
@@ -483,7 +485,7 @@ if(!String.prototype.formatNum) {
 			}
 		}
 
-		return hour.toString().formatNum(2) + ':' + minutes.toString().formatNum(2) + suffix;
+		return hour.toString().formatNum(hourLength) + ':' + minutes.toString().formatNum(2) + suffix;
 	};
 
 	Calendar.prototype._format_time = function(datetime) {
