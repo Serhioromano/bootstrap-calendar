@@ -24,7 +24,7 @@ window.calendar_languages['da-DK'] = {
 
 	m0: 'Januar',
 	m1: 'Februar',
-	m2: 'Marst',
+	m2: 'Marts',
 	m3: 'April',
 	m4: 'Maj',
 	m5: 'Juni',
