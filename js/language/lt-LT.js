@@ -22,7 +22,7 @@ window.calendar_languages['lt-LT'] = {
     title_month: '{0} {1}',
     // {0} will be replaced with the week number (example: 37)
     // {1} will be replaced with the year (example: 2013)
-    title_week: '{0} savaitė iš {1}',
+    title_week: '{0} savaitė, {1}',
     // {0} will be replaced with the weekday name (example: Thursday)
     // {1} will be replaced with the day of the month (example: 12)
     // {2} will be replaced with the month name (example: September)
