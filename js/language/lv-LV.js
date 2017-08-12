@@ -10,15 +10,15 @@ window.calendar_languages['lv-LV'] = {
 
 	title_year:  '{0}',
 	title_month: '{0} {1}',
-	title_week:  '{0} nedēļa {1} gada',
+	title_week:  '{1}.gada, {0}.nedēļa',
 	title_day:   '{0}, {1} {2} {3}',
 
-	week:        'Неделя {0}',
-	all_day:     'Весь день',
-	time:        'Время',
-	events:      'События',
-	before_time: 'Заканчиваются перед временной лентой',
-	after_time:  'Заканчиваются после временной ленты',
+	week:        'Nedēļa {0}',
+	all_day:     'Visa diena',
+	time:        'Laiks',
+	events:      'Notikumi',
+	before_time: 'Beidzas pirms laika lentes',
+	after_time:  'Beidzas pēc laika lentes',
 
 	m0:  'Janvāris',
 	m1:  'Februāris',
