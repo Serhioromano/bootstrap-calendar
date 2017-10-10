@@ -222,7 +222,7 @@ Using Ajax with local resources (file:///), is not permited. You will need to de
 
 You can enable a bootstrap modal popup to show when clicking an event instead of redirecting to event.url. 
 To enable boostrap modal, first add the modal html to your page and provide boostrap-calendar with the ID:
-```js
+```html
 
     <div class="modal hide fade" id="events-modal">
         <div class="modal-header">
