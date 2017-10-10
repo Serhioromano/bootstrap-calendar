@@ -92,7 +92,6 @@ See [events.json.php](https://github.com/Serhioromano/bootstrap-calendar/blob/ma
 	var calendar = $('#calendar').calendar({events_source: '/api/events.php'});
 
 It will send two parameters by `GET` named `from` and `to`, which will tell you what period is required. You have to return it in JSON structure like this
-```json
 
 	{
 		"success": 1,
@@ -108,12 +107,11 @@ It will send two parameters by `GET` named `from` and `to`, which will tell you 
 			...
 		]
 	}
-```
 
 ### Feed array
 
 You can set events list array directly to `events_source` parameter.
-```json
+```js
 
 	var calendar = $('#calendar').calendar({
 	    events_source: [
