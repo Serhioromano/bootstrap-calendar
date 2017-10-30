@@ -34,6 +34,7 @@ You will see list of the files you need to include to your document.
 
 ### Quick setup
 You will need to include the bootstrap css and calendar css. Here is the minimum setup.
+```html
 
 	<!DOCTYPE html>
 	<html>
@@ -58,19 +59,23 @@ You will need to include the bootstrap css and calendar css. Here is the minimum
 		</script>
 	</body>
 	</html>
+```
 
 Bootstrap Calendar depends on [jQuery](http://jquery.com/) and [underscore.js](http://underscorejs.org/) is used as a template engine.
 For the calendar you only have to include the `calendar.css` and `calendar.js` files.
 If you want to localize your Calendar, it's enough to add this line before including calendar.js:
+```html
 
 	<script type="text/javascript" src="js/language/xx-XX.js"></script>
+```
 
 Where xx-XX is the language code. When you initializing the calendar, you have to specify this language code:
+```html
 
 	<script type="text/javascript">
 		var calendar = $('#calendar').calendar({language: 'xx-XX'});
 	</script>
-
+```
 
 
 
@@ -106,6 +111,7 @@ It will send two parameters by `GET` named `from` and `to`, which will tell you 
 ### Feed array
 
 You can set events list array directly to `events_source` parameter.
+```js
 
 	var calendar = $('#calendar').calendar({
 	    events_source: [
@@ -120,10 +126,12 @@ You can set events list array directly to `events_source` parameter.
             ...
         ]});
 
-
+```
 ### Feed function
 
 Or you can use function. You have to return array of events.
+
+```js
 
 	var calendar = $('#calendar').calendar({events_source: function(){
 	    return  [
@@ -138,21 +146,23 @@ Or you can use function. You have to return array of events.
            ...
        ];
 	}});
-
+```
 
 ### PHP example
 
 Note that `start` and `end` dates are in milliseconds, thus you need to divide it by 1000 to get seconds. PHP example.
+```php
 
     $start = date('Y-m-d h:i:s', ($_GET['start'] / 1000));
+```
 
 If you have an error you can return
-
+```json
 	{
 		"success": 0,
 		"error": "error message here"
 	}
-
+```
 Here is the example of PHP script.
 
 ```php
@@ -212,6 +222,7 @@ Using Ajax with local resources (file:///), is not permited. You will need to de
 
 You can enable a bootstrap modal popup to show when clicking an event instead of redirecting to event.url. 
 To enable boostrap modal, first add the modal html to your page and provide boostrap-calendar with the ID:
+```html
 
     <div class="modal hide fade" id="events-modal">
         <div class="modal-header">
@@ -224,7 +235,7 @@ To enable boostrap modal, first add the modal html to your page and provide boos
             <a href="#" data-dismiss="modal" class="btn">Close</a>
         </div>
     </div>
-
+```
 and then set:
 
 	modal: "#events-modal"
@@ -232,6 +243,7 @@ and then set:
 This will enable the modal, and populate it with an iframe with the contents of event.url .
 
 For Bootstrap v3, use
+```html
 
     <div class="modal fade" id="events-modal">
         <div class="modal-dialog">
@@ -248,7 +260,7 @@ For Bootstrap v3, use
             </div>
         </div>
     </div>
-
+```
 ### Modal content source
 
 There are three options for populating the contents of the modal, controlled by the `modal_type` option:
@@ -265,4 +277,5 @@ The modal title can be customized by defining the `modal_title` option as a func
 A calendar set up to use modals would look like this:
 
 	$("#calendar").calendar({modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title }})
+
 
