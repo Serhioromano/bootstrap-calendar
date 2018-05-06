@@ -98,9 +98,20 @@ window.calendar_languages['id-ID'] = {
         '11-05-2017': 'Hari Raya Waisak 2561',
         '25-06-2017': 'Hari Raya Idul Fitri 1438 Hijriah',
         '26-06-2017': 'Hari Raya Idul Fitri 1438 Hijriah',
-        '01-09-2017': 'Hari Raya Idul Adha 1437 Hijriah',
+        '01-09-2017': 'Hari Raya Idul Adha 1438 Hijriah',
         '21-10-2017': 'Tahun Baru Islam 1439 Hijriah',
-        '01-12-2017': 'Maulid Nabi Muhammad SAW'
+        '01-12-2017': 'Maulid Nabi Muhammad SAW',
+        
+        /* for 2018 */
+        '16-02-2018': 'Tahun Baru Imlek 2569',
+        '17-03-2018': 'Hari Raya Nyepi Tahun Baru Saka 1940',
+        '14-04-2018': 'Isra Mikraj Nabi Muhammad SAW 1440 Hijriah',
+        '29-05-2018': 'Hari Raya Waisak 2562',
+        '15-06-2018': 'Hari Raya Idul Fitri 1439 Hijriah',
+        '16-06-2018': 'Hari Raya Idul Fitri 1439 Hijriah',
+        '22-08-2018': 'Hari Raya Idul Adha 1439 Hijriah',
+        '11-09-2018': 'Tahun Baru Islam 1440 Hijriah',
+        '20-11-2018': 'Maulid Nabi Muhammad SAW'
         
     }
 };
