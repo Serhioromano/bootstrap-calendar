@@ -227,7 +227,7 @@ To enable boostrap modal, first add the modal html to your page and provide boos
     <div class="modal hide fade" id="events-modal">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Event</h3>
+            <h3 class="modal-title">Event</h3>
         </div>
         <div class="modal-body" style="height: 400px">
         </div>
@@ -250,7 +250,7 @@ For Bootstrap v3, use
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3>Event</h3>
+                    <h3 class="modal-title">Event</h3>
                 </div>
                 <div class="modal-body" style="height: 400px">
                 </div>
