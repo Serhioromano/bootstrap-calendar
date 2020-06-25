@@ -4,7 +4,7 @@
   "description": "Calendar module based on Bootsrap and jQuery",
   "main": "./js/calendar.js",
   "dependencies": {
-    "bower": "^0.8.5",
+    "bower": "^1.8.8",
     "grunt": "^0.4.1",
     "grunt-contrib-cssmin": "^0.5.0",
     "grunt-contrib-less": "^0.7.0",
