@@ -1,10 +1,16 @@
-<span class="pull-right" data-cal-date="<%= data_day %>" data-cal-view="month"><%= month_name %></span>
+<script type="text/javascript">
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
+</script>
+<span class="float-end" data-cal-date="<%= data_day %>" data-cal-view="month"><%= month_name %></span>
 <% if (events.length > 0) { %>
-	<small class="cal-events-num badge badge-important pull-left"><%= events.length %></small>
-	<div class="hide events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
+	<small class="cal-events-num badge badge-important float-start"><%= events.length %></small>
+	<div class="d-none events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
 		<% _.each(events, function(event) { %>
 			<a href="<%= event.url ? event.url : 'javascript:void(0)' %>" data-event-id="<%= event.id %>" data-event-class="<%= event['class'] %>"
-				class="pull-left event <%= event['class'] %> event<%= event.id %>" data-toggle="tooltip"
+				class="float-start event <%= event['class'] %> event<%= event.id %>" data-bs-toggle="tooltip"
 				title="<%= event.title %>"></a>
 		<% }); %>
 	</div>

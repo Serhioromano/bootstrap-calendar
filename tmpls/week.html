@@ -1,3 +1,9 @@
+<script type="text/javascript">
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
 <div class="cal-week-box">
 	<div class="cal-offset1 cal-column"></div>
 	<div class="cal-offset2 cal-column"></div>
@@ -7,7 +13,7 @@
 	<div class="cal-offset6 cal-column"></div>
 	<div class="cal-row-fluid cal-row-head">
 		<% _.each(days_name, function(name) { %>
-			<div class="cal-cell1 <%= cal._getDayClass('week', start) %>" data-toggle="tooltip" title="<%= cal._getHolidayName(start) %>"><%= name %><br>
+			<div class="cal-cell1 <%= cal._getDayClass('week', start) %>" data-bs-toggle="tooltip" title="<%= cal._getHolidayName(start) %>"><%= name %><br>
 				<small><span data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>" data-cal-view="day"><%= start.getDate() %> <%= cal.locale['ms' + start.getMonth()] %></span></small>
 			</div>
 			<% start.setDate(start.getDate() + 1); %>
