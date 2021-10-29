@@ -18,14 +18,14 @@
 	<style type="text/css">
 		.btn-twitter {
 			padding-left: 30px;
-			background: rgba(0, 0, 0, 0) url(https://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) -20px 6px no-repeat;
-			background-position: -20px 11px !important;
+			background: rgba(0, 0, 0, 0) url(https://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) -20px 9px no-repeat;
 		}
 
 			.btn-twitter:hover {
-				background-position: -20px -18px !important;
-			}
+				background-position: -21px -16px;
+		}
 	</style>
+
 </head>
 <body>
 	<div class="container">
@@ -36,9 +36,8 @@
 
 			<a class="btn btn-default btn-primary" href="https://github.com/Serhioromano/bootstrap-calendar">Fork on GitHub</a>
 			<a href="https://twitter.com/serhioromano" class="btn btn-default btn-twitter" data-show-count="false" data-size="large">Follow @serhioromano</a>
-			<script>
-				!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
-			</script>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+		</script>
 		</div>
 
 		<div class="page-header">
@@ -125,57 +124,56 @@
 		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 		<div class="modal fade" tabindex="-1" id="events-modal">
-			<div class="modal-dialog modal-m">
+			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
-						<h3 class="modal-title">Event</h3>
+						<h3 style="float:left" class="modal-title">Event</h3>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true" style="float:right">&times;</button>
 					</div>
-					<div class="modal-body" style="height: 330px">
+					<div class="modal-body">
 					</div>
 					<div class="modal-footer">
 						<button data-bs-dismiss="modal" class="btn btn-default">Close</button>
 					</div>
 				</div>
 			</div>
+
+			<script type="text/javascript" src="js/language/bg-BG.js"></script>
+			<script type="text/javascript" src="js/language/nl-NL.js"></script>
+			<script type="text/javascript" src="js/language/fr-FR.js"></script>
+			<script type="text/javascript" src="js/language/de-DE.js"></script>
+			<script type="text/javascript" src="js/language/el-GR.js"></script>
+			<script type="text/javascript" src="js/language/it-IT.js"></script>
+			<script type="text/javascript" src="js/language/hu-HU.js"></script>
+			<script type="text/javascript" src="js/language/pl-PL.js"></script>
+			<script type="text/javascript" src="js/language/pt-BR.js"></script>
+			<script type="text/javascript" src="js/language/ro-RO.js"></script>
+			<script type="text/javascript" src="js/language/es-CO.js"></script>
+			<script type="text/javascript" src="js/language/es-MX.js"></script>
+			<script type="text/javascript" src="js/language/es-ES.js"></script>
+			<script type="text/javascript" src="js/language/es-CL.js"></script>
+			<script type="text/javascript" src="js/language/es-DO.js"></script>
+			<script type="text/javascript" src="js/language/ru-RU.js"></script>
+			<script type="text/javascript" src="js/language/sk-SR.js"></script>
+			<script type="text/javascript" src="js/language/sv-SE.js"></script>
+			<script type="text/javascript" src="js/language/zh-TW.js"></script>
+			<script type="text/javascript" src="js/language/cs-CZ.js"></script>
+			<script type="text/javascript" src="js/language/ko-KR.js"></script>
+			<script type="text/javascript" src="js/language/id-ID.js"></script>
+			<script type="text/javascript" src="js/language/th-TH.js"></script>
+			<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
+			<script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
+			<script type="text/javascript" src="js/calendar.js"></script>
+			<script type="text/javascript" src="js/app.js"></script>
+
+			<script type="text/javascript">
+				var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
+				(function () {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();
+			</script>
 		</div>
-
-		<script type="text/javascript" src="js/language/bg-BG.js"></script>
-		<script type="text/javascript" src="js/language/nl-NL.js"></script>
-		<script type="text/javascript" src="js/language/fr-FR.js"></script>
-		<script type="text/javascript" src="js/language/de-DE.js"></script>
-		<script type="text/javascript" src="js/language/el-GR.js"></script>
-		<script type="text/javascript" src="js/language/it-IT.js"></script>
-		<script type="text/javascript" src="js/language/hu-HU.js"></script>
-		<script type="text/javascript" src="js/language/pl-PL.js"></script>
-		<script type="text/javascript" src="js/language/pt-BR.js"></script>
-		<script type="text/javascript" src="js/language/ro-RO.js"></script>
-		<script type="text/javascript" src="js/language/es-CO.js"></script>
-		<script type="text/javascript" src="js/language/es-MX.js"></script>
-		<script type="text/javascript" src="js/language/es-ES.js"></script>
-		<script type="text/javascript" src="js/language/es-CL.js"></script>
-		<script type="text/javascript" src="js/language/es-DO.js"></script>
-		<script type="text/javascript" src="js/language/ru-RU.js"></script>
-		<script type="text/javascript" src="js/language/sk-SR.js"></script>
-		<script type="text/javascript" src="js/language/sv-SE.js"></script>
-		<script type="text/javascript" src="js/language/zh-TW.js"></script>
-		<script type="text/javascript" src="js/language/cs-CZ.js"></script>
-		<script type="text/javascript" src="js/language/ko-KR.js"></script>
-		<script type="text/javascript" src="js/language/id-ID.js"></script>
-		<script type="text/javascript" src="js/language/th-TH.js"></script>
-		<script type="text/javascript" src="components/underscore/underscore-min.js"></script>
-		<script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
-		<script type="text/javascript" src="js/calendar.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
-
-		<script type="text/javascript">
-			var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
-			(function () {
-				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-			})();
-		</script>
-	</div>
 </body>
 </html>
