@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Twitter Bootstrap jQuery Calendar component</title>
-
+	<meta charset="UTF-8">
 	<meta name="description" content="Full view calendar component for twitter bootstrap with year, month, week, day views.">
 	<meta name="keywords" content="jQuery,Bootstrap,Calendar,HTML,CSS,JavaScript,responsive,month,week,year,day">
 	<meta name="author" content="Serhioromano">
@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="components/@popperjs/core/dist/umd/popper.min.js"></script>
 	<script type="text/javascript" src="components/bootstrap5/dist/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="components/bootstrap5/dist/css/bootstrap.min.css" />
+	<link href="components/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/bootstrap-theme.css" />
 	<link rel="stylesheet" href="css/calendar.css" />
 
@@ -21,9 +22,12 @@
 			background: rgba(0, 0, 0, 0) url(https://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) -20px 9px no-repeat;
 		}
 
-			.btn-twitter:hover {
-				background-position: -21px -16px;
+		.btn-twitter:hover {
+			background-position: -21px -16px;
 		}
+        .nav-list {
+            display: inline-block;
+        }
 	</style>
 
 </head>
@@ -34,8 +38,8 @@
 
 			<p>Bootstrap based full view calendar. Template based.</p>
 
-			<a class="btn btn-default btn-primary" href="https://github.com/Serhioromano/bootstrap-calendar">Fork on GitHub</a>
-			<a href="https://twitter.com/serhioromano" class="btn btn-default btn-twitter" data-show-count="false" data-size="large">Follow @serhioromano</a>
+			<a class="btn btn-default btn-primary" href="https://github.com/Serhioromano/bootstrap-calendar" style="text-decoration:none">Fork on GitHub</a>
+			<a href="https://twitter.com/serhioromano" class="btn btn-default btn-twitter" data-show-count="false" data-size="large" style="text-decoration:none">Follow @serhioromano</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 		</script>
 		</div>
@@ -137,6 +141,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
 			<script type="text/javascript" src="js/language/bg-BG.js"></script>
 			<script type="text/javascript" src="js/language/nl-NL.js"></script>
