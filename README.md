@@ -23,7 +23,7 @@ Why did I start this project? Well, I believe there are no good full view calend
 ### Install
 
 For my fork you will  have to clone the repository.
-	[code]$ git clone https://github.com/tdtooke/bootstrap-calendar.git[/code]
+	<code>$ git clone https://github.com/tdtooke/bootstrap-calendar.git</code>
 	
 	
 The following instructions will install Serhioromano's original which is for Bootstrap 3 and 4
