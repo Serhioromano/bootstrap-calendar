@@ -5,6 +5,8 @@ A Full view calendar based on Twitter Bootstrap. Please try the [demo](http://bo
 
 ![Bootstrap full calendar](https://img15.hostingpics.net/pics/187341animatedpreview.gif)
 
+This demo is for the original, not this fork.
+
 ### Why?
 
 Why did I start this project? Well, I believe there are no good full view calendar's out there with native Bootstrap support. In fact I could not find even one. A different UI and UX concept approach is also used.
