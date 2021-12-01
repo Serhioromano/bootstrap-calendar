@@ -24,7 +24,7 @@ Why did I start this project? Well, I believe there are no good full view calend
 
 ### Install
 
-For my fork you will  have to clone the repository.
+For my fork you will  have to clone the repository.  If you're running an Apache server putting that into /var/www/html should work.
 
 	git clone https://github.com/tdtooke/bootstrap-calendar.git
 	
