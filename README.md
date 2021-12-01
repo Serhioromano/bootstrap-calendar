@@ -29,7 +29,7 @@ For my fork you will  have to clone the repository.  If you're running an Apache
 	git clone https://github.com/tdtooke/bootstrap-calendar.git
 	
 	
-The following instructions will install Serhioromano's original which is for Bootstrap 2 and 3
+### The following instructions will install Serhioromano's original which is for Bootstrap 2 and 3
 
 You can install it with [bower](http://bower.io/) package manager.
 
