@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-calendar",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Calendar module based on Bootsrap and jQuery",
   "main": "./js/calendar.js",
   "dependencies": {
