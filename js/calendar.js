@@ -716,7 +716,11 @@ if(!String.prototype.formatNum) {
 		t.day = day;
 
 		t.start = parseInt(curdate.getTime());
-		t.end = parseInt(t.start + 86400000);
+		// In case of a daylight saving switch we can not assume that
+		// one calendar day is 86400000 ms so we set the date to the
+		// end of the day manally.
+		curdate.setHours(23, 59, 59, 999)
+		t.end = parseInt(curdate.getTime());
 		t.events = this.getEventsBetween(t.start, t.end);
 		return this.options.templates['month-day'](t);
 	}
